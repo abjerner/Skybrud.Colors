@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace Skybrud.Colors {
 
@@ -98,7 +96,7 @@ namespace Skybrud.Colors {
 
         #endregion
 
-        #region Members
+        #region Member methods
         
         /// <summary>
         /// Returns a new <see cref="RgbColor"/> with the same color as specified by the <see cref="Red"/>,

@@ -29,7 +29,6 @@
         /// <returns>Returns an instance of <see cref="HslColor"/>.</returns>
         HslColor ToHsl();
 
-
         /// <summary>
         /// Converts the color to an instance of <see cref="CmyColor"/>.
         /// </summary>
