@@ -3,8 +3,8 @@
   "description": "A library for working with various color models and color conversion in .NET.",
   "company": "Skybrud.dk",
   "product": "Skybrud.Colors",
-  "copyright": "Copyright © 2016",
-  "version": "1.0.0.0",
-  "informationalVersion": "1.0.0",
-  "fileVersion": "0.0.257.1"
+  "copyright": "Copyright © 2017",
+  "version": "1.0.1.0",
+  "informationalVersion": "1.0.1",
+  "fileVersion": "0.0.333.1"
 }
