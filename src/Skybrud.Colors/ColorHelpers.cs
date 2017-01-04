@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Skybrud.Colors {
 
@@ -274,6 +276,64 @@ namespace Skybrud.Colors {
             
             return temp2;
         
+        }
+
+        /// <summary>
+        /// Parses the specified <paramref name="str"/> into an instance of <see cref="IColor"/>.
+        /// </summary>
+        /// <param name="str">The input string to be parsed.</param>
+        /// <returns>An instance of <see cref="IColor"/>.</returns>
+        public static IColor Parse(string str) {
+
+            if (String.IsNullOrWhiteSpace(str)) throw new ArgumentNullException("str");
+
+            IColor color;
+            if (TryParse(str, out color)) return color;
+
+            throw new FormatException("Input string was not in a correct format.");
+
+        }
+
+        /// <summary>
+        /// Attempts to parse the specified <paramref name="str"/> into an instance of <see cref="IColor"/>.
+        /// </summary>
+        /// <param name="str">The input string to be parsed.</param>
+        /// <param name="color">An instance of <see cref="IColor"/>.</param>
+        /// <returns><code>true</code> if <paramref name="str"/> was converted successfully; otherwise, <code>false</code>.</returns>
+        public static bool TryParse(string str, out IColor color) {
+
+            color = null;
+
+            // Return "false" if the string is empty
+            if (String.IsNullOrWhiteSpace(str)) return false;
+
+            // Strip a leading hashtag and convert to lowercase
+            str = str.TrimStart('#').ToLower();
+
+            // Time for some regex :D
+            Match m1 = Regex.Match(str, "^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$");
+            Match m2 = Regex.Match(str, "^([0-9a-f]{1})([0-9a-f]{1})([0-9a-f]{1})$");
+
+            if (m1.Success) {
+                byte r, g, b;
+                Byte.TryParse(m1.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out r);
+                Byte.TryParse(m1.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out g);
+                Byte.TryParse(m1.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out b);
+                color = new RgbColor(r, g, b);
+                return true;
+            }
+
+            if (m2.Success) {
+                byte r, g, b;
+                Byte.TryParse(m2.Groups[1].Value + m2.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out r);
+                Byte.TryParse(m2.Groups[2].Value + m2.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out g);
+                Byte.TryParse(m2.Groups[3].Value + m2.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out b);
+                color = new RgbColor(r, g, b);
+                return true;
+            }
+
+            return false;
+
         }
 
     }

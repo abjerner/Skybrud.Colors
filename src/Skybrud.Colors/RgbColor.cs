@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Skybrud.Colors {
 
@@ -181,6 +183,34 @@ namespace Skybrud.Colors {
         /// <returns>Returns a string representing the color.</returns>
         public override string ToString() {
             return String.Format("RGB: {0}, {1}, {2}", Red, Green, Blue);
+        }
+
+        #endregion
+
+        #region Static methods
+
+        public static RgbColor Parse(string str) {
+            return ColorHelpers.Parse(str).ToRgb();
+        }
+
+        /// <summary>
+        /// Attempts to parse the specified <paramref name="str"/> into an instance of <see cref="RgbColor"/>.
+        /// </summary>
+        /// <param name="str">The input string to be parsed.</param>
+        /// <param name="color">An instance of <see cref="RgbColor"/>.</param>
+        /// <returns><code>true</code> if <paramref name="str"/> was converted successfully; otherwise, <code>false</code>.</returns>
+        public static bool TryParse(string str, out RgbColor color) {
+
+            color = null;
+            IColor result;
+
+            // Attempt to parse the input string
+            if (!ColorHelpers.TryParse(str, out result)) return false;
+
+            // Convert the color to RGB
+            color = result.ToRgb();
+            return true;
+
         }
 
         #endregion

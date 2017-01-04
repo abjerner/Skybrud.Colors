@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Skybrud.Colors;
 using UnitTestProject1.Samples;
 
@@ -60,6 +61,31 @@ namespace UnitTestProject1 {
 
                 i++;
 
+            }
+
+        }
+
+        [TestMethod]
+        public void Parse() {
+
+            foreach (HtmlColorSample sample in HtmlColorSample.All) {
+                Assert.AreEqual(sample.RgbCss, RgbColor.Parse(sample.Hex).ToCss(), sample.Name);
+            }
+
+        }
+
+        [TestMethod]
+        public void TryParse() {
+
+            foreach (HtmlColorSample sample in HtmlColorSample.All) {
+                RgbColor color1;
+                Assert.AreEqual(true, RgbColor.TryParse(sample.Hex, out color1));
+                Assert.AreEqual(sample.RgbCss, color1.ToCss(), sample.Name);
+            }
+
+            foreach (HtmlColorSample sample in HtmlColorSample.All) {
+                RgbColor color1;
+                Assert.AreEqual(false, RgbColor.TryParse(sample.Name, out color1));
             }
 
         }
