@@ -31,23 +31,17 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Alias of <see cref="Red"/>.
         /// </summary>
-        public byte R {
-            get { return Red; }
-        }
+        public byte R => Red;
 
         /// <summary>
         /// Alias of <see cref="Green"/>.
         /// </summary>
-        public byte G {
-            get { return Green; }
-        }
+        public byte G => Green;
 
         /// <summary>
         /// Alias of <see cref="Blue"/>.
         /// </summary>
-        public byte B {
-            get { return Blue; }
-        }
+        public byte B => Blue;
 
         #endregion
 
@@ -112,14 +106,8 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <returns>An instance of <see cref="HslColor"/>.</returns>
         public HslColor ToHsl() {
-
-            double hue;
-            double saturation;
-            double lightness;
-            ColorHelpers.RgbToHsl(Red, Green, Blue, out hue, out saturation, out lightness);
-
+            ColorHelpers.RgbToHsl(Red, Green, Blue, out double hue, out double saturation, out double lightness);
             return new HslColor(hue, saturation, lightness);
-
         }
 
         /// <summary>
@@ -180,7 +168,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <returns>A string representing the color.</returns>
         public override string ToString() {
-            return String.Format("RGB: {0}, {1}, {2}", Red, Green, Blue);
+            return $"RGB: {Red}, {Green}, {Blue}";
         }
 
         #endregion
@@ -205,10 +193,9 @@ namespace Skybrud.Colors {
         public static bool TryParse(string str, out RgbColor color) {
 
             color = null;
-            IColor result;
 
             // Attempt to parse the input string
-            if (!ColorHelpers.TryParse(str, out result)) return false;
+            if (!ColorHelpers.TryParse(str, out IColor result)) return false;
 
             // Convert the color to RGB
             color = result.ToRgb();

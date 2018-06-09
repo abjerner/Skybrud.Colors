@@ -16,22 +16,22 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Gets the amount of cyan in the color.
         /// </summary>
-        public double C { get; private set; }
+        public double C { get; }
 
         /// <summary>
         /// Gets the amount of magenta in the color.
         /// </summary>
-        public double M { get; private set; }
+        public double M { get; }
 
         /// <summary>
         /// Gets the amount of yellow in the color.
         /// </summary>
-        public double Y { get; private set; }
+        public double Y { get; }
 
         /// <summary>
         /// Gets the amount of black (key) in the color.
         /// </summary>
-        public double K { get; private set; }
+        public double K { get; }
 
         #endregion
 
@@ -130,12 +130,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <returns>A string representing the color.</returns>
         public override string ToString() {
-            return String.Format("CMYK: {0}, {1}, {2}, {3}",
-                Math.Round(C * 100),
-                Math.Round(M * 100),
-                Math.Round(Y * 100),
-                Math.Round(K * 100)
-            );
+            return $"CMYK: {Math.Round(C * 100)}, {Math.Round(M * 100)}, {Math.Round(Y * 100)}, {Math.Round(K * 100)}";
         }
 
         #endregion

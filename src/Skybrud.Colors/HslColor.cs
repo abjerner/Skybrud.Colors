@@ -34,23 +34,17 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Alias of <see cref="Hue"/>.
         /// </summary>
-        public double H {
-            get { return Hue; }
-        }
+        public double H => Hue;
 
         /// <summary>
         /// Alias of <see cref="Saturation"/>.
         /// </summary>
-        public double S {
-            get { return Saturation; }
-        }
+        public double S => Saturation;
 
         /// <summary>
         /// Alias of <see cref="Lightness"/>.
         /// </summary>
-        public double L {
-            get { return Lightness; }
-        }
+        public double L => Lightness;
 
         #endregion
 
@@ -140,7 +134,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <returns>The CSS representation of the color.</returns>
         public string ToCss() {
-            return String.Format("hsl({0:0}, {1:0}%, {2:0}%)", Math.Round(H * 360), Math.Round(S * 100), Math.Round(L * 100));
+            return $"hsl({Math.Round(H * 360):0}, {Math.Round(S * 100):0}%, {Math.Round(L * 100):0}%)";
         }
 
         /// <summary>
@@ -148,7 +142,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <returns>A string representing the color.</returns>
         public override string ToString() {
-            return String.Format("HSL: {0}, {1}, {2}", Math.Round(H * 360), Math.Round(S * 100), Math.Round(L * 100));
+            return $"HSL: {Math.Round(H * 360)}, {Math.Round(S * 100)}, {Math.Round(L * 100)}";
         }
 
         #endregion
