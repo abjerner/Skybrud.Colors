@@ -13,20 +13,18 @@ module.exports = function (grunt) {
 
 	grunt.initConfig({
 		pkg: pkg,
-		nugetpack: {
-			colors: {
-				src: 'src/Skybrud.Colors/Skybrud.Colors.csproj',
-				dest: 'releases/nuget/'
-			}
-		},
 		zip: {
 			release: {
-				router: function (filepath) {
-					return path.basename(filepath);
-				},
+		        router: function (filepath) {
+					if (filepath.indexOf('/bin/Release/') >= 0) {
+						return filepath.split('/bin/Release/')[1];
+					} else {
+						return path.basename(filepath);
+					}
+		        },
 				src: [
-					'src/Skybrud.Colors/bin/Release/Skybrud.Colors.dll',
-					'src/Skybrud.Colors/bin/Release/Skybrud.Colors.xml',
+					'src/' + pkg.name + '/bin/Release/*/Skybrud.Colors.dll',
+					'src/' + pkg.name + '/bin/Release/*/Skybrud.Colors.xml',
 					'src/Skybrud.Colors/LICENSE.txt'
 				],
 				dest: 'releases/github/Skybrud.Colors.v' + version + '.zip'
@@ -34,10 +32,9 @@ module.exports = function (grunt) {
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-nuget');
 	grunt.loadNpmTasks('grunt-zip');
 
-	grunt.registerTask('release', ['nugetpack', 'zip']);
+	grunt.registerTask('release', ['zip']);
 
 	grunt.registerTask('default', ['release']);
 
