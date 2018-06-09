@@ -10,45 +10,45 @@ namespace Skybrud.Colors {
     public static class ColorHelpers {
 
         /// <summary>
-        /// Returns the maximum value of <code>a</code>, <code>b</code> and <code>c</code>.
+        /// Returns the maximum value of <paramref name="a"/>, <paramref name="b"/> and <paramref name="c"/>.
         /// </summary>
         /// <param name="a">The first value.</param>
         /// <param name="b">The second value.</param>
         /// <param name="c">The third value.</param>
-        /// <returns>Returns the maximum value.</returns>
+        /// <returns>The maximum value.</returns>
         public static double Max(double a, double b, double c) {
             return Math.Max(a, Math.Max(b, c));
         }
 
         /// <summary>
-        /// Returns the minimum value of <code>a</code>, <code>b</code> and <code>c</code>.
+        /// Returns the minimum value of <paramref name="a"/>, <paramref name="b"/> and <paramref name="c"/>.
         /// </summary>
         /// <param name="a">The first value.</param>
         /// <param name="b">The second value.</param>
         /// <param name="c">The third value.</param>
-        /// <returns>Returns the minimum value.</returns>
+        /// <returns>The minimum value.</returns>
         public static double Min(double a, double b, double c) {
             return Math.Min(a, Math.Min(b, c));
         }
 
         /// <summary>
-        /// Returns the maximum value of <code>a</code>, <code>b</code> and <code>c</code>.
+        /// Returns the maximum value of <paramref name="a"/>, <paramref name="b"/> and <paramref name="c"/>.
         /// </summary>
         /// <param name="a">The first value.</param>
         /// <param name="b">The second value.</param>
         /// <param name="c">The third value.</param>
-        /// <returns>Returns the maximum value.</returns>
+        /// <returns>The maximum value.</returns>
         public static float Max(float a, float b, float c) {
             return Math.Max(a, Math.Max(b, c));
         }
 
         /// <summary>
-        /// Returns the minimum value of <code>a</code>, <code>b</code> and <code>c</code>.
+        /// Returns the minimum value of <paramref name="a"/>, <paramref name="b"/> and <paramref name="c"/>.
         /// </summary>
         /// <param name="a">The first value.</param>
         /// <param name="b">The second value.</param>
         /// <param name="c">The third value.</param>
-        /// <returns>Returns the minimum value.</returns>
+        /// <returns>The minimum value.</returns>
         public static float Min(float a, float b, float c) {
             return Math.Min(a, Math.Min(b, c));
         }
@@ -199,7 +199,7 @@ namespace Skybrud.Colors {
         /// Converts an instance of <see cref="HslColor"/> to an instance of <see cref="RgbColor"/>.
         /// </summary>
         /// <param name="hsl">The <see cref="HslColor"/> to be converted.</param>
-        /// <returns>Returns an instance of <see cref="RgbColor"/>.</returns>
+        /// <returns>An instance of <see cref="RgbColor"/>.</returns>
         public static RgbColor HslToRgb(HslColor hsl) {
 
             // TODO: Needs documentation/references
@@ -229,7 +229,7 @@ namespace Skybrud.Colors {
         /// <param name="temp1"></param>
         /// <param name="temp2"></param>
         /// <param name="temp3"></param>
-        /// <returns>Returns the color component.</returns>
+        /// <returns>The color component.</returns>
         private static double GetColorComponent(double temp1, double temp2, double temp3) {
 
             // TODO: Needs documentation/references
@@ -299,7 +299,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <param name="str">The input string to be parsed.</param>
         /// <param name="color">An instance of <see cref="IColor"/>.</param>
-        /// <returns><code>true</code> if <paramref name="str"/> was converted successfully; otherwise, <code>false</code>.</returns>
+        /// <returns><c>true</c> if <paramref name="str"/> was converted successfully; otherwise, <c>false</c>.</returns>
         public static bool TryParse(string str, out IColor color) {
 
             color = null;

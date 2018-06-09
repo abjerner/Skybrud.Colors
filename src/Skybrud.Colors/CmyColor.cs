@@ -55,9 +55,9 @@ namespace Skybrud.Colors {
 
         /// <summary>
         /// Returns the CSS representation of the color. Since the CSS specification doesn't support CMY colors, this
-        /// method will simply return <code>null</code>.
+        /// method will simply return <c>null</c>.
         /// </summary>
-        /// <returns>Returns <code>null</code> as the CSS specification doesn't support CMY colors.</returns>
+        /// <returns><c>null</c> as the CSS specification doesn't support CMY colors.</returns>
         public string ToCss() {
             return null;
         }
@@ -65,7 +65,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Converts the CMY color to an instance of <see cref="RgbColor"/>.
         /// </summary>
-        /// <returns>Returns an instance of <see cref="RgbColor"/>.</returns>
+        /// <returns>An instance of <see cref="RgbColor"/>.</returns>
         public RgbColor ToRgb() {
             double r = (1 - C) * 255d;
             double g = (1 - M) * 255d;
@@ -76,7 +76,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Converts the CMY color to an instance of <see cref="HslColor"/>.
         /// </summary>
-        /// <returns>Returns an instance of <see cref="HslColor"/>.</returns>
+        /// <returns>An instance of <see cref="HslColor"/>.</returns>
         public HslColor ToHsl() {
             return ToRgb().ToHsl();
         }
@@ -84,7 +84,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Returns a new instance of the current CMY color.
         /// </summary>
-        /// <returns>Returns an instance of <see cref="CmyColor"/>.</returns>
+        /// <returns>An instance of <see cref="CmyColor"/>.</returns>
         public CmyColor ToCmy() {
             return new CmyColor(C, M, Y);
         }
@@ -92,7 +92,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Converts the CMY color to an instance of <see cref="CmykColor"/>.
         /// </summary>
-        /// <returns>Returns an instance of <see cref="CmykColor"/>.</returns>
+        /// <returns>An instance of <see cref="CmykColor"/>.</returns>
         public CmykColor ToCmyk() {
 
             double key = 1;
@@ -122,16 +122,16 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
-        /// Increases the darkness of the color based on the specified <code>percent</code>.
+        /// Increases the darkness of the color based on the specified <paramref name="percent"/>.
         /// </summary>
         /// <param name="percent">The amount of darkness (specified in percent) that should be added to the color.</param>
-        /// <returns>Returns a new instance of <see cref="IColor"/>.</returns>
+        /// <returns>A new instance of <see cref="IColor"/>.</returns>
         public IColor Darken(float percent) {
             return ToHsl().Darken(percent);
         }
 
         /// <summary>
-        /// Increases the lightness of the color based on the specified <code>percent</code>.
+        /// Increases the lightness of the color based on the specified <paramref name="percent"/>.
         /// </summary>
         /// <param name="percent">The amount of lightness (specified in percent) that should be added to the color.</param>
         /// <returns>Returns a new instance of <see cref="IColor"/>.</returns>
@@ -142,7 +142,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Returns a string representation of the CMY color.
         /// </summary>
-        /// <returns>Returns a string representing the color.</returns>
+        /// <returns>A string representing the color.</returns>
         public override string ToString() {
             return String.Format("CMY: {0}, {1}, {2}",
                 Math.Round(C * 100),

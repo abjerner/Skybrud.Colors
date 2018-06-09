@@ -14,20 +14,20 @@ namespace Skybrud.Colors {
         #region Properties
 
         /// <summary>
-        /// Gets the hue as a number between <code>0</code> and <code>1</code>. For the hue as the
-        /// degrees of a circle, simply multiply by <code>360</code>.
+        /// Gets the hue as a number between <c>0</c> and <c>1</c>. For the hue as the
+        /// degrees of a circle, simply multiply by <c>360</c>.
         /// </summary>
         public double Hue { get; private set; }
 
         /// <summary>
-        /// Gets the saturation as a number between <code>0</code> and <code>1</code>. For the hue
-        /// as percent, simply multiply by <code>100</code>.
+        /// Gets the saturation as a number between <c>0</c> and <c>1</c>. For the hue
+        /// as percent, simply multiply by <c>100</c>.
         /// </summary>
         public double Saturation { get; private set; }
 
         /// <summary>
-        /// Gets the lightness as a number between <code>0</code> and <code>1</code>. For the hue
-        /// as percent, simply multiply by <code>100</code>.
+        /// Gets the lightness as a number between <c>0</c> and <c>1</c>. For the hue
+        /// as percent, simply multiply by <c>100</c>.
         /// </summary>
         public double Lightness { get; private set; }
 
@@ -57,15 +57,11 @@ namespace Skybrud.Colors {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new HSL color with the specified <code>hue</code>, <code>saturation</code> and
-        /// <code>saturation</code>.
+        /// Initializes a new HSL color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="saturation"/>.
         /// </summary>
-        /// <param name="hue">The hue value of the HSL color, specified as a decimal number between <code>0</code> and
-        /// <code>0</code>.</param>
-        /// <param name="saturation">The saturation value of the HSL color, specified as a decimal number between
-        /// <code>0</code> and <code>0</code>.</param>
-        /// <param name="lightness">The lightness value of the HSL color, specified as a decimal number between
-        /// <code>0</code> and <code>0</code>.</param>
+        /// <param name="hue">The hue value of the HSL color, specified as a decimal number between <c>0</c> and <c>0</c>.</param>
+        /// <param name="saturation">The saturation value of the HSL color, specified as a decimal number between <c>0</c> and <c>0</c>.</param>
+        /// <param name="lightness">The lightness value of the HSL color, specified as a decimal number between <c>0</c> and <c>0</c>.</param>
         public HslColor(double hue, double saturation, double lightness) {
             Hue = hue;
             Saturation = saturation;
@@ -79,7 +75,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Converts the HSL color to a RGB color.
         /// </summary>
-        /// <returns>Returns an instance of <see cref="RgbColor"/>.</returns>
+        /// <returns>An instance of <see cref="RgbColor"/>.</returns>
         public RgbColor ToRgb() {
             return ColorHelpers.HslToRgb(this);
         }
@@ -88,7 +84,7 @@ namespace Skybrud.Colors {
         /// Returns a new <see cref="HslColor"/> with the same color as specified by the <see cref="Hue"/>,
         /// <see cref="Saturation"/> and <see cref="Lightness"/> properties.
         /// </summary>
-        /// <returns>Returns an instance of <see cref="HslColor"/>.</returns>
+        /// <returns>An instance of <see cref="HslColor"/>.</returns>
         public HslColor ToHsl() {
             return new HslColor(Hue, Saturation, Lightness);
         }
@@ -96,7 +92,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Converts the HSL color to a CMY color.
         /// </summary>
-        /// <returns>Returns an instance of <see cref="CmyColor"/>.</returns>
+        /// <returns>An instance of <see cref="CmyColor"/>.</returns>
         public CmyColor ToCmy() {
             return ToRgb().ToCmy();
         }
@@ -104,16 +100,16 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Converts the HSL color to a CMYK color.
         /// </summary>
-        /// <returns>Returns an instance of <see cref="CmykColor"/>.</returns>
+        /// <returns>An instance of <see cref="CmykColor"/>.</returns>
         public CmykColor ToCmyk() {
             return ToRgb().ToCmyk();
         }
 
         /// <summary>
-        /// Increases the darkness of the color based on the specified <code>percent</code>.
+        /// Increases the darkness of the color based on the specified <paramref name="percent"/>.
         /// </summary>
         /// <param name="percent">The amount of darkness (specified in percent) that should be added to the color.</param>
-        /// <returns>Returns a new instance of <see cref="IColor"/>.</returns>
+        /// <returns>A new instance of <see cref="IColor"/>.</returns>
         public IColor Darken(float percent) {
             double l = Lightness;
             l -= percent / 100f;
@@ -121,10 +117,10 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
-        /// Increases the lightness of the color based on the specified <code>percent</code>.
+        /// Increases the lightness of the color based on the specified <paramref name="percent"/>.
         /// </summary>
         /// <param name="percent">The amount of lightness (specified in percent) that should be added to the color.</param>
-        /// <returns>Returns a new instance of <see cref="IColor"/>.</returns>
+        /// <returns>A new instance of <see cref="IColor"/>.</returns>
         public IColor Lighten(float percent) {
             double l = Lightness;
             l += percent / 100f;
@@ -134,7 +130,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Returns the HEX representation of the color.
         /// </summary>
-        /// <returns>Returns a HEX string representing the color.</returns>
+        /// <returns>A HEX string representing the color.</returns>
         public string ToHex() {
             return ToRgb().ToHex();
         }
@@ -142,7 +138,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Returns the CSS representation of the color. The color will be expressed as <code>hsl(0, 0%, 0%)</code>.
         /// </summary>
-        /// <returns>Returns the CSS representation of the color.</returns>
+        /// <returns>The CSS representation of the color.</returns>
         public string ToCss() {
             return String.Format("hsl({0:0}, {1:0}%, {2:0}%)", Math.Round(H * 360), Math.Round(S * 100), Math.Round(L * 100));
         }
@@ -150,7 +146,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Returns a string representation of the HSL color.
         /// </summary>
-        /// <returns>Returns a string representing the color.</returns>
+        /// <returns>A string representing the color.</returns>
         public override string ToString() {
             return String.Format("HSL: {0}, {1}, {2}", Math.Round(H * 360), Math.Round(S * 100), Math.Round(L * 100));
         }

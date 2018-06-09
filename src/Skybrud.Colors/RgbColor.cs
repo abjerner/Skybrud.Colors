@@ -14,17 +14,17 @@ namespace Skybrud.Colors {
         #region Properties
 
         /// <summary>
-        /// Gets the amount of red in the color, specified as a value between <code>0</code> and <code>255</code>.
+        /// Gets the amount of red in the color, specified as a value between <c>0</c> and <c>255</c>.
         /// </summary>
         public byte Red { get; set; }
 
         /// <summary>
-        /// Gets the amount of green in the color, specified as a value between <code>0</code> and <code>255</code>.
+        /// Gets the amount of green in the color, specified as a value between <c>0</c> and <c>255</c>.
         /// </summary>
         public byte Green { get; set; }
 
         /// <summary>
-        /// Gets the amount of blue in the color, specified as a value between <code>0</code> and <code>255</code>.
+        /// Gets the amount of blue in the color, specified as a value between <c>0</c> and <c>255</c>.
         /// </summary>
         public byte Blue { get; set; }
 
@@ -59,11 +59,11 @@ namespace Skybrud.Colors {
         public RgbColor() { }
 
         /// <summary>
-        /// Initializes a new new color based on the specified <code>red</code>, <code>green</code> and <code>blue</code>.
+        /// Initializes a new new color based on the specified <paramref name="red"/>, <paramref name="green"/> and <paramref name="blue"/>.
         /// </summary>
-        /// <param name="red">The amount of red in the color, represented by a value between <code>0</code> and <code>255</code>.</param>
-        /// <param name="green">The amount of green in the color, represented by a value between <code>0</code> and <code>255</code>.</param>
-        /// <param name="blue">The amount of blue in the color, represented by a value between <code>0</code> and <code>255</code>.</param>
+        /// <param name="red">The amount of red in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="green">The amount of green in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="blue">The amount of blue in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         public RgbColor(byte red, byte green, byte blue) {
             Red = red;
             Green = green;
@@ -71,11 +71,11 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
-        /// Initializes a new new color based on the specified <code>red</code>, <code>green</code> and <code>blue</code>.
+        /// Initializes a new new color based on the specified <paramref name="red"/>, <paramref name="green"/> and <paramref name="blue"/>.
         /// </summary>
-        /// <param name="red">The amount of red in the color, represented by a value between <code>0</code> and <code>255</code>.</param>
-        /// <param name="green">The amount of green in the color, represented by a value between <code>0</code> and <code>255</code>.</param>
-        /// <param name="blue">The amount of blue in the color, represented by a value between <code>0</code> and <code>255</code>.</param>
+        /// <param name="red">The amount of red in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="green">The amount of green in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="blue">The amount of blue in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         public RgbColor(int red, int green, int blue) {
             Red = (byte) red;
             Green = (byte) green;
@@ -83,11 +83,11 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
-        /// Initializes a new new color based on the specified <code>red</code>, <code>green</code> and <code>blue</code>.
+        /// Initializes a new new color based on the specified <paramref name="red"/>, <paramref name="green"/> and <paramref name="blue"/>.
         /// </summary>
-        /// <param name="red">The amount of red in the color, represented by a value between <code>0</code> and <code>255</code>.</param>
-        /// <param name="green">The amount of green in the color, represented by a value between <code>0</code> and <code>255</code>.</param>
-        /// <param name="blue">The amount of blue in the color, represented by a value between <code>0</code> and <code>255</code>.</param>
+        /// <param name="red">The amount of red in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="green">The amount of green in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="blue">The amount of blue in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         public RgbColor(double red, double green, double blue) {
             Red = (byte) Math.Round(red);
             Green = (byte) Math.Round(green);
@@ -102,7 +102,7 @@ namespace Skybrud.Colors {
         /// Returns a new <see cref="RgbColor"/> with the same color as specified by the <see cref="Red"/>,
         /// <see cref="Green"/> and <see cref="Blue"/> properties.
         /// </summary>
-        /// <returns>Returns a new instance of <see cref="RgbColor"/>.</returns>
+        /// <returns>A new instance of <see cref="RgbColor"/>.</returns>
         public RgbColor ToRgb() {
             return new RgbColor(Red, Green, Blue);
         }
@@ -110,7 +110,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Converts the RGB color to an HSL color.
         /// </summary>
-        /// <returns>Returns an instance of <see cref="HslColor"/>.</returns>
+        /// <returns>An instance of <see cref="HslColor"/>.</returns>
         public HslColor ToHsl() {
 
             double hue;
@@ -125,7 +125,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Converts the RGB color to a CMY color.
         /// </summary>
-        /// <returns>Returns an instance of <see cref="CmyColor"/>.</returns>
+        /// <returns>An instance of <see cref="CmyColor"/>.</returns>
         public CmyColor ToCmy() {
             double c = 1 - (R / 255d);
             double m = 1 - (G / 255d);
@@ -136,7 +136,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Converts the RGB color to a CMYK color.
         /// </summary>
-        /// <returns>Returns an instance of <see cref="CmykColor"/>.</returns>
+        /// <returns>An instance of <see cref="CmykColor"/>.</returns>
         public CmykColor ToCmyk() {
             return ToCmy().ToCmyk();
         }
@@ -144,7 +144,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Returns the HEX representation of the color.
         /// </summary>
-        /// <returns>Returns a HEX string representing the color.</returns>
+        /// <returns>A HEX string representing the color.</returns>
         public string ToHex() {
             return "#" + Red.ToString("x").PadLeft(2, '0') + Green.ToString("x").PadLeft(2, '0') + Blue.ToString("x").PadLeft(2, '0');
         }
@@ -152,25 +152,25 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Returns the CSS representation of the color. The color will be expressed as <code>rgb(0, 0, 0)</code>.
         /// </summary>
-        /// <returns>Returns the CSS representation of the color.</returns>
+        /// <returns>The CSS representation of the color.</returns>
         public string ToCss() {
             return "rgb(" + Red + ", " + Green + ", " + Blue + ")";
         }
 
         /// <summary>
-        /// Increases the darkness of the color based on the specified <code>percent</code>.
+        /// Increases the darkness of the color based on the specified <paramref name="percent"/>.
         /// </summary>
         /// <param name="percent">The amount of darkness (specified in percent) that should be added to the color.</param>
-        /// <returns>Returns a new instance of <see cref="IColor"/>.</returns>
+        /// <returns>A new instance of <see cref="IColor"/>.</returns>
         public IColor Darken(float percent) {
             return ToHsl().Darken(percent);
         }
 
         /// <summary>
-        /// Increases the lightness of the color based on the specified <code>percent</code>.
+        /// Increases the lightness of the color based on the specified <paramref name="percent"/>.
         /// </summary>
         /// <param name="percent">The amount of lightness (specified in percent) that should be added to the color.</param>
-        /// <returns>Returns a new instance of <see cref="IColor"/>.</returns>
+        /// <returns>A new instance of <see cref="IColor"/>.</returns>
         public IColor Lighten(float percent) {
             return ToHsl().Lighten(percent);
         }
@@ -178,7 +178,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Returns a string representation of the RGB color.
         /// </summary>
-        /// <returns>Returns a string representing the color.</returns>
+        /// <returns>A string representing the color.</returns>
         public override string ToString() {
             return String.Format("RGB: {0}, {1}, {2}", Red, Green, Blue);
         }
@@ -187,6 +187,11 @@ namespace Skybrud.Colors {
 
         #region Static methods
 
+        /// <summary>
+        /// Parses the specified <paramref name="str"/> into an instance of <see cref="RgbColor"/>.
+        /// </summary>
+        /// <param name="str">The string representing the color.</param>
+        /// <returns>An instance of <see cref="RgbColor"/>.</returns>
         public static RgbColor Parse(string str) {
             return ColorHelpers.Parse(str).ToRgb();
         }
@@ -196,7 +201,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <param name="str">The input string to be parsed.</param>
         /// <param name="color">An instance of <see cref="RgbColor"/>.</param>
-        /// <returns><code>true</code> if <paramref name="str"/> was converted successfully; otherwise, <code>false</code>.</returns>
+        /// <returns><c>true</c> if <paramref name="str"/> was converted successfully; otherwise, <c>false</c>.</returns>
         public static bool TryParse(string str, out RgbColor color) {
 
             color = null;

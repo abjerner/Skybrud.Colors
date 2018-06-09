@@ -8,10 +8,10 @@ namespace Skybrud.Colors.Wcag {
     public class WcagHelpers {
 
         /// <summary>
-        /// Calculates the relative luminance of a given <code>color</code> as specified by the WCAG 2.0 specification.
+        /// Calculates the relative luminance of a given <paramref name="color"/> as specified by the WCAG 2.0 specification.
         /// </summary>
         /// <param name="color">The color.</param>
-        /// <returns>Returns the relative luminance.</returns>
+        /// <returns>The relative luminance.</returns>
         /// <see>
         ///     <cref>https://www.w3.org/TR/WCAG20/#relativeluminancedef</cref>
         /// </see>
@@ -43,7 +43,7 @@ namespace Skybrud.Colors.Wcag {
         /// </summary>
         /// <param name="color1">The first color.</param>
         /// <param name="color2">The second color.</param>
-        /// <returns>Returns the constrast ratio.</returns>
+        /// <returns>The constrast ratio.</returns>
         /// <see>
         ///     <cref>https://www.w3.org/TR/WCAG20/#contrast-ratiodef</cref>
         /// </see>
