@@ -1,10 +1,10 @@
 {
   "title": "Skybrud.Colors",
   "description": "A library for working with various color models and color conversion in .NET.",
-  "company": "Skybrud.dk",
+  "company": "Anders Bjerner",
   "product": "Skybrud.Colors",
-  "copyright": "Copyright © 2017",
-  "version": "1.0.1.0",
-  "informationalVersion": "1.0.1",
-  "fileVersion": "0.0.333.1"
+  "copyright": "Copyright © 2018",
+  "version": "1.0.2.0",
+  "informationalVersion": "1.0.2",
+  "fileVersion": "0.0.855.1"
 }
