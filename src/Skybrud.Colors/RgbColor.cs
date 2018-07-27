@@ -115,10 +115,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <returns>An instance of <see cref="CmyColor"/>.</returns>
         public CmyColor ToCmy() {
-            double c = 1 - (R / 255d);
-            double m = 1 - (G / 255d);
-            double y = 1 - (B / 255d);
-            return new CmyColor(c, m, y);
+            return ColorUtils.RgbToCmy(this);
         }
 
         /// <summary>
@@ -126,7 +123,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <returns>An instance of <see cref="CmykColor"/>.</returns>
         public CmykColor ToCmyk() {
-            return ToCmy().ToCmyk();
+            return ColorUtils.RgbToCmyk(this);
         }
 
         /// <summary>

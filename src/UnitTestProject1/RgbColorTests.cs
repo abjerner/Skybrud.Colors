@@ -31,9 +31,50 @@ namespace UnitTestProject1 {
 
         [TestMethod]
         public void ToCmyk() {
+
             foreach (HtmlColorSample sample in HtmlColorSamples.All) {
-                Assert.AreEqual(sample.Cmyk.Text, sample.Base.ToCmyk().ToString(), sample.Name);
+
+                int r = sample.Rgb.Red;
+                int g = sample.Rgb.Green;
+                int b = sample.Rgb.Blue;
+
+                RgbColor rgb = new RgbColor(r, g, b);
+
+                double c1 = sample.Cmyk.Cyan / 100d;
+                double m1 = sample.Cmyk.Magenta / 100d;
+                double y1 = sample.Cmyk.Yellow / 100d;
+                double k1 = sample.Cmyk.Key / 100d;
+
+                ColorUtils.RgbToCmyk(r, g, b, out double c2, out double m2, out double y2, out double k2);
+
+                Assert.AreEqual(c1.ToString("N2"), c2.ToString("N2"), "#1 C (" + sample.Name + ")");
+                Assert.AreEqual(m1.ToString("N2"), m2.ToString("N2"), "#1 M (" + sample.Name + ")");
+                Assert.AreEqual(y1.ToString("N2"), y2.ToString("N2"), "#1 Y (" + sample.Name + ")");
+                Assert.AreEqual(k1.ToString("N2"), k2.ToString("N2"), "#1 K (" + sample.Name + ")");
+
+                CmykColor cmyk1 = ColorUtils.RgbToCmyk(r, g, b);
+
+                Assert.AreEqual(c1.ToString("N2"), cmyk1.C.ToString("N2"), "#2 C (" + sample.Name + ")");
+                Assert.AreEqual(m1.ToString("N2"), cmyk1.M.ToString("N2"), "#2 M (" + sample.Name + ")");
+                Assert.AreEqual(y1.ToString("N2"), cmyk1.Y.ToString("N2"), "#2 Y (" + sample.Name + ")");
+                Assert.AreEqual(k1.ToString("N2"), cmyk1.K.ToString("N2"), "#2 K (" + sample.Name + ")");
+
+                ColorUtils.RgbToCmyk(rgb, out double c3, out double m3, out double y3, out double k3);
+
+                Assert.AreEqual(c1.ToString("N2"), c3.ToString("N2"), "#3 C (" + sample.Name + ")");
+                Assert.AreEqual(m1.ToString("N2"), m3.ToString("N2"), "#3 M (" + sample.Name + ")");
+                Assert.AreEqual(y1.ToString("N2"), y3.ToString("N2"), "#3 Y (" + sample.Name + ")");
+                Assert.AreEqual(k1.ToString("N2"), k3.ToString("N2"), "#3 K (" + sample.Name + ")");
+
+                CmykColor cmyk2 = ColorUtils.RgbToCmyk(rgb);
+
+                Assert.AreEqual(c1.ToString("N2"), cmyk2.C.ToString("N2"), "#4 C (" + sample.Name + ")");
+                Assert.AreEqual(m1.ToString("N2"), cmyk2.M.ToString("N2"), "#4 M (" + sample.Name + ")");
+                Assert.AreEqual(y1.ToString("N2"), cmyk2.Y.ToString("N2"), "#4 Y (" + sample.Name + ")");
+                Assert.AreEqual(k1.ToString("N2"), cmyk2.K.ToString("N2"), "#4 K (" + sample.Name + ")");
+
             }
+
         }
 
         public void ToCmy() {
