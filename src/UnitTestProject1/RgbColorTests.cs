@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Skybrud.Colors;
 using UnitTestProject1.Samples;
 
@@ -10,31 +9,30 @@ namespace UnitTestProject1 {
 
         [TestMethod]
         public void Base() {
-            foreach (HtmlColorSample sample in HtmlColorSample.All) {
+            foreach (HtmlColorSample sample in HtmlColorSamples.All) {
                 Assert.AreEqual(sample.Hex, sample.Base.ToHex(), sample.Name);
-                Assert.AreEqual(sample.Hex, sample.Rgb.ToHex(), sample.Name);
             }
         }
         
         [TestMethod]
         public void ToHex() {
-            foreach (HtmlColorSample sample in HtmlColorSample.All) {
-                RgbColor color = sample.Rgb;
+            foreach (HtmlColorSample sample in HtmlColorSamples.All) {
+                RgbColor color = sample.Base;
                 Assert.AreEqual(sample.Hex, color.ToHex(), sample.Name);
             }
         }
 
         [TestMethod]
         public void ToHsl() {
-            foreach (HtmlColorSample sample in HtmlColorSample.All) {
-                Assert.AreEqual(sample.HslText, sample.Rgb.ToHsl().ToString(), sample.Name);
+            foreach (HtmlColorSample sample in HtmlColorSamples.All) {
+                Assert.AreEqual(sample.Hsl.Text, sample.Base.ToHsl().ToString(), sample.Name);
             }
         }
 
         [TestMethod]
         public void ToCmyk() {
-            foreach (HtmlColorSample sample in HtmlColorSample.All) {
-                Assert.AreEqual(sample.CmykText, sample.Rgb.ToCmyk().ToString(), sample.Name);
+            foreach (HtmlColorSample sample in HtmlColorSamples.All) {
+                Assert.AreEqual(sample.Cmyk.Text, sample.Base.ToCmyk().ToString(), sample.Name);
             }
         }
 
@@ -68,8 +66,8 @@ namespace UnitTestProject1 {
         [TestMethod]
         public void Parse() {
 
-            foreach (HtmlColorSample sample in HtmlColorSample.All) {
-                Assert.AreEqual(sample.RgbCss, RgbColor.Parse(sample.Hex).ToCss(), sample.Name);
+            foreach (HtmlColorSample sample in HtmlColorSamples.All) {
+                Assert.AreEqual(sample.Rgb.Css, RgbColor.Parse(sample.Hex).ToCss(), sample.Name);
             }
 
         }
@@ -77,13 +75,13 @@ namespace UnitTestProject1 {
         [TestMethod]
         public void TryParse() {
 
-            foreach (HtmlColorSample sample in HtmlColorSample.All) {
+            foreach (HtmlColorSample sample in HtmlColorSamples.All) {
                 RgbColor color1;
                 Assert.AreEqual(true, RgbColor.TryParse(sample.Hex, out color1));
-                Assert.AreEqual(sample.RgbCss, color1.ToCss(), sample.Name);
+                Assert.AreEqual(sample.Rgb.Css, color1.ToCss(), sample.Name);
             }
 
-            foreach (HtmlColorSample sample in HtmlColorSample.All) {
+            foreach (HtmlColorSample sample in HtmlColorSamples.All) {
                 RgbColor color1;
                 Assert.AreEqual(false, RgbColor.TryParse(sample.Name, out color1));
             }

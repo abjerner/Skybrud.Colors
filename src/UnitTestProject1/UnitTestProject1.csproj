@@ -54,6 +54,11 @@
     <Compile Include="HslColorTests.cs" />
     <Compile Include="RgbColorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Samples\HtmlColorSampleCmyk.cs" />
+    <Compile Include="Samples\HtmlColorSampleHsl.cs" />
+    <Compile Include="Samples\HtmlColorSampleHsv.cs" />
+    <Compile Include="Samples\HtmlColorSampleRgb.cs" />
+    <Compile Include="Samples\HtmlColorSamples.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Skybrud.Colors\Skybrud.Colors.csproj">

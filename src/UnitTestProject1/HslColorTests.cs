@@ -13,7 +13,7 @@ namespace UnitTestProject1 {
 
 
 
-            foreach (HtmlColorSample sample in HtmlColorSample.All) {
+            foreach (HtmlColorSample sample in HtmlColorSamples.All) {
 
                 // There are some minor differences when converting back to RGB, so this unit test is disabled for now
 
