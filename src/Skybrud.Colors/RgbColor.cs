@@ -106,8 +106,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <returns>An instance of <see cref="HslColor"/>.</returns>
         public HslColor ToHsl() {
-            ColorHelpers.RgbToHsl(Red, Green, Blue, out double hue, out double saturation, out double lightness);
-            return new HslColor(hue, saturation, lightness);
+            return ColorUtils.RgbToHsl(this);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Skybrud.Colors;
 using UnitTestProject1.Samples;
 
@@ -24,9 +25,36 @@ namespace UnitTestProject1 {
 
         [TestMethod]
         public void ToHsl() {
+
             foreach (HtmlColorSample sample in HtmlColorSamples.All) {
-                Assert.AreEqual(sample.Hsl.Text, sample.Base.ToHsl().ToString(), sample.Name);
+
+                int r = sample.Rgb.Red;
+                int g = sample.Rgb.Green;
+                int b = sample.Rgb.Blue;
+
+                RgbColor rgb = new RgbColor(r, g, b);
+
+                double h1 = sample.Hsl.Hue / 360d;
+                double s1 = sample.Hsl.Saturation / 100d;
+                double l1 = sample.Hsl.Lightness / 100d;
+
+                ColorUtils.RgbToHsl(r, g, b, out double h2, out double s2, out double l2);
+                Assert.AreEqual(h1.ToString("N2"), h2.ToString("N2"), "#1 Hue (" + sample.Name + ")");
+                Assert.AreEqual(s1.ToString("N2"), s2.ToString("N2"), "#1 Saturation (" + sample.Name + ")");
+                Assert.AreEqual(l1.ToString("N2"), l2.ToString("N2"), "#1 Lightness (" + sample.Name + ")");
+
+                HslColor hsl1 = ColorUtils.RgbToHsl(r, g, b);
+                Assert.AreEqual(h1.ToString("N2"), hsl1.H.ToString("N2"), "#2 Hue (" + sample.Name + ")");
+                Assert.AreEqual(s1.ToString("N2"), hsl1.S.ToString("N2"), "#2 Saturation (" + sample.Name + ")");
+                Assert.AreEqual(l1.ToString("N2"), hsl1.L.ToString("N2"), "#2 Lightness (" + sample.Name + ")");
+
+                HslColor hsl2 = ColorUtils.RgbToHsl(rgb);
+                Assert.AreEqual(h1.ToString("N2"), hsl2.H.ToString("N2"), "#3 Hue (" + sample.Name + ")");
+                Assert.AreEqual(s1.ToString("N2"), hsl2.S.ToString("N2"), "#3 Saturation (" + sample.Name + ")");
+                Assert.AreEqual(l1.ToString("N2"), hsl2.L.ToString("N2"), "#3 Lightness (" + sample.Name + ")");
+
             }
+
         }
 
         [TestMethod]

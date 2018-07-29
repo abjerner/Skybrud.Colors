@@ -7,6 +7,54 @@ namespace Skybrud.Colors {
     /// </summary>
     public static class ColorUtils {
 
+        #region Misc
+
+        /// <summary>
+        /// Returns the maximum value of <paramref name="a"/>, <paramref name="b"/> and <paramref name="c"/>.
+        /// </summary>
+        /// <param name="a">The first value.</param>
+        /// <param name="b">The second value.</param>
+        /// <param name="c">The third value.</param>
+        /// <returns>The maximum value.</returns>
+        public static double Max(double a, double b, double c) {
+            return Math.Max(a, Math.Max(b, c));
+        }
+
+        /// <summary>
+        /// Returns the minimum value of <paramref name="a"/>, <paramref name="b"/> and <paramref name="c"/>.
+        /// </summary>
+        /// <param name="a">The first value.</param>
+        /// <param name="b">The second value.</param>
+        /// <param name="c">The third value.</param>
+        /// <returns>The minimum value.</returns>
+        public static double Min(double a, double b, double c) {
+            return Math.Min(a, Math.Min(b, c));
+        }
+
+        /// <summary>
+        /// Returns the maximum value of <paramref name="a"/>, <paramref name="b"/> and <paramref name="c"/>.
+        /// </summary>
+        /// <param name="a">The first value.</param>
+        /// <param name="b">The second value.</param>
+        /// <param name="c">The third value.</param>
+        /// <returns>The maximum value.</returns>
+        public static float Max(float a, float b, float c) {
+            return Math.Max(a, Math.Max(b, c));
+        }
+
+        /// <summary>
+        /// Returns the minimum value of <paramref name="a"/>, <paramref name="b"/> and <paramref name="c"/>.
+        /// </summary>
+        /// <param name="a">The first value.</param>
+        /// <param name="b">The second value.</param>
+        /// <param name="c">The third value.</param>
+        /// <returns>The minimum value.</returns>
+        public static float Min(float a, float b, float c) {
+            return Math.Min(a, Math.Min(b, c));
+        }
+
+        #endregion
+
         #region CMY -> CMYK
 
         /// <summary>
@@ -187,6 +235,105 @@ namespace Skybrud.Colors {
         /// <returns>An instance of <see cref="CmykColor"/> representing the CMYK color.</returns>
         public static CmykColor RgbToCmyk(RgbColor rgb) {
             return RgbToCmyk(rgb.Red, rgb.Green, rgb.Blue);
+        }
+
+        #endregion
+
+        #region RGB -> HSL
+
+        /// <summary>
+        /// Converts a RGB color to an HSL color.
+        /// </summary>
+        /// <param name="red">The amount of red in the RGB color.</param>
+        /// <param name="green">The amount of green in the RGB color.</param>
+        /// <param name="blue">The amount of blue in the RGB color.</param>
+        /// <param name="hue">The amount of hue in the HSL color.</param>
+        /// <param name="saturation">The amount of saturation in the HSL color.</param>
+        /// <param name="lightness">The amount of lightness in the HSL color.</param>
+        public static void RgbToHsl(byte red, byte green, byte blue, out double hue, out double saturation, out double lightness) {
+            int r = red;
+            int g = green;
+            int b = blue;
+            RgbToHsl(r, g, b, out hue, out saturation, out lightness);
+        }
+
+        /// <summary>
+        /// Converts a RGB color to an HSL color.
+        /// </summary>
+        /// <param name="red">The amount of red in the RGB color.</param>
+        /// <param name="green">The amount of green in the RGB color.</param>
+        /// <param name="blue">The amount of blue in the RGB color.</param>
+        /// <param name="hue">The amount of hue in the HSL color.</param>
+        /// <param name="saturation">The amount of saturation in the HSL color.</param>
+        /// <param name="lightness">The amount of lightness in the HSL color.</param>
+        public static void RgbToHsl(int red, int green, int blue, out double hue, out double saturation, out double lightness) {
+
+            // Convert to values from 0-1 (linear)
+            double r = red / 255d;
+            double g = green / 255d;
+            double b = blue / 255d;
+
+            // Get the maximum and minimum values
+            double max = Max(r, g, b);
+            double min = Min(r, g, b);
+
+            // Calculate the lightness
+            lightness = (max + min) / 2d;
+
+            // Calculate the saturation
+            saturation = 0;
+            if (Math.Abs(max - min) > Double.Epsilon) {
+                if (lightness < 0.5) {
+                    saturation = (max - min) / (max + min);
+                } else {
+                    saturation = (max - min) / (2.0d - max - min);
+                }
+            }
+
+            // Calculate the hue
+            hue = 0;
+            if (Math.Abs(r - max) < Double.Epsilon) {
+                hue = (g - b) / (max - min);
+            } else if (Math.Abs(g - max) < Double.Epsilon) {
+                hue = 2.0d + (b - r) / (max - min);
+            } else if (Math.Abs(b - max) < Double.Epsilon) {
+                hue = 4.0d + (r - g) / (max - min);
+            }
+
+            // Convert the hue to degrees
+            hue = hue * 60;
+
+            // Make sure hue is a positive number
+            if (hue < 0.0) hue += 360;
+
+            // Convert the hue back to a decimal
+            hue = hue / 360.0;
+
+            // Make sure hue is not NaN
+            if (Double.IsNaN(hue)) hue = 0;
+
+        }
+
+        /// <summary>
+        /// Converts a RGB color to an HSL color.
+        /// </summary>
+        /// <param name="red">The amount of red in the RGB color.</param>
+        /// <param name="green">The amount of green in the RGB color.</param>
+        /// <param name="blue">The amount of blue in the RGB color.</param>
+        /// <returns>An instance of <see cref="HslColor"/> representing the </returns>
+        public static HslColor RgbToHsl(int red, int green, int blue) {
+            RgbToHsl(red, green, blue, out double h, out double s, out double l);
+            return new HslColor(h, s, l);
+        }
+
+        /// <summary>
+        /// Converts a RGB color to an HSL color.
+        /// </summary>
+        /// <param name="rgb">The RGB color.</param>
+        /// <returns>An instance of <see cref="HslColor"/> representing the </returns>
+        public static HslColor RgbToHsl(RgbColor rgb) {
+            RgbToHsl(rgb.Red, rgb.Green, rgb.Blue, out double h, out double s, out double l);
+            return new HslColor(h, s, l);
         }
 
         #endregion
