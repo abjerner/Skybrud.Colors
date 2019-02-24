@@ -4,15 +4,9 @@
 
         public double Hue { get; }
 
-        public double HueDecimal => Hue / 360d;
-
         public double Saturation { get; }
 
-        public double SaturationDecimal => Saturation / 100d;
-
         public double Lightness { get; }
-
-        public double LightnessDecimal => Lightness / 100d;
 
         public string Css => "hsl(" + Hue + ", " + Saturation + "%, " + Lightness + "%)";
 

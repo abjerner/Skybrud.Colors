@@ -9,9 +9,10 @@ namespace UnitTestProject1.Samples {
             HtmlColors.AliceBlue,
             "#f0f8ff",
             new HtmlColorSampleRgb(240, 248, 255),
-            new HtmlColorSampleHsl(208, 100, 97.06),
-            new HtmlColorSampleHsv(208, 5.88, 100),
-            new HtmlColorSampleCmyk(5.88, 2.75, 0, 0)
+            new HtmlColorSampleHsl(208, 1, 0.9705882370471954),
+            new HtmlColorSampleHsv(208, 0.05882352941176472, 1),
+            new HtmlColorSampleCmy(0.05882352941176472, 0.027450980392156876, 0),
+            new HtmlColorSampleCmyk(0.05882352941176472, 0.027450980392156876, 0, 0)
         );
 
         public static HtmlColorSample AntiqueWhite = new HtmlColorSample(
@@ -19,9 +20,10 @@ namespace UnitTestProject1.Samples {
             HtmlColors.AntiqueWhite,
             "#faebd7",
             new HtmlColorSampleRgb(250, 235, 215),
-            new HtmlColorSampleHsl(34.29, 77.78, 91.18),
-            new HtmlColorSampleHsv(34.29, 14.00, 98.04),
-            new HtmlColorSampleCmyk(0, 6, 14, 1.96)
+            new HtmlColorSampleHsl(34.28571603736097, 0.777777789551535, 0.9117647064667122),
+            new HtmlColorSampleHsv(34.28571603736097, 0.14, 0.9803921568627451),
+            new HtmlColorSampleCmy(0.019607843137254943, 0.07843137254901966, 0.1568627450980392),
+            new HtmlColorSampleCmyk(0, 0.06000000000000002, 0.13999999999999996, 0.019607843137254943)
         );
 
         public static HtmlColorSample Aqua = new HtmlColorSample(
@@ -29,9 +31,10 @@ namespace UnitTestProject1.Samples {
             HtmlColors.Aqua,
             "#00ffff",
             new HtmlColorSampleRgb(0, 255, 255),
-            new HtmlColorSampleHsl(180, 100, 50),
-            new HtmlColorSampleHsv(180, 100, 100),
-            new HtmlColorSampleCmyk(100, 0, 0, 0)
+            new HtmlColorSampleHsl(180, 1, 0.5),
+            new HtmlColorSampleHsv(180, 1, 1),
+            new HtmlColorSampleCmy(1, 0, 0),
+            new HtmlColorSampleCmyk(1, 0, 0, 0)
         );
 
         public static HtmlColorSample Aquamarine = new HtmlColorSample(
@@ -39,9 +42,10 @@ namespace UnitTestProject1.Samples {
             HtmlColors.Aquamarine,
             "#7fffd4",
             new HtmlColorSampleRgb(127, 255, 212),
-            new HtmlColorSampleHsl(159.84, 100, 74.9),
-            new HtmlColorSampleHsv(159.84, 50.2, 100),
-            new HtmlColorSampleCmyk(50.2, 0, 16.86, 0)
+            new HtmlColorSampleHsl(159.843749995307, 1, 0.7490196079015732),
+            new HtmlColorSampleHsv(159.843749995307, 0.5019607843137255, 1),
+            new HtmlColorSampleCmy(0.5019607843137255, 0, 0.1686274509803921),
+            new HtmlColorSampleCmyk(0.5019607843137255, 0, 0.1686274509803921, 0)
         );
 
         public static HtmlColorSample Azure = new HtmlColorSample(
@@ -49,9 +53,10 @@ namespace UnitTestProject1.Samples {
             HtmlColors.Azure,
             "#f0ffff",
             new HtmlColorSampleRgb(240, 255, 255),
-            new HtmlColorSampleHsl(180, 100, 97.06),
-            new HtmlColorSampleHsv(180, 5.88, 100),
-            new HtmlColorSampleCmyk(5.88, 0, 0, 0)
+            new HtmlColorSampleHsl(180, 1, 0.9705882370471954),
+            new HtmlColorSampleHsv(180, 0.05882352941176472, 1),
+            new HtmlColorSampleCmy(0.05882352941176472, 0, 0),
+            new HtmlColorSampleCmyk(0.05882352941176472, 0, 0, 0)
         );
 
         public static HtmlColorSample Black = new HtmlColorSample(
@@ -61,7 +66,8 @@ namespace UnitTestProject1.Samples {
             new HtmlColorSampleRgb(0, 0, 0),
             new HtmlColorSampleHsl(0, 0, 0),
             new HtmlColorSampleHsv(0, 0, 0),
-            new HtmlColorSampleCmyk(0, 0, 0, 100)
+            new HtmlColorSampleCmy(1, 1, 1),
+            new HtmlColorSampleCmyk(0, 0, 0, 1)
         );
 
         public static HtmlColorSample Blue = new HtmlColorSample(
@@ -69,9 +75,10 @@ namespace UnitTestProject1.Samples {
             HtmlColors.Blue,
             "#0000ff",
             new HtmlColorSampleRgb(0, 0, 255),
-            new HtmlColorSampleHsl(240, 100, 50),
-            new HtmlColorSampleHsv(240, 100, 100),
-            new HtmlColorSampleCmyk(100, 100, 0, 0)
+            new HtmlColorSampleHsl(240, 1, 0.5),
+            new HtmlColorSampleHsv(240, 1, 1),
+            new HtmlColorSampleCmy(1, 1, 0),
+            new HtmlColorSampleCmyk(1, 1, 0, 0)
         );
 
         public static HtmlColorSample Cyan = new HtmlColorSample(
@@ -79,9 +86,10 @@ namespace UnitTestProject1.Samples {
             HtmlColors.Cyan,
             "#00ffff",
             new HtmlColorSampleRgb(0, 255, 255),
-            new HtmlColorSampleHsl(180, 100, 50),
-            new HtmlColorSampleHsv(180, 100, 100),
-            new HtmlColorSampleCmyk(100, 0, 0, 0)
+            new HtmlColorSampleHsl(180, 1, 0.5),
+            new HtmlColorSampleHsv(180, 1, 1),
+            new HtmlColorSampleCmy(1, 0, 0),
+            new HtmlColorSampleCmyk(1, 0, 0, 0)
         );
 
         public static HtmlColorSample Green = new HtmlColorSample(
@@ -89,9 +97,10 @@ namespace UnitTestProject1.Samples {
             HtmlColors.Green,
             "#008000",
             new HtmlColorSampleRgb(0, 128, 0),
-            new HtmlColorSampleHsl(120, 100, 25.1),
-            new HtmlColorSampleHsv(120, 100, 50.2),
-            new HtmlColorSampleCmyk(100, 0, 100, 49.8)
+            new HtmlColorSampleHsl(120, 1, 0.250980406999588),
+            new HtmlColorSampleHsv(120, 1, 0.5019607843137255),
+            new HtmlColorSampleCmy(1, 0.4980392156862745, 1),
+            new HtmlColorSampleCmyk(1, 0, 1, 0.4980392156862745)
         );
 
         public static HtmlColorSample Lime = new HtmlColorSample(
@@ -99,9 +108,10 @@ namespace UnitTestProject1.Samples {
             HtmlColors.Lime,
             "#00ff00",
             new HtmlColorSampleRgb(0, 255, 0),
-            new HtmlColorSampleHsl(120, 100, 50),
-            new HtmlColorSampleHsv(120, 100, 100),
-            new HtmlColorSampleCmyk(100, 0, 100, 0)
+            new HtmlColorSampleHsl(120, 1, 0.5),
+            new HtmlColorSampleHsv(120, 1, 1),
+            new HtmlColorSampleCmy(1, 0, 1),
+            new HtmlColorSampleCmyk(1, 0, 1, 0)
         );
 
         public static HtmlColorSample Magenta = new HtmlColorSample(
@@ -109,9 +119,10 @@ namespace UnitTestProject1.Samples {
             HtmlColors.Magenta,
             "#ff00ff",
             new HtmlColorSampleRgb(255, 0, 255),
-            new HtmlColorSampleHsl(300, 100, 50),
-            new HtmlColorSampleHsv(300, 100, 100),
-            new HtmlColorSampleCmyk(0, 100, 0, 0)
+            new HtmlColorSampleHsl(300, 1, 0.5),
+            new HtmlColorSampleHsv(300, 1, 1),
+            new HtmlColorSampleCmy(0, 1, 0),
+            new HtmlColorSampleCmyk(0, 1, 0, 0)
         );
 
         public static HtmlColorSample Red = new HtmlColorSample(
@@ -119,9 +130,10 @@ namespace UnitTestProject1.Samples {
             HtmlColors.Red,
             "#ff0000",
             new HtmlColorSampleRgb(255, 0, 0),
-            new HtmlColorSampleHsl(0, 100, 50),
-            new HtmlColorSampleHsv(0, 100, 100),
-            new HtmlColorSampleCmyk(0, 100, 100, 0)
+            new HtmlColorSampleHsl(0, 1, 0.5),
+            new HtmlColorSampleHsv(0, 1, 1),
+            new HtmlColorSampleCmy(0, 1, 1),
+            new HtmlColorSampleCmyk(0, 1, 1, 0)
         );
 
         public static HtmlColorSample Yellow = new HtmlColorSample(
@@ -129,9 +141,10 @@ namespace UnitTestProject1.Samples {
             HtmlColors.Yellow,
             "#ffff00",
             new HtmlColorSampleRgb(255, 255, 0),
-            new HtmlColorSampleHsl(60, 100, 50),
-            new HtmlColorSampleHsv(60, 100, 100),
-            new HtmlColorSampleCmyk(0, 0, 100, 0)
+            new HtmlColorSampleHsl(60, 1, 0.5),
+            new HtmlColorSampleHsv(60, 1, 1),
+            new HtmlColorSampleCmy(0, 0, 1),
+            new HtmlColorSampleCmyk(0, 0, 1, 0)
         );
 
         public static HtmlColorSample White = new HtmlColorSample(
@@ -139,8 +152,9 @@ namespace UnitTestProject1.Samples {
             HtmlColors.White,
             "#ffffff",
             new HtmlColorSampleRgb(255, 255, 255),
-            new HtmlColorSampleHsl(0, 0, 100),
-            new HtmlColorSampleHsv(0, 0, 100),
+            new HtmlColorSampleHsl(0, 0, 1),
+            new HtmlColorSampleHsv(0, 0, 1),
+            new HtmlColorSampleCmy(0, 0, 0),
             new HtmlColorSampleCmyk(0, 0, 0, 0)
         );
 
