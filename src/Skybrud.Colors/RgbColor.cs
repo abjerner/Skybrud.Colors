@@ -118,6 +118,15 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
+        /// Converts the RGB color to an HSLA color.
+        /// </summary>
+        /// <returns>An instance of <see cref="HslaColor"/>.</returns>
+        public virtual HslaColor ToHsla() {
+            ColorUtils.RgbToHsl(Red, Green, Blue, out double hue, out double saturation, out double lightness);
+            return new HslaColor(hue, saturation, lightness, 1);
+        }
+
+        /// <summary>
         /// Converts the RGB color to an HSV color.
         /// </summary>
         /// <returns>An instance of <see cref="HsvColor"/>.</returns>

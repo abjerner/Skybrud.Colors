@@ -79,24 +79,47 @@ namespace Skybrud.Colors {
         /// Converts the HSL color to a RGB color.
         /// </summary>
         /// <returns>An instance of <see cref="RgbColor"/>.</returns>
-        public RgbColor ToRgb() {
-            return ColorHelpers.HslToRgb(this);
+        public virtual RgbColor ToRgb() {
+            return ColorUtils.HslToRgb(this);
         }
 
         /// <summary>
-        /// Returns a new <see cref="HslColor"/> with the same color as specified by the <see cref="Hue"/>,
-        /// <see cref="Saturation"/> and <see cref="Lightness"/> properties.
+        /// Converts the HSL color to a RGBA color.
+        /// </summary>
+        /// <returns>An instance of <see cref="RgbaColor"/>.</returns>
+        public virtual RgbaColor ToRgba() {
+            return ColorUtils.HslToRgba(this);
+        }
+
+        /// <summary>
+        /// Converts the HSL color to a HSL color.
         /// </summary>
         /// <returns>An instance of <see cref="HslColor"/>.</returns>
-        public HslColor ToHsl() {
+        public virtual HslColor ToHsl() {
             return new HslColor(Hue, Saturation, Lightness);
+        }
+
+        /// <summary>
+        /// Converts the HSL color to a HSLA color.
+        /// </summary>
+        /// <returns>An instance of <see cref="HslaColor"/>.</returns>
+        public virtual HslaColor ToHsla() {
+            return new HslaColor(Hue, Saturation, Lightness, 1);
+        }
+
+        /// <summary>
+        /// Converts the HSL color to a HSV color.
+        /// </summary>
+        /// <returns>An instance of <see cref="CmyColor"/>.</returns>
+        public virtual HsvColor ToHsv() {
+            return ColorUtils.HslToHsv(this);
         }
 
         /// <summary>
         /// Converts the HSL color to a CMY color.
         /// </summary>
         /// <returns>An instance of <see cref="CmyColor"/>.</returns>
-        public CmyColor ToCmy() {
+        public virtual CmyColor ToCmy() {
             return ToRgb().ToCmy();
         }
 
@@ -104,7 +127,7 @@ namespace Skybrud.Colors {
         /// Converts the HSL color to a CMYK color.
         /// </summary>
         /// <returns>An instance of <see cref="CmykColor"/>.</returns>
-        public CmykColor ToCmyk() {
+        public virtual CmykColor ToCmyk() {
             return ToRgb().ToCmyk();
         }
 
@@ -112,7 +135,7 @@ namespace Skybrud.Colors {
         /// Returns the HEX representation of the color.
         /// </summary>
         /// <returns>A HEX string representing the color.</returns>
-        public string ToHex() {
+        public virtual string ToHex() {
             return ToRgb().ToHex();
         }
 
@@ -120,7 +143,7 @@ namespace Skybrud.Colors {
         /// Returns the CSS representation of the color. The color will be expressed as <code>hsl(0, 0%, 0%)</code>.
         /// </summary>
         /// <returns>The CSS representation of the color.</returns>
-        public string ToCss() {
+        public virtual string ToCss() {
             return $"hsl({Math.Round(H * 360):0}, {Math.Round(S * 100):0}%, {Math.Round(L * 100):0}%)";
         }
 

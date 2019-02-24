@@ -72,6 +72,15 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
+        /// Converts the HSV color to a HSLA color.
+        /// </summary>
+        /// <returns>An instance of <see cref="HslaColor"/>.</returns>
+        public HslaColor ToHsla() {
+            ColorUtils.HsvToHsl(Hue, Saturation, Value, out double hh, out double ss, out double ll);
+            return new HslaColor(hh, ss, ll, 1);
+        }
+
+        /// <summary>
         /// Converts the HSV color to a HSV color.
         /// </summary>
         /// <returns>An instance of <see cref="HsvColor"/>.</returns>
