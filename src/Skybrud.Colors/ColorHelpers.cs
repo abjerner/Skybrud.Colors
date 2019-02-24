@@ -314,6 +314,8 @@ namespace Skybrud.Colors {
             Match m1 = Regex.Match(str, "^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$");
             Match m2 = Regex.Match(str, "^([0-9a-f]{1})([0-9a-f]{1})([0-9a-f]{1})$");
 
+            Match m3 = Regex.Match(str, "^hsl\\(([0-9]+), ([0-9]+)%, ([0-9]+)%\\)$");
+            
             if (m1.Success) {
                 Byte.TryParse(m1.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
                 Byte.TryParse(m1.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
@@ -327,6 +329,14 @@ namespace Skybrud.Colors {
                 Byte.TryParse(m2.Groups[2].Value + m2.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
                 Byte.TryParse(m2.Groups[3].Value + m2.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
                 color = new RgbColor(r, g, b);
+                return true;
+            }
+
+            if (m3.Success) {
+                float h = Int32.Parse(m3.Groups[1].Value) / 360f;
+                float s = Int32.Parse(m3.Groups[2].Value) / 100f;
+                float l = Int32.Parse(m3.Groups[3].Value) / 100f;
+                color = new HslColor(h, s, l);
                 return true;
             }
 

@@ -134,6 +134,39 @@ namespace Skybrud.Colors {
 
         #endregion
 
+        #region Static methods
+
+        /// <summary>
+        /// Parses the specified <paramref name="str"/> into an instance of <see cref="HslColor"/>.
+        /// </summary>
+        /// <param name="str">The string representing the color.</param>
+        /// <returns>An instance of <see cref="HslColor"/>.</returns>
+        public static HslColor Parse(string str) {
+            IColor color = ColorHelpers.Parse(str);
+            return color as HslColor ?? color.ToHsl();
+        }
+
+        /// <summary>
+        /// Attempts to parse the specified <paramref name="str"/> into an instance of <see cref="HslColor"/>.
+        /// </summary>
+        /// <param name="str">The input string to be parsed.</param>
+        /// <param name="color">An instance of <see cref="HslColor"/>.</param>
+        /// <returns><c>true</c> if <paramref name="str"/> was converted successfully; otherwise, <c>false</c>.</returns>
+        public static bool TryParse(string str, out HslColor color) {
+
+            color = null;
+
+            // Attempt to parse the input string
+            if (ColorHelpers.TryParse(str, out IColor result) == false) return false;
+
+            // Convert the color to RGB
+            color = result as HslColor ?? result.ToHsl();
+            return true;
+
+        }
+
+        #endregion
+
     }
 
 }

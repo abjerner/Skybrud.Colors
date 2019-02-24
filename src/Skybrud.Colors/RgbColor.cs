@@ -91,7 +91,7 @@ namespace Skybrud.Colors {
         #endregion
 
         #region Member methods
-        
+
         /// <summary>
         /// Returns a new <see cref="RgbColor"/> with the same color as specified by the <see cref="Red"/>,
         /// <see cref="Green"/> and <see cref="Blue"/> properties.
@@ -156,7 +156,7 @@ namespace Skybrud.Colors {
         public virtual string ToCss() {
             return "rgb(" + Red + ", " + Green + ", " + Blue + ")";
         }
-
+        
         /// <summary>
         /// Returns a string representation of the RGB color.
         /// </summary>
@@ -192,7 +192,7 @@ namespace Skybrud.Colors {
             if (!ColorHelpers.TryParse(str, out IColor result)) return false;
 
             // Convert the color to RGB
-            color = result.ToRgb();
+            color = result as RgbColor ?? result.ToRgb();
             return true;
 
         }

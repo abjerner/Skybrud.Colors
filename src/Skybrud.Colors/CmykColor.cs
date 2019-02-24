@@ -141,10 +141,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <returns>An instance of <see cref="CmyColor"/>.</returns>
         public CmyColor ToCmy() {
-            double c = (C * (1 - K) + K);
-            double m = (M * (1 - K) + K);
-            double y = (Y * (1 - K) + K);
-            return new CmyColor(c, m, y);
+            return ColorUtils.CmykToCmy(this);
         }
 
         /// <summary>
@@ -153,24 +150,6 @@ namespace Skybrud.Colors {
         /// <returns>An instance of <see cref="CmykColor"/>.</returns>
         public CmykColor ToCmyk() {
             return new CmykColor(C, M, Y, K);
-        }
-
-        /// <summary>
-        /// Increases the darkness of the color based on the specified <paramref name="percent"/>.
-        /// </summary>
-        /// <param name="percent">The amount of darkness (specified in percent) that should be added to the color.</param>
-        /// <returns>A new instance of <see cref="IColor"/>.</returns>
-        public IColor Darken(float percent) {
-            return ToHsl().Darken(percent);
-        }
-
-        /// <summary>
-        /// Increases the lightness of the color based on the specified <paramref name="percent"/>.
-        /// </summary>
-        /// <param name="percent">The amount of lightness (specified in percent) that should be added to the color.</param>
-        /// <returns>A new instance of <see cref="IColor"/>.</returns>
-        public IColor Lighten(float percent) {
-            return ToHsl().Lighten(percent);
         }
 
         /// <summary>

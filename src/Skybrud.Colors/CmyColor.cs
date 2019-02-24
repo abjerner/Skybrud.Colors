@@ -165,24 +165,6 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
-        /// Increases the darkness of the color based on the specified <paramref name="percent"/>.
-        /// </summary>
-        /// <param name="percent">The amount of darkness (specified in percent) that should be added to the color.</param>
-        /// <returns>A new instance of <see cref="IColor"/>.</returns>
-        public IColor Darken(float percent) {
-            return ToHsl().Darken(percent);
-        }
-
-        /// <summary>
-        /// Increases the lightness of the color based on the specified <paramref name="percent"/>.
-        /// </summary>
-        /// <param name="percent">The amount of lightness (specified in percent) that should be added to the color.</param>
-        /// <returns>Returns a new instance of <see cref="IColor"/>.</returns>
-        public IColor Lighten(float percent) {
-            return ToHsl().Lighten(percent);
-        }
-
-        /// <summary>
         /// Returns a string representation of the CMY color.
         /// </summary>
         /// <returns>A string representing the color.</returns>
