@@ -30,6 +30,12 @@
         HslColor ToHsl();
 
         /// <summary>
+        /// Converts the color to an instance of <see cref="HsvColor"/>.
+        /// </summary>
+        /// <returns>Returns an instance of <see cref="HsvColor"/>.</returns>
+        HsvColor ToHsv();
+
+        /// <summary>
         /// Converts the color to an instance of <see cref="CmyColor"/>.
         /// </summary>
         /// <returns>Returns an instance of <see cref="CmyColor"/>.</returns>

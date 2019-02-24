@@ -110,6 +110,14 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
+        /// Converts the RGB color to an HSV color.
+        /// </summary>
+        /// <returns>An instance of <see cref="HsvColor"/>.</returns>
+        public virtual HsvColor ToHsv() {
+            return ColorUtils.RgbToHsv(this);
+        }
+
+        /// <summary>
         /// Converts the RGB color to a CMY color.
         /// </summary>
         /// <returns>An instance of <see cref="CmyColor"/>.</returns>

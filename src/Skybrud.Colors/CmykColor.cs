@@ -121,6 +121,14 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
+        /// Converts the CMYK color to an instance of <see cref="HsvColor"/>.
+        /// </summary>
+        /// <returns>An instance of <see cref="HsvColor"/>.</returns>
+        public HsvColor ToHsv() {
+            return ToCmy().ToRgb().ToHsv();
+        }
+
+        /// <summary>
         /// Converts the CMYK color to an instance of <see cref="CmyColor"/>.
         /// </summary>
         /// <returns>An instance of <see cref="CmyColor"/>.</returns>

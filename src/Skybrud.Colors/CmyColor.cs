@@ -106,6 +106,14 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
+        /// Converts the CMY color to an instance of <see cref="HsvColor"/>.
+        /// </summary>
+        /// <returns>An instance of <see cref="HsvColor"/>.</returns>
+        public HsvColor ToHsv() {
+            return ToRgb().ToHsv();
+        }
+
+        /// <summary>
         /// Returns a new instance of the current CMY color.
         /// </summary>
         /// <returns>An instance of <see cref="CmyColor"/>.</returns>
