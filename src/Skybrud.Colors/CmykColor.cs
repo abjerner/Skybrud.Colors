@@ -4,7 +4,7 @@ namespace Skybrud.Colors {
 
     /// <summary>
     /// Class representing a color in the <strong>CMYK</strong> color model. CMYK stands for <em>cyan</em>,
-    /// <em>magenta</em>, <em>yellow</em> and <code>key</code> (black).
+    /// <em>magenta</em>, <em>yellow</em> and <em>key</em> (black).
     /// </summary>
     /// <see>
     ///     <cref>https://en.wikipedia.org/wiki/CMYK_color_model</cref>
@@ -16,22 +16,54 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Gets the amount of cyan in the color.
         /// </summary>
-        public double C { get; }
+        public double Cyan { get; set; }
 
         /// <summary>
         /// Gets the amount of magenta in the color.
         /// </summary>
-        public double M { get; }
+        public double Magenta { get; set; }
 
         /// <summary>
         /// Gets the amount of yellow in the color.
         /// </summary>
-        public double Y { get; }
+        public double Yellow { get; set; }
 
         /// <summary>
         /// Gets the amount of black (key) in the color.
         /// </summary>
-        public double K { get; }
+        public double Key { get; set; }
+
+        /// <summary>
+        /// Alias of <see cref="Cyan"/>.
+        /// </summary>
+        public double C {
+            get => Cyan;
+            set => Cyan = value;
+        }
+
+        /// <summary>
+        /// Alias of <see cref="Magenta"/>.
+        /// </summary>
+        public double M {
+            get => Magenta;
+            set => Magenta = value;
+        }
+
+        /// <summary>
+        /// Alias of <see cref="Yellow"/>.
+        /// </summary>
+        public double Y {
+            get => Yellow;
+            set => Yellow = value;
+        }
+
+        /// <summary>
+        /// Alias of <see cref="Key"/>.
+        /// </summary>
+        public double K {
+            get => Key;
+            set => Key = value;
+        }
 
         #endregion
 
@@ -45,10 +77,10 @@ namespace Skybrud.Colors {
         /// <param name="yellow">The amount of yellow in the color.</param>
         /// <param name="key">The amount of black (key) in the color.</param>
         public CmykColor(double cyan, double magenta, double yellow, double key) {
-            C = cyan;
-            M = magenta;
-            Y = yellow;
-            K = key;
+            Cyan = cyan;
+            Magenta = magenta;
+            Yellow = yellow;
+            Key = key;
         }
 
         #endregion

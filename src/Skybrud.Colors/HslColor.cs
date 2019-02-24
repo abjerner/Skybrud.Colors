@@ -17,34 +17,43 @@ namespace Skybrud.Colors {
         /// Gets the hue as a number between <c>0</c> and <c>1</c>. For the hue as the
         /// degrees of a circle, simply multiply by <c>360</c>.
         /// </summary>
-        public double Hue { get; private set; }
+        public double Hue { get; set; }
 
         /// <summary>
         /// Gets the saturation as a number between <c>0</c> and <c>1</c>. For the hue
         /// as percent, simply multiply by <c>100</c>.
         /// </summary>
-        public double Saturation { get; private set; }
+        public double Saturation { get; set; }
 
         /// <summary>
         /// Gets the lightness as a number between <c>0</c> and <c>1</c>. For the hue
         /// as percent, simply multiply by <c>100</c>.
         /// </summary>
-        public double Lightness { get; private set; }
+        public double Lightness { get; set; }
 
         /// <summary>
         /// Alias of <see cref="Hue"/>.
         /// </summary>
-        public double H => Hue;
+        public double H {
+            get => Hue;
+            set => Hue = value;
+        }
 
         /// <summary>
         /// Alias of <see cref="Saturation"/>.
         /// </summary>
-        public double S => Saturation;
+        public double S {
+            get => Saturation;
+            set => Saturation = value;
+        }
 
         /// <summary>
         /// Alias of <see cref="Lightness"/>.
         /// </summary>
-        public double L => Lightness;
+        public double L {
+            get => Lightness;
+            set => Lightness = value;
+        }
 
         #endregion
 

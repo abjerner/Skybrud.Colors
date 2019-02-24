@@ -11,19 +11,43 @@ namespace Skybrud.Colors {
         #region Properties
 
         /// <summary>
-        /// Gets the amount of cyan in the color.
+        /// Gets or sets the amount of cyan in the color.
         /// </summary>
-        public double C { get; }
+        public double Cyan { get; set; }
 
         /// <summary>
-        /// Gets the amount of magenta in the color.
+        /// Gets or sets the amount of magenta in the color.
         /// </summary>
-        public double M { get; }
+        public double Magenta { get; set; }
 
         /// <summary>
-        /// Gets the amount of yellow in the color.
+        /// Gets or sets the amount of yellow in the color.
         /// </summary>
-        public double Y { get; }
+        public double Yellow { get; set; }
+
+        /// <summary>
+        /// Alias of <see cref="Cyan"/>.
+        /// </summary>
+        public double C {
+            get => Cyan;
+            set => Cyan = value;
+        }
+
+        /// <summary>
+        /// Alias of <see cref="Magenta"/>.
+        /// </summary>
+        public double M {
+            get => Magenta;
+            set => Magenta = value;
+        }
+
+        /// <summary>
+        /// Alias of <see cref="Yellow"/>.
+        /// </summary>
+        public double Y {
+            get => Yellow;
+            set => Yellow = value;
+        }
 
         #endregion
 
@@ -36,9 +60,9 @@ namespace Skybrud.Colors {
         /// <param name="magenta">The amount of magenta in the color.</param>
         /// <param name="yellow">The amount of yellow in the color.</param>
         public CmyColor(double cyan, double magenta, double yellow) {
-            C = cyan;
-            M = magenta;
-            Y = yellow;
+            Cyan = cyan;
+            Magenta = magenta;
+            Yellow = yellow;
         }
 
         #endregion
