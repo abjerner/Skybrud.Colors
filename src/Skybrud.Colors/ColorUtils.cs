@@ -53,6 +53,61 @@ namespace Skybrud.Colors {
             return Math.Min(a, Math.Min(b, c));
         }
 
+        /// <summary>
+        /// Calculates the color compoment for when converting a HSL color to a RGB color.
+        /// </summary>
+        /// <param name="temp1"></param>
+        /// <param name="temp2"></param>
+        /// <param name="temp3"></param>
+        /// <returns>The color component.</returns>
+        private static double GetColorComponent(double temp1, double temp2, double temp3) {
+
+            // TODO: Needs documentation/references
+            
+            temp3 = MoveIntoRange(temp3);
+            if (temp3 < 1.0 / 6.0) return temp1 + (temp2 - temp1) * 6.0 * temp3;
+            if (temp3 < 0.5) return temp2;
+            if (temp3 < 2.0 / 3.0) return temp1 + ((temp2 - temp1) * ((2.0 / 3.0) - temp3) * 6.0);
+            return temp1;
+        
+        }
+
+        /// <summary>
+        /// Method used internally for when converting a HSL color to a RGB color.
+        /// </summary>
+        private static double MoveIntoRange(double temp3) {
+
+            // TODO: Needs documentation/references
+
+            if (temp3 < 0.0) {
+                temp3 += 1.0;
+            } else if (temp3 > 1.0) {
+                temp3 -= 1.0;
+            }
+                
+            return temp3;
+        
+        }
+
+        /// <summary>
+        /// Method used internally for when converting a HSL color to a RGB color.
+        /// </summary>
+        private static double GetTemp2(double saturation, double lightness) {
+
+            // TODO: Needs documentation/references
+            
+            double temp2;
+
+            if (lightness < 0.5) {
+                temp2 = lightness * (1.0 + saturation);
+            } else  {
+                temp2 = lightness + saturation - (lightness * saturation);
+            }
+            
+            return temp2;
+        
+        }
+
         #endregion
 
         #region CMY -> CMYK
@@ -99,6 +154,507 @@ namespace Skybrud.Colors {
         public static CmykColor CmyToCmyk(double cyan, double magenta, double yellow) {
             CmyToCmyk(cyan, magenta, yellow, out double c, out double m, out double y, out double k);
             return new CmykColor(c, m, y, k);
+        }
+
+        /// <summary>
+        /// Converts a <strong>CMY</strong> color to the corresponding <strong>CMYK</strong> color.
+        /// </summary>
+        /// <param name="cmy">The CMY color.</param>
+        /// <returns>An instance of <see cref="CmykColor"/> representing the CMYK color.</returns>
+        public static CmykColor CmyToCmyk(CmyColor cmy) {
+            CmyToCmyk(cmy.Cyan, cmy.Magenta, cmy.Yellow, out double c, out double m, out double y, out double k);
+            return new CmykColor(c, m, y, k);
+        }
+
+        #endregion
+
+        #region CMY -> RGB
+
+        public static void CmyToRgb(double cyan, double magenta, double yellow, out byte r, out byte g, out byte b) {
+            r = Convert.ToByte((1 - cyan) * 255d);
+            g = Convert.ToByte((1 - magenta) * 255d);
+            b = Convert.ToByte((1 - yellow) * 255d);
+        }
+
+        public static RgbColor CmyToRgb(double cyan, double magenta, double yellow) {
+            byte r = Convert.ToByte((1 - cyan) * 255d);
+            byte g = Convert.ToByte((1 - magenta) * 255d);
+            byte b = Convert.ToByte((1 - yellow) * 255d);
+            return new RgbColor(r, g, b);
+        }
+
+        public static RgbColor CmyToRgb(CmyColor cmy) {
+            return CmyToRgb(cmy.Cyan, cmy.Magenta, cmy.Yellow);
+        }
+
+        #endregion
+
+        #region CMYK -> CMY
+
+        /// <summary>
+        /// Converts a <strong>CMYK</strong> color to the corresponding <strong>CMY</strong> color.
+        /// </summary>
+        /// <param name="cyan">The cyan in the CMYK color.</param>
+        /// <param name="magenta">The magenta in the CMYK color.</param>
+        /// <param name="yellow">The yellow in the CMYK color.</param>
+        /// <param name="key">The key in the CMYK color.</param>
+        /// <param name="c">The cyan in the CMY color.</param>
+        /// <param name="m">The magenta in the CMY color.</param>
+        /// <param name="y">The yellow in the CMY color.</param>
+        public static void CmykToCmy(double cyan, double magenta, double yellow, double key, out double c, out double m, out double y) {
+            c = cyan * (1 - key) + key;
+            m = magenta * (1 - key) + key;
+            y = yellow * (1 - key) + key;
+        }
+
+        /// <summary>
+        /// Converts a <strong>CMYK</strong> color to the corresponding <strong>CMY</strong> color.
+        /// </summary>
+        /// <param name="cyan">The cyan in the CMYK color.</param>
+        /// <param name="magenta">The magenta in the CMYK color.</param>
+        /// <param name="yellow">The yellow in the CMYK color.</param>
+        /// <param name="key">The key in the CMYK color.</param>
+        /// <returns>An instance of <see cref="CmyColor"/> representing the CMY color.</returns>
+        public static CmyColor CmykToCmy(double cyan, double magenta, double yellow, double key) {
+            CmykToCmy(cyan, magenta, yellow, key, out double c, out double m, out double y);
+            return new CmyColor(c, m, y);
+        }
+
+        /// <summary>
+        /// Converts a <strong>CMYK</strong> color to the corresponding <strong>CMY</strong> color.
+        /// </summary>
+        /// <param name="cmyk">The CMYK color.</param>
+        /// <returns>An instance of <see cref="CmyColor"/> representing the CMY color.</returns>
+        public static CmyColor CmykToCmy(CmykColor cmyk) {
+            CmykToCmy(cmyk.Cyan, cmyk.Magenta, cmyk.Yellow, cmyk.Key, out double c, out double m, out double y);
+            return new CmyColor(c, m, y);
+        }
+
+        #endregion
+
+        #region CMYK -> RGB
+
+        public static void CmykToRgb(double cyan, double magenta, double yellow, double key, out byte r, out byte g, out byte b) {
+            CmykToCmy(cyan, magenta, yellow, key, out double c, out double m, out double y);
+            CmyToRgb(c, m, y, out r, out g, out b);
+        }
+
+        public static RgbColor CmykToRgb(double cyan, double magenta, double yellow, double key) {
+            CmykToCmy(cyan, magenta, yellow, key, out double c, out double m, out double y);
+            CmyToRgb(c, m, y, out byte r, out byte g, out byte b);
+            return new RgbColor(r, g, b);
+        }
+
+        public static RgbColor CmykToRgb(CmykColor cmyk) {
+            return CmykToRgb(cmyk.Cyan, cmyk.Magenta, cmyk.Yellow, cmyk.Key);
+        }
+
+        #endregion
+
+        #region HSL -> CMY
+
+        /// <summary>
+        /// Converts a <strong>HSL</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="lightness"/> to the corresponding <strong>CMY</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSL color.</param>
+        /// <param name="saturation">The saturation of the HSL color.</param>
+        /// <param name="lightness">The lightness of the HSL color.</param>
+        /// <param name="c">The cyan of the CMY color.</param>
+        /// <param name="m">The magenta of the CMY color.</param>
+        /// <param name="y">The yellow of the CMY color.</param>
+        public static void HslToCmy(double hue, double saturation, double lightness, out double c, out double m, out double y) {
+            HslToRgb(hue, saturation, lightness, out int r, out int g, out int b);
+            RgbToCmy(r, g, b, out c, out m, out y);
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSL</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="lightness"/> to the corresponding <strong>CMY</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSL color.</param>
+        /// <param name="saturation">The saturation of the HSL color.</param>
+        /// <param name="lightness">The lightness of the HSL color.</param>
+        /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
+        public static CmyColor HslToCmy(double hue, double saturation, double lightness) {
+            HslToRgb(hue, saturation, lightness, out int r, out int g, out int b);
+            RgbToCmy(r, g, b, out double c, out double m, out double y);
+            return new CmyColor(c, m, y);
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSL</strong> color to the corresponding <strong>CMY</strong> color.
+        /// </summary>
+        /// <param name="hsl">The HSL color.</param>
+        /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
+        public static CmyColor HslToCmy(HslColor hsl) {
+            HslToRgb(hsl.Hue, hsl.Saturation, hsl.Lightness, out int r, out int g, out int b);
+            RgbToCmy(r, g, b, out double c, out double m, out double y);
+            return new CmyColor(c, m, y);
+        }
+
+        #endregion
+
+        #region HSL -> CMYK
+
+        /// <summary>
+        /// Converts a <strong>HSL</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="lightness"/> to the corresponding <strong>CMYK</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSL color.</param>
+        /// <param name="saturation">The saturation of the HSL color.</param>
+        /// <param name="lightness">The lightness of the HSL color.</param>
+        /// <param name="c">The cyan of the CMY color.</param>
+        /// <param name="m">The magenta of the CMY color.</param>
+        /// <param name="y">The yellow of the CMY color.</param>
+        /// <param name="k">The key of the CMY color.</param>
+        public static void HslToCmyk(double hue, double saturation, double lightness, out double c, out double m, out double y, out double k) {
+            HslToRgb(hue, saturation, lightness, out int r, out int g, out int b);
+            RgbToCmyk(r, g, b, out c, out m, out y, out k);
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="lightness"/> to the corresponding <strong>CMYK</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSL color.</param>
+        /// <param name="saturation">The saturation of the HSL color.</param>
+        /// <param name="lightness">The lightness of the HSL color.</param>
+        /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
+        public static CmykColor HslToCmyk(double hue, double saturation, double lightness) {
+            HslToRgb(hue, saturation, lightness, out int r, out int g, out int b);
+            RgbToCmyk(r, g, b, out double c, out double m, out double y, out double k);
+            return new CmykColor(c, m, y, k);
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSL</strong> color to the corresponding <strong>CMYK</strong> color.
+        /// </summary>
+        /// <param name="hsl">The HSL color.</param>
+        /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
+        public static CmykColor HslToCmyk(HslColor hsl) {
+            HslToRgb(hsl.Hue, hsl.Saturation, hsl.Lightness, out int r, out int g, out int b);
+            RgbToCmyk(r, g, b, out double c, out double m, out double y, out double k);
+            return new CmykColor(c, m, y, k);
+        }
+
+        #endregion
+
+        #region HSL -> HSV
+
+        /// <summary>
+        /// Converts a <strong>HSL</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="lightness"/> to the corresponding <strong>HSV</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSL color.</param>
+        /// <param name="saturation">The saturation of the HSL color.</param>
+        /// <param name="lightness">The lightness of the HSL color.</param>
+        /// <param name="h">The hue of the HSV color.</param>
+        /// <param name="s">The saturation of the HSV color.</param>
+        /// <param name="v">The value of the HSV color.</param>
+        public static void HslToHsv(double hue, double saturation, double lightness, out double h, out double s, out double v) {
+
+            // TODO: Needs documentation/references
+
+            h = hue;
+            lightness = lightness * 2;
+            saturation = saturation * (lightness <= 1d ? lightness : 2d - lightness);
+            v = (lightness + saturation) / 2d;
+            s = (2d * saturation) / (lightness + saturation);
+
+            if (Double.IsNaN(s)) s = 0;
+
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSL</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="lightness"/> to the corresponding <strong>HSV</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSL color.</param>
+        /// <param name="saturation">The saturation of the HSL color.</param>
+        /// <param name="lightness">The lightness of the HSL color.</param>
+        /// <returns>An instance of <see cref="HsvColor"/> representing the HSV color.</returns>
+        public static HsvColor HslToHsv(double hue, double saturation, double lightness) {
+            HslToHsv(hue, saturation, lightness, out double h, out double s, out double v);
+            return new HsvColor(h, s, v);
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSL</strong> color to the corresponding <strong>HSV</strong> color.
+        /// </summary>
+        /// <param name="hsl">The HSL color.</param>
+        /// <returns>An instance of <see cref="HsvColor"/> representing the HSV color.</returns>
+        public static HsvColor HslToHsv(HslColor hsl) {
+            HslToHsv(hsl.Hue, hsl.Saturation, hsl.Lightness, out double h, out double s, out double v);
+            return new HsvColor(h, s, v);
+        }
+
+        #endregion
+
+        #region HSL -> RGB
+
+        /// <summary>
+        /// Converts an HSL color to a RGB color.
+        /// </summary>
+        /// <param name="hue">The amount of hue in the HSL color.</param>
+        /// <param name="saturation">The amount of saturation in the HSL color.</param>
+        /// <param name="lightness">The amount of lightness in the HSL color.</param>
+        /// <param name="red">The amount of red in the RGB color.</param>
+        /// <param name="green">The amount of green in the RGB color.</param>
+        /// <param name="blue">The amount of blue in the RGB color.</param>
+        public static void HslToRgb(double hue, double saturation, double lightness, out int red, out int green, out int blue) {
+
+            // TODO: Needs documentation/references
+
+            double r = 0, g = 0, b = 0;
+            if (Math.Abs(lightness) > Double.Epsilon) {
+                if (Math.Abs(saturation) < Double.Epsilon) {
+                    r = g = b = lightness;
+                } else {
+                    double temp2 = GetTemp2(saturation, lightness);
+                    double temp1 = 2.0 * lightness - temp2;
+                    r = GetColorComponent(temp1, temp2, hue + 1.0 / 3.0);
+                    g = GetColorComponent(temp1, temp2, hue);
+                    b = GetColorComponent(temp1, temp2, hue - 1.0 / 3.0);
+                }
+            }
+
+            // Convert from 0-1 to 0-255
+            red = (int) Math.Round(r * 255);
+            green = (int) Math.Round(g * 255);
+            blue = (int) Math.Round(b * 255);
+
+        }
+
+        /// <summary>
+        /// Converts an HSL color to a RGB color.
+        /// </summary>
+        /// <param name="hue">The amount of hue in the HSL color.</param>
+        /// <param name="saturation">The amount of saturation in the HSL color.</param>
+        /// <param name="lightness">The amount of lightness in the HSL color.</param>
+        /// <returns>An instance of <see cref="RgbColor"/> representing the RGB color.</returns>
+        public static RgbColor HslToRgb(double hue, double saturation, double lightness) {
+            HslToRgb(hue, saturation, lightness, out int red, out int green, out int blue);
+            return new RgbColor(red, green, blue);
+        }
+
+        /// <summary>
+        /// Converts the specified <see cref="HslColor"/> to a RGB color.
+        /// </summary>
+        /// <param name="hsl">The instance of <see cref="HslColor"/> to be converted.</param>
+        /// <param name="red">The amount of red in the RGB color.</param>
+        /// <param name="green">The amount of green in the RGB color.</param>
+        /// <param name="blue">The amount of blue in the RGB color.</param>
+        public static void HslToRgb(HslColor hsl, out int red, out int green, out int blue) {
+            HslToRgb(hsl.Hue, hsl.Saturation, hsl.Lightness, out red, out green, out blue);
+        }
+        
+        /// <summary>
+        /// Converts an instance of <see cref="HslColor"/> to an instance of <see cref="RgbColor"/>.
+        /// </summary>
+        /// <param name="hsl">The <see cref="HslColor"/> to be converted.</param>
+        /// <returns>An instance of <see cref="RgbColor"/>.</returns>
+        public static RgbColor HslToRgb(HslColor hsl) {
+            return HslToRgb(hsl.Hue, hsl.Saturation, hsl.Lightness);
+        }
+
+        #endregion
+
+        #region HSV -> CMY
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="value"/> to the corresponding <strong>CMY</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSV color.</param>
+        /// <param name="saturation">The saturation of the HSV color.</param>
+        /// <param name="value">The value of the HSV color.</param>
+        /// <param name="c">The cyan of the CMY color.</param>
+        /// <param name="m">The magenta of the CMY color.</param>
+        /// <param name="y">The yellow of the CMY color.</param>
+        public static void HsvToCmy(double hue, double saturation, double value, out double c, out double m, out double y) {
+            HsvToRgb(hue, saturation, value, out int r, out int g, out int b);
+            RgbToCmy(r, g, b, out c, out m, out y);
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="value"/> to the corresponding <strong>CMY</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSV color.</param>
+        /// <param name="saturation">The saturation of the HSV color.</param>
+        /// <param name="value">The value of the HSV color.</param>
+        /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
+        public static CmyColor HsvToCmy(double hue, double saturation, double value) {
+            HsvToRgb(hue, saturation, value, out int r, out int g, out int b);
+            RgbToCmy(r, g, b, out double c, out double m, out double y);
+            return new CmyColor(c, m, y);
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color to the corresponding <strong>CMY</strong> color.
+        /// </summary>
+        /// <param name="hsv">The HSV color.</param>
+        /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
+        public static CmyColor HsvToCmy(HsvColor hsv) {
+            HsvToRgb(hsv.Hue, hsv.Saturation, hsv.Value, out int r, out int g, out int b);
+            RgbToCmy(r, g, b, out double c, out double m, out double y);
+            return new CmyColor(c, m, y);
+        }
+
+        #endregion
+
+        #region HSV -> CMYK
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="value"/> to the corresponding <strong>CMYK</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSV color.</param>
+        /// <param name="saturation">The saturation of the HSV color.</param>
+        /// <param name="value">The value of the HSV color.</param>
+        /// <param name="c">The cyan of the CMY color.</param>
+        /// <param name="m">The magenta of the CMY color.</param>
+        /// <param name="y">The yellow of the CMY color.</param>
+        /// <param name="k">The key of the CMY color.</param>
+        public static void HsvToCmyk(double hue, double saturation, double value, out double c, out double m, out double y, out double k) {
+            HsvToRgb(hue, saturation, value, out int r, out int g, out int b);
+            RgbToCmyk(r, g, b, out c, out m, out y, out k);
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="value"/> to the corresponding <strong>CMYK</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSV color.</param>
+        /// <param name="saturation">The saturation of the HSV color.</param>
+        /// <param name="value">The value of the HSV color.</param>
+        /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
+        public static CmykColor HsvToCmyk(double hue, double saturation, double value) {
+            HsvToRgb(hue, saturation, value, out int r, out int g, out int b);
+            RgbToCmyk(r, g, b, out double c, out double m, out double y, out double k);
+            return new CmykColor(c, m, y, k);
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color to the corresponding <strong>CMYK</strong> color.
+        /// </summary>
+        /// <param name="hsv">The HSV color.</param>
+        /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
+        public static CmykColor HsvToCmyk(HsvColor hsv) {
+            HsvToRgb(hsv.Hue, hsv.Saturation, hsv.Value, out int r, out int g, out int b);
+            RgbToCmyk(r, g, b, out double c, out double m, out double y, out double k);
+            return new CmykColor(c, m, y, k);
+        }
+
+        #endregion
+
+        #region HSV -> HSL
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="value"/> to the corresponding <strong>HSL</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSV color.</param>
+        /// <param name="saturation">The saturation of the HSV color.</param>
+        /// <param name="value">The value of the HSV color.</param>
+        /// <param name="h">The hue of the HSL color.</param>
+        /// <param name="s">The saturation of the HSL color.</param>
+        /// <param name="l">The lightness of the HSL color.</param>
+        public static void HsvToHsl(double hue, double saturation, double value, out double h, out double s, out double l) {
+
+            // TODO: Needs documentation/references
+
+            h = hue;
+            l = (2d - saturation) * value;
+            s = saturation * value;
+            s = s / ((l <= 1) ? (l) : 2d - (l));
+
+            if (Double.IsNaN(s)) {
+                s = 0;
+            }
+
+            l = l / 2f;
+
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="value"/> to the corresponding <strong>HSL</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSV color.</param>
+        /// <param name="saturation">The saturation of the HSV color.</param>
+        /// <param name="value">The value of the HSV color.</param>
+        /// <returns>An instance of <see cref="HslColor"/> representing the HSL color.</returns>
+        public static HslColor HsvToHsl(double hue, double saturation, double value) {
+            HsvToHsl(hue, saturation, value, out double h, out double s, out double l);
+            return new HslColor(h, s, l);
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color to the corresponding <strong>HSL</strong> color.
+        /// </summary>
+        /// <param name="hsv">The HSV color.</param>
+        /// <returns>An instance of <see cref="HslColor"/> representing the HSL color.</returns>
+        public static HslColor HsvToHsl(HsvColor hsv) {
+            HsvToHsl(hsv.Hue, hsv.Saturation, hsv.Value, out double h, out double s, out double l);
+            return new HslColor(h, s, l);
+        }
+
+        #endregion
+
+        #region HSV -> RGB
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="value"/> to the corresponding <strong>RGB</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSV color.</param>
+        /// <param name="saturation">The saturation of the HSV color.</param>
+        /// <param name="value">The value of the HSV color.</param>
+        /// <param name="red">The red of the RGB color.</param>
+        /// <param name="green">The green of the RGB color.</param>
+        /// <param name="blue">The blue of the RGB color.</param>
+        public static void HsvToRgb(double hue, double saturation, double value, out double red, out double green, out double blue) {
+
+            // Convert from HSV to HSL
+            HsvToHsl(hue, saturation, value, out double hh, out double ss, out double ll);
+
+            // Convert from HSL to RGB
+            HslToRgb(hh, ss, ll, out int r, out int g, out int b);
+            // TODO: Calculate to "double" instead of "int"
+
+            red = r;
+            green= g;
+            blue = b;
+
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="value"/> to the corresponding <strong>RGB</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSV color.</param>
+        /// <param name="saturation">The saturation of the HSV color.</param>
+        /// <param name="value">The value of the HSV color.</param>
+        /// <param name="red">The red of the RGB color.</param>
+        /// <param name="green">The green of the RGB color.</param>
+        /// <param name="blue">The blue of the RGB color.</param>
+        public static void HsvToRgb(double hue, double saturation, double value, out int red, out int green, out int blue) {
+
+            // Convert from HSV to HSL
+            HsvToHsl(hue, saturation, value, out double hh, out double ss, out double ll);
+
+            // Convert from HSL to RGB
+            HslToRgb(hh, ss, ll, out red, out green, out blue);
+
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="value"/> to the corresponding <strong>RGB</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSV color.</param>
+        /// <param name="saturation">The saturation of the HSV color.</param>
+        /// <param name="value">The value of the HSV color.</param>
+        /// <returns>An instance of <see cref="RgbColor"/> representing the RGB.</returns>
+        public static RgbColor HsvToRgb(double hue, double saturation, double value) {
+            HsvToRgb(hue, saturation, value, out double red, out double green, out double blue);
+            return new RgbColor(red, green, blue);
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color to the corresponding <strong>RGB</strong> color.
+        /// </summary>
+        /// <param name="hsv">The HSV color.</param>
+        /// <returns>An instance of <see cref="RgbColor"/> representing the RGB color.</returns>
+        public static RgbColor HsvToRgb(HsvColor hsv) {
+            return HsvToRgb(hsv.Hue, hsv.Saturation, hsv.Value);
         }
 
         #endregion
@@ -334,6 +890,27 @@ namespace Skybrud.Colors {
         public static HslColor RgbToHsl(RgbColor rgb) {
             RgbToHsl(rgb.Red, rgb.Green, rgb.Blue, out double h, out double s, out double l);
             return new HslColor(h, s, l);
+        }
+
+        #endregion
+
+        #region RGB -> HSV
+
+        public static void RgbToHsv(int red, int green, int blue, out double h, out double s, out double v) {
+            RgbToHsl(red, green, blue, out double hue, out double saturation, out double lightness);
+            HslToHsv(hue, saturation, lightness, out h, out s, out v);
+        }
+
+        public static HsvColor RgbToHsv(int red, int green, int blue) {
+            RgbToHsl(red, green, blue, out double hue, out double saturation, out double lightness);
+            HslToHsv(hue, saturation, lightness, out double h, out double s, out double v);
+            return new HsvColor(h, s, v);
+        }
+
+        public static HsvColor RgbToHsv(RgbColor rgb) {
+            RgbToHsl(rgb.Red, rgb.Green, rgb.Blue, out double hue, out double saturation, out double lightness);
+            HslToHsv(hue, saturation, lightness, out double h, out double s, out double v);
+            return new HsvColor(h, s, v);
         }
 
         #endregion
