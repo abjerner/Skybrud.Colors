@@ -97,15 +97,23 @@ namespace Skybrud.Colors {
         /// <see cref="Green"/> and <see cref="Blue"/> properties.
         /// </summary>
         /// <returns>A new instance of <see cref="RgbColor"/>.</returns>
-        public RgbColor ToRgb() {
+        public virtual RgbColor ToRgb() {
             return new RgbColor(Red, Green, Blue);
+        }
+
+        /// <summary>
+        /// Converts the RGB color to a RGBA color.
+        /// </summary>
+        /// <returns>An instance of <see cref="RgbaColor"/>.</returns>
+        public virtual RgbaColor ToRgba() {
+            return new RgbaColor(R, G, B, 1);
         }
 
         /// <summary>
         /// Converts the RGB color to an HSL color.
         /// </summary>
         /// <returns>An instance of <see cref="HslColor"/>.</returns>
-        public HslColor ToHsl() {
+        public virtual HslColor ToHsl() {
             return ColorUtils.RgbToHsl(this);
         }
 
@@ -121,7 +129,7 @@ namespace Skybrud.Colors {
         /// Converts the RGB color to a CMY color.
         /// </summary>
         /// <returns>An instance of <see cref="CmyColor"/>.</returns>
-        public CmyColor ToCmy() {
+        public virtual CmyColor ToCmy() {
             return ColorUtils.RgbToCmy(this);
         }
 
@@ -129,7 +137,7 @@ namespace Skybrud.Colors {
         /// Converts the RGB color to a CMYK color.
         /// </summary>
         /// <returns>An instance of <see cref="CmykColor"/>.</returns>
-        public CmykColor ToCmyk() {
+        public virtual CmykColor ToCmyk() {
             return ColorUtils.RgbToCmyk(this);
         }
 
@@ -137,7 +145,7 @@ namespace Skybrud.Colors {
         /// Returns the HEX representation of the color.
         /// </summary>
         /// <returns>A HEX string representing the color.</returns>
-        public string ToHex() {
+        public virtual string ToHex() {
             return "#" + Red.ToString("x").PadLeft(2, '0') + Green.ToString("x").PadLeft(2, '0') + Blue.ToString("x").PadLeft(2, '0');
         }
 
@@ -145,7 +153,7 @@ namespace Skybrud.Colors {
         /// Returns the CSS representation of the color. The color will be expressed as <code>rgb(0, 0, 0)</code>.
         /// </summary>
         /// <returns>The CSS representation of the color.</returns>
-        public string ToCss() {
+        public virtual string ToCss() {
             return "rgb(" + Red + ", " + Green + ", " + Blue + ")";
         }
 

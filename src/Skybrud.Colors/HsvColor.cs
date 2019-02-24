@@ -88,6 +88,14 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
+        /// Converts the HSV color to a RGBA color.
+        /// </summary>
+        /// <returns>An instance of <see cref="RgbaColor"/>.</returns>
+        public RgbaColor ToRgba() {
+            return ColorUtils.HsvToRgba(this);
+        }
+
+        /// <summary>
         /// Returns the HEX representation of the color.
         /// </summary>
         /// <returns>A HEX string representing the color.</returns>

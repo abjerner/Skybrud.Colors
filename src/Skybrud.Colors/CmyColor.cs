@@ -98,6 +98,17 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
+        /// Converts the CMY color to an instance of <see cref="RgbaColor"/>.
+        /// </summary>
+        /// <returns>An instance of <see cref="RgbaColor"/>.</returns>
+        public RgbaColor ToRgba() {
+            double r = (1 - C) * 255d;
+            double g = (1 - M) * 255d;
+            double b = (1 - Y) * 255d;
+            return new RgbaColor(r, g, b, 1);
+        }
+
+        /// <summary>
         /// Converts the CMY color to an instance of <see cref="HslColor"/>.
         /// </summary>
         /// <returns>An instance of <see cref="HslColor"/>.</returns>

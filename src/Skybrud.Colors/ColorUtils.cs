@@ -454,6 +454,58 @@ namespace Skybrud.Colors {
 
         #endregion
 
+        #region HSL -> RGBA
+
+        /// <summary>
+        /// Converts an HSL color to a RGB color.
+        /// </summary>
+        /// <param name="hue">The amount of hue in the HSL color.</param>
+        /// <param name="saturation">The amount of saturation in the HSL color.</param>
+        /// <param name="lightness">The amount of lightness in the HSL color.</param>
+        /// <param name="red">The amount of red in the RGBA color.</param>
+        /// <param name="green">The amount of green in the RGBA color.</param>
+        /// <param name="blue">The amount of blue in the RGBA color.</param>
+        /// <param name="alpha">The amount of opacity in the RGBA color.</param>
+        public static void HslToRgba(double hue, double saturation, double lightness, out int red, out int green, out int blue, out float alpha) {
+            HslToRgb(hue, saturation, lightness, out red, out green, out blue);
+            alpha = 1;
+        }
+
+        /// <summary>
+        /// Converts an HSL color to a RGBA color.
+        /// </summary>
+        /// <param name="hue">The amount of hue in the HSL color.</param>
+        /// <param name="saturation">The amount of saturation in the HSL color.</param>
+        /// <param name="lightness">The amount of lightness in the HSL color.</param>
+        /// <returns>An instance of <see cref="RgbaColor"/> representing the RGBA color.</returns>
+        public static RgbaColor HslToRgba(double hue, double saturation, double lightness) {
+            HslToRgba(hue, saturation, lightness, out int red, out int green, out int blue, out float alpha);
+            return new RgbaColor(red, green, blue, alpha);
+        }
+
+        /// <summary>
+        /// Converts the specified <see cref="HslColor"/> to a RGBA color.
+        /// </summary>
+        /// <param name="hsl">The instance of <see cref="HslColor"/> to be converted.</param>
+        /// <param name="red">The amount of red in the RGB color.</param>
+        /// <param name="green">The amount of green in the RGB color.</param>
+        /// <param name="blue">The amount of blue in the RGB color.</param>
+        /// <param name="alpha">The amount of opacity in the RGBA color.</param>
+        public static void HslToRgba(HslColor hsl, out int red, out int green, out int blue, out float alpha) {
+            HslToRgba(hsl.Hue, hsl.Saturation, hsl.Lightness, out red, out green, out blue, out alpha);
+        }
+
+        /// <summary>
+        /// Converts an instance of <see cref="HslColor"/> to an instance of <see cref="RgbaColor"/>.
+        /// </summary>
+        /// <param name="hsl">The <see cref="HslColor"/> to be converted.</param>
+        /// <returns>An instance of <see cref="RgbaColor"/>.</returns>
+        public static RgbaColor HslToRgba(HslColor hsl) {
+            return HslToRgba(hsl.Hue, hsl.Saturation, hsl.Lightness);
+        }
+
+        #endregion
+
         #region HSV -> CMY
 
         /// <summary>
@@ -655,6 +707,76 @@ namespace Skybrud.Colors {
         /// <returns>An instance of <see cref="RgbColor"/> representing the RGB color.</returns>
         public static RgbColor HsvToRgb(HsvColor hsv) {
             return HsvToRgb(hsv.Hue, hsv.Saturation, hsv.Value);
+        }
+
+        #endregion
+
+        #region HSV -> RGBA
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="value"/> to the corresponding <strong>RGBA</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSV color.</param>
+        /// <param name="saturation">The saturation of the HSV color.</param>
+        /// <param name="value">The value of the HSV color.</param>
+        /// <param name="red">The red of the RGBA color.</param>
+        /// <param name="green">The green of the RGBA color.</param>
+        /// <param name="blue">The blue of the RGBA color.</param>
+        /// <param name="alpha">The amount of opacity in the RGBA color.</param>
+        public static void HsvToRgba(double hue, double saturation, double value, out double red, out double green, out double blue, out float alpha) {
+
+            // Convert from HSV to HSL
+            HsvToHsl(hue, saturation, value, out double hh, out double ss, out double ll);
+
+            // Convert from HSL to RGB
+            HslToRgba(hh, ss, ll, out int r, out int g, out int b, out alpha);
+            // TODO: Calculate to "double" instead of "int"
+
+            red = r;
+            green= g;
+            blue = b;
+
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="value"/> to the corresponding <strong>RGBA</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSV color.</param>
+        /// <param name="saturation">The saturation of the HSV color.</param>
+        /// <param name="value">The value of the HSV color.</param>
+        /// <param name="red">The red of the RGBA color.</param>
+        /// <param name="green">The green of the RGBA color.</param>
+        /// <param name="blue">The blue of the RGBA color.</param>
+        /// <param name="alpha">The amount of opacity in the RGBA color.</param>
+        public static void HsvToRgba(double hue, double saturation, double value, out int red, out int green, out int blue, out float alpha) {
+
+            // Convert from HSV to HSL
+            HsvToHsl(hue, saturation, value, out double hh, out double ss, out double ll);
+
+            // Convert from HSL to RGBA
+            HslToRgba(hh, ss, ll, out red, out green, out blue, out alpha);
+
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="value"/> to the corresponding <strong>RGBA</strong> color.
+        /// </summary>
+        /// <param name="hue">The hue of the HSV color.</param>
+        /// <param name="saturation">The saturation of the HSV color.</param>
+        /// <param name="value">The value of the HSV color.</param>
+        /// <returns>An instance of <see cref="RgbaColor"/> representing the RGBA color.</returns>
+        public static RgbaColor HsvToRgba(double hue, double saturation, double value) {
+            HsvToRgba(hue, saturation, value, out double red, out double green, out double blue, out float aplha);
+            return new RgbaColor(red, green, blue, aplha);
+        }
+
+        /// <summary>
+        /// Converts a <strong>HSV</strong> color to the corresponding <strong>RGBA</strong> color.
+        /// </summary>
+        /// <param name="hsv">The HSV color.</param>
+        /// <returns>An instance of <see cref="RgbaColor"/> representing the RGB color.</returns>
+        public static RgbaColor HsvToRgba(HsvColor hsv) {
+            return HsvToRgba(hsv.Hue, hsv.Saturation, hsv.Value);
         }
 
         #endregion

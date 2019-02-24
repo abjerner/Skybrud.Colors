@@ -24,6 +24,12 @@
         RgbColor ToRgb();
 
         /// <summary>
+        /// Converts the color to an instance of <see cref="RgbaColor"/>.
+        /// </summary>
+        /// <returns>Returns an instance of <see cref="RgbaColor"/>.</returns>
+        RgbaColor ToRgba();
+
+        /// <summary>
         /// Converts the color to an instance of <see cref="HslColor"/>.
         /// </summary>
         /// <returns>Returns an instance of <see cref="HslColor"/>.</returns>

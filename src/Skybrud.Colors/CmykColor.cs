@@ -113,6 +113,14 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
+        /// Converts the CMYK color to an instance of <see cref="RgbaColor"/>.
+        /// </summary>
+        /// <returns>An instance of <see cref="RgbaColor"/>.</returns>
+        public RgbaColor ToRgba() {
+            return ToCmy().ToRgba();
+        }
+
+        /// <summary>
         /// Converts the CMYK color to an instance of <see cref="HslColor"/>.
         /// </summary>
         /// <returns>An instance of <see cref="HslColor"/>.</returns>
