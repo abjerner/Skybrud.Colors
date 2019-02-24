@@ -109,28 +109,6 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
-        /// Increases the darkness of the color based on the specified <paramref name="percent"/>.
-        /// </summary>
-        /// <param name="percent">The amount of darkness (specified in percent) that should be added to the color.</param>
-        /// <returns>A new instance of <see cref="IColor"/>.</returns>
-        public IColor Darken(float percent) {
-            double l = Lightness;
-            l -= percent / 100f;
-            return new HslColor(Hue, Saturation, Math.Min(1, l));
-        }
-
-        /// <summary>
-        /// Increases the lightness of the color based on the specified <paramref name="percent"/>.
-        /// </summary>
-        /// <param name="percent">The amount of lightness (specified in percent) that should be added to the color.</param>
-        /// <returns>A new instance of <see cref="IColor"/>.</returns>
-        public IColor Lighten(float percent) {
-            double l = Lightness;
-            l += percent / 100f;
-            return new HslColor(Hue, Saturation, Math.Max(0, l));
-        }
-
-        /// <summary>
         /// Returns the HEX representation of the color.
         /// </summary>
         /// <returns>A HEX string representing the color.</returns>

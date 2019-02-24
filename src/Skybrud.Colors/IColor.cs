@@ -53,20 +53,6 @@
         /// <returns>Returns an instance of <see cref="CmykColor"/>.</returns>
         CmykColor ToCmyk();
 
-        /// <summary>
-        /// Increases the darkness of the color based on the specified <paramref name="percent"/>.
-        /// </summary>
-        /// <param name="percent">The amount of darkness (specified in percent) that should be added to the color.</param>
-        /// <returns>A new instance of <see cref="IColor"/>.</returns>
-        IColor Darken(float percent);
-
-        /// <summary>
-        /// Increases the lightness of the color based on the specified <paramref name="percent"/>.
-        /// </summary>
-        /// <param name="percent">The amount of lightness (specified in percent) that should be added to the color.</param>
-        /// <returns>A new instance of <see cref="IColor"/>.</returns>
-        IColor Lighten(float percent);
-
     }
 
 }
