@@ -224,6 +224,49 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
+        /// Converts a <see cref="string"/> Hexadecimal color code to an instance of <see cref="RgbColor"/>.
+        /// </summary>
+        /// <param name="hex">The Hexadecimal color value</param>
+        /// <returns></returns>
+        public static RgbColor HexadecimalToRgb(string hex)
+        {
+            //Based on https://www.programmingalgorithms.com/algorithm/hexadecimal-to-rgb/
+
+            if (hex.StartsWith("#"))
+                hex = hex.Remove(0, 1);
+
+            byte r = (byte)HexadecimalToDecimal(hex.Substring(0, 2));
+            byte g = (byte)HexadecimalToDecimal(hex.Substring(2, 2));
+            byte b = (byte)HexadecimalToDecimal(hex.Substring(4, 2));
+
+            return new RgbColor(r, g, b);
+        }
+
+        private static int HexadecimalToDecimal(string hex)
+        {
+            //From https://www.programmingalgorithms.com/algorithm/hexadecimal-to-rgb/
+
+            hex = hex.ToUpper();
+
+            int hexLength = hex.Length;
+            double dec = 0;
+
+            for (int i = 0; i < hexLength; ++i)
+            {
+                byte b = (byte)hex[i];
+
+                if (b >= 48 && b <= 57)
+                    b -= 48;
+                else if (b >= 65 && b <= 70)
+                    b -= 55;
+
+                dec += b * Math.Pow(16, ((hexLength - i) - 1));
+            }
+
+            return (int)dec;
+        }
+
+        /// <summary>
         /// Calculates the color compoment for when converting a HSL color to a RGB color.
         /// </summary>
         /// <param name="temp1"></param>

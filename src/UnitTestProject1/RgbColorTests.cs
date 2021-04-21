@@ -23,6 +23,20 @@ namespace UnitTestProject1 {
         }
 
         [TestMethod]
+        public void FromHex()
+        {
+            foreach (HtmlColorSample sample in HtmlColorSamples.All)
+            {
+                string hex = sample.Hex;
+                RgbColor colorTest = ColorHelpers.HexadecimalToRgb(hex);
+                Assert.AreEqual(sample.Hex, colorTest.ToHex(), sample.Name);
+                Assert.AreEqual(sample.Rgb.Red, colorTest.Red, sample.Name);
+                Assert.AreEqual(sample.Rgb.Green, colorTest.Green, sample.Name);
+                Assert.AreEqual(sample.Rgb.Blue, colorTest.Blue, sample.Name);
+            }
+        }
+
+        [TestMethod]
         public void ToHsl() {
 
             foreach (HtmlColorSample sample in HtmlColorSamples.All) {
