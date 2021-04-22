@@ -28,7 +28,7 @@ namespace UnitTestProject1 {
             foreach (HtmlColorSample sample in HtmlColorSamples.All)
             {
                 string hex = sample.Hex;
-                RgbColor colorTest = ColorHelpers.HexadecimalToRgb(hex);
+                RgbColor colorTest = ColorUtils.HexToRgb(hex);
                 Assert.AreEqual(sample.Hex, colorTest.ToHex(), sample.Name);
                 Assert.AreEqual(sample.Rgb.Red, colorTest.Red, sample.Name);
                 Assert.AreEqual(sample.Rgb.Green, colorTest.Green, sample.Name);
