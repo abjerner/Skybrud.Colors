@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Skybrud.Colors {
 
@@ -13,7 +14,7 @@ namespace Skybrud.Colors {
         /// <param name="color">The input color.</param>
         /// <param name="percent">A percentage.</param>
         /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
-        public static IColor Saturate(this IColor color, float percent) {
+        public static IColor Saturate(this IColor color, [ValueRange(0, 100)] float percent) {
 
             if (color is IAlphaColor) {
 
@@ -47,7 +48,7 @@ namespace Skybrud.Colors {
         /// <param name="color">The input color.</param>
         /// <param name="percent">A percentage.</param>
         /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
-        public static IColor Desaturate(this IColor color, float percent) {
+        public static IColor Desaturate(this IColor color, [ValueRange(0, 100)] float percent) {
 
             if (color is IAlphaColor) {
 
@@ -81,7 +82,7 @@ namespace Skybrud.Colors {
         /// <param name="color">The input color.</param>
         /// <param name="percent">The amount of darkness (specified in percent) that should be added to the color.</param>
         /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
-        public static IColor Darken(this IColor color, float percent) {
+        public static IColor Darken(this IColor color, [ValueRange(0, 100)] float percent) {
 
             if (color is IAlphaColor) {
 
@@ -115,7 +116,7 @@ namespace Skybrud.Colors {
         /// <param name="color">The input color.</param>
         /// <param name="percent">The amount of lightness (specified in percent) that should be added to the color.</param>
         /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
-        public static IColor Lighten(this IColor color, float percent) {
+        public static IColor Lighten(this IColor color, [ValueRange(0, 100)] float percent) {
 
             if (color is IAlphaColor) {
 

@@ -32,6 +32,10 @@
     <PackageIconUrl>http://www.skybrud.dk/img/5431sk/icon/favicon.ico</PackageIconUrl>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" PrivateAssets="All" />
+  </ItemGroup>
+
   <PropertyGroup>
     <DocumentationFile>bin\Release\$(TargetFramework)\Skybrud.Colors.xml</DocumentationFile>
   </PropertyGroup>

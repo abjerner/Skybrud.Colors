@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Skybrud.Colors {
 
@@ -11,31 +12,53 @@ namespace Skybrud.Colors {
     /// </see>
     public class CmykColor : IColor {
 
+        private double _cyan;
+        private double _magenta;
+        private double _yellow;
+        private double _key;
+
         #region Properties
 
         /// <summary>
-        /// Gets the amount of cyan in the color.
+        /// Gets or sets the amount of cyan in the color.
         /// </summary>
-        public double Cyan { get; set; }
+        [ValueRange(0, 100)]
+        public double Cyan {
+            get => _cyan;
+            set => _cyan = ColorUtils.Clamp(value, 0, 100);
+        }
 
         /// <summary>
-        /// Gets the amount of magenta in the color.
+        /// Gets or sets the amount of magenta in the color.
         /// </summary>
-        public double Magenta { get; set; }
+        [ValueRange(0, 100)]
+        public double Magenta {
+            get => _magenta;
+            set => _magenta = ColorUtils.Clamp(value, 0, 100);
+        }
 
         /// <summary>
-        /// Gets the amount of yellow in the color.
+        /// Gets or sets the amount of yellow in the color.
         /// </summary>
-        public double Yellow { get; set; }
+        [ValueRange(0, 100)]
+        public double Yellow {
+            get => _yellow;
+            set => _yellow = ColorUtils.Clamp(value, 0, 100);
+        }
 
         /// <summary>
         /// Gets the amount of black (key) in the color.
         /// </summary>
-        public double Key { get; set; }
+        [ValueRange(0, 100)]
+        public double Key {
+            get => _key;
+            set => _key = ColorUtils.Clamp(value, 0, 100);
+        }
 
         /// <summary>
         /// Alias of <see cref="Cyan"/>.
         /// </summary>
+        [ValueRange(0, 100)]
         public double C {
             get => Cyan;
             set => Cyan = value;
@@ -44,6 +67,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Alias of <see cref="Magenta"/>.
         /// </summary>
+        [ValueRange(0, 100)]
         public double M {
             get => Magenta;
             set => Magenta = value;
@@ -52,6 +76,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Alias of <see cref="Yellow"/>.
         /// </summary>
+        [ValueRange(0, 100)]
         public double Y {
             get => Yellow;
             set => Yellow = value;
@@ -60,6 +85,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Alias of <see cref="Key"/>.
         /// </summary>
+        [ValueRange(0, 100)]
         public double K {
             get => Key;
             set => Key = value;
@@ -76,7 +102,7 @@ namespace Skybrud.Colors {
         /// <param name="magenta">The amount of magenta in the color.</param>
         /// <param name="yellow">The amount of yellow in the color.</param>
         /// <param name="key">The amount of black (key) in the color.</param>
-        public CmykColor(double cyan, double magenta, double yellow, double key) {
+        public CmykColor([ValueRange(0, 100)] double cyan, [ValueRange(0, 100)] double magenta, [ValueRange(0, 100)] double yellow, [ValueRange(0, 100)] double key) {
             Cyan = cyan;
             Magenta = magenta;
             Yellow = yellow;

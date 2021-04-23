@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Skybrud.Colors {
 
@@ -10,37 +11,43 @@ namespace Skybrud.Colors {
     ///     <cref>https://en.wikipedia.org/wiki/RGB_color_model</cref>
     /// </see>
     public class RgbColor : IColor {
-
+        
         #region Properties
 
         /// <summary>
         /// Gets the amount of red in the color, specified as a value between <c>0</c> and <c>255</c>.
         /// </summary>
+        [ValueRange(0, 255)]
         public byte Red { get; set; }
 
         /// <summary>
         /// Gets the amount of green in the color, specified as a value between <c>0</c> and <c>255</c>.
         /// </summary>
+        [ValueRange(0, 255)]
         public byte Green { get; set; }
 
         /// <summary>
         /// Gets the amount of blue in the color, specified as a value between <c>0</c> and <c>255</c>.
         /// </summary>
+        [ValueRange(0, 255)]
         public byte Blue { get; set; }
 
         /// <summary>
         /// Alias of <see cref="Red"/>.
         /// </summary>
+        [ValueRange(0, 255)]
         public byte R => Red;
 
         /// <summary>
         /// Alias of <see cref="Green"/>.
         /// </summary>
+        [ValueRange(0, 255)]
         public byte G => Green;
 
         /// <summary>
         /// Alias of <see cref="Blue"/>.
         /// </summary>
+        [ValueRange(0, 255)]
         public byte B => Blue;
 
         #endregion
@@ -58,7 +65,7 @@ namespace Skybrud.Colors {
         /// <param name="red">The amount of red in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         /// <param name="green">The amount of green in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         /// <param name="blue">The amount of blue in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
-        public RgbColor(byte red, byte green, byte blue) {
+        public RgbColor([ValueRange(0, 255)] byte red, [ValueRange(0, 255)] byte green, [ValueRange(0, 255)] byte blue) {
             Red = red;
             Green = green;
             Blue = blue;
@@ -70,10 +77,10 @@ namespace Skybrud.Colors {
         /// <param name="red">The amount of red in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         /// <param name="green">The amount of green in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         /// <param name="blue">The amount of blue in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
-        public RgbColor(int red, int green, int blue) {
-            Red = (byte) red;
-            Green = (byte) green;
-            Blue = (byte) blue;
+        public RgbColor([ValueRange(0, 255)] int red, [ValueRange(0, 255)] int green, [ValueRange(0, 255)] int blue) {
+            Red = (byte) ColorUtils.Clamp(red);
+            Green = (byte) ColorUtils.Clamp(green);
+            Blue = (byte) ColorUtils.Clamp(blue);
         }
 
         /// <summary>
@@ -82,10 +89,10 @@ namespace Skybrud.Colors {
         /// <param name="red">The amount of red in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         /// <param name="green">The amount of green in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         /// <param name="blue">The amount of blue in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
-        public RgbColor(double red, double green, double blue) {
-            Red = (byte) Math.Round(red);
-            Green = (byte) Math.Round(green);
-            Blue = (byte) Math.Round(blue);
+        public RgbColor([ValueRange(0, 255)] double red, [ValueRange(0, 255)] double green, [ValueRange(0, 255)] double blue) {
+            Red = (byte) Math.Round(ColorUtils.Clamp(red));
+            Green = (byte) Math.Round(ColorUtils.Clamp(green));
+            Blue = (byte) Math.Round(ColorUtils.Clamp(blue));
         }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Skybrud.Colors {
     
@@ -8,26 +9,43 @@ namespace Skybrud.Colors {
     /// </summary>
     public class CmyColor : IColor {
 
+        private double _cyan;
+        private double _magenta;
+        private double _yellow;
+
         #region Properties
 
         /// <summary>
         /// Gets or sets the amount of cyan in the color.
         /// </summary>
-        public double Cyan { get; set; }
+        [ValueRange(0, 100)]
+        public double Cyan {
+            get => _cyan;
+            set => _cyan = ColorUtils.Clamp(value, 0, 100);
+        }
 
         /// <summary>
         /// Gets or sets the amount of magenta in the color.
         /// </summary>
-        public double Magenta { get; set; }
+        [ValueRange(0, 100)]
+        public double Magenta {
+            get => _magenta;
+            set => _magenta = ColorUtils.Clamp(value, 0, 100);
+        }
 
         /// <summary>
         /// Gets or sets the amount of yellow in the color.
         /// </summary>
-        public double Yellow { get; set; }
+        [ValueRange(0, 100)]
+        public double Yellow {
+            get => _yellow;
+            set => _yellow = ColorUtils.Clamp(value, 0, 100);
+        }
 
         /// <summary>
         /// Alias of <see cref="Cyan"/>.
         /// </summary>
+        [ValueRange(0, 100)]
         public double C {
             get => Cyan;
             set => Cyan = value;
@@ -36,6 +54,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Alias of <see cref="Magenta"/>.
         /// </summary>
+        [ValueRange(0, 100)]
         public double M {
             get => Magenta;
             set => Magenta = value;
@@ -44,6 +63,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Alias of <see cref="Yellow"/>.
         /// </summary>
+        [ValueRange(0, 100)]
         public double Y {
             get => Yellow;
             set => Yellow = value;
@@ -59,7 +79,7 @@ namespace Skybrud.Colors {
         /// <param name="cyan">The amount of cyan in the color.</param>
         /// <param name="magenta">The amount of magenta in the color.</param>
         /// <param name="yellow">The amount of yellow in the color.</param>
-        public CmyColor(double cyan, double magenta, double yellow) {
+        public CmyColor([ValueRange(0, 100)] double cyan, [ValueRange(0, 100)] double magenta, [ValueRange(0, 100)] double yellow) {
             Cyan = cyan;
             Magenta = magenta;
             Yellow = yellow;

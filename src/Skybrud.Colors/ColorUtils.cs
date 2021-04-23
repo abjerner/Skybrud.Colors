@@ -1377,6 +1377,46 @@ namespace Skybrud.Colors
 
         }
 
+        /// <summary>
+        /// Clamps the <paramref name="value"/> to a value between <c>0</c> and <c>1</c> (both inclusive).
+        /// </summary>
+        /// <param name="value">The input value.</param>
+        /// <returns>A value between <c>0</c> and <c>1</c>.</returns>
+        public static float Clamp(float value) {
+            return Clamp(value, 0, 1);
+        }
+
+        /// <summary>
+        /// Clamps the <paramref name="value"/> to a value between <paramref name="min"/> and <paramref name="max"/> (both inclusive).
+        /// </summary>
+        /// <param name="value">The input value.</param>
+        /// <param name="min">The minimum allowed value.</param>
+        /// <param name="max">The maximum allowed value.</param>
+        /// <returns>A value between <paramref name="min"/> and <paramref name="max"/>.</returns>
+        public static float Clamp(float value, float min, float max) {
+            return Math.Min(max, Math.Max(min, value));
+        }
+
+        /// <summary>
+        /// Clamps the <paramref name="value"/> to a value between <c>0</c> and <c>1</c> (both inclusive).
+        /// </summary>
+        /// <param name="value">The input value.</param>
+        /// <returns>A value between <c>0</c> and <c>1</c>.</returns>
+        public static double Clamp(double value) {
+            return Clamp(value, 0, 1);
+        }
+
+        /// <summary>
+        /// Clamps the <paramref name="value"/> to a value between <paramref name="min"/> and <paramref name="max"/> (both inclusive).
+        /// </summary>
+        /// <param name="value">The input value.</param>
+        /// <param name="min">The minimum allowed value.</param>
+        /// <param name="max">The maximum allowed value.</param>
+        /// <returns>A value between <paramref name="min"/> and <paramref name="max"/>.</returns>
+        public static double Clamp(double value, double min, double max) {
+            return Math.Min(max, Math.Max(min, value));
+        }
+
         #endregion
 
     }

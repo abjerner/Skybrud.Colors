@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Skybrud.Colors {
     
@@ -11,12 +12,18 @@ namespace Skybrud.Colors {
     /// </see>
     public class HslaColor : HslColor, IAlphaColor {
 
+        private float _alpha;
+
         #region Properties
 
         /// <summary>
         /// Gets tor sets the opacity as a number between <c>0.0</c> (fully transparent) and <c>1.0</c> (fully opaque).
         /// </summary>
-        public float Alpha { get; set; }
+        [ValueRange(0, 1)]
+        public float Alpha {
+            get => _alpha;
+            set => _alpha = ColorUtils.Clamp(value);
+        }
 
         #endregion
 
@@ -25,12 +32,12 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Initializes a new HSL color with the specified <paramref name="hue"/>, <paramref name="saturation"/>, <paramref name="saturation"/> and <paramref name="alpha"/>.
         /// </summary>
-        /// <param name="hue">The hue value of the HSL color, specified as a decimal number between <c>0</c> and <c>0</c>.</param>
-        /// <param name="saturation">The saturation value of the HSL color, specified as a decimal number between <c>0</c> and <c>0</c>.</param>
-        /// <param name="lightness">The lightness value of the HSL color, specified as a decimal number between <c>0</c> and <c>0</c>.</param>
+        /// <param name="hue">The hue value of the HSL color, specified as a decimal number between <c>0</c> and <c>1</c>.</param>
+        /// <param name="saturation">The saturation value of the HSL color, specified as a decimal number between <c>0</c> and <c>1</c>.</param>
+        /// <param name="lightness">The lightness value of the HSL color, specified as a decimal number between <c>0</c> and <c>1</c>.</param>
         /// <param name="alpha">The amount of opacity, represented by a value between <c>0</c> and <c>1</c>.</param>
-        public HslaColor(double hue, double saturation, double lightness, float alpha) : base(hue, saturation, lightness) {
-            Alpha = alpha;
+        public HslaColor([ValueRange(0, 1)] double hue, [ValueRange(0, 1)] double saturation, [ValueRange(0, 1)] double lightness, [ValueRange(0, 1)] float alpha) : base(hue, saturation, lightness) {
+            Alpha = ColorUtils.Clamp(alpha);
         }
 
         #endregion
