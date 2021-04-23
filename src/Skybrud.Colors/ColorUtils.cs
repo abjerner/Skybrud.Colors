@@ -1295,7 +1295,7 @@
         /// <returns>An instance of <see cref="RgbColor"/> representing the RGB.</returns>
         public static RgbColor HexToRgb(string hex)
         {
-            if (string.IsNullOrWhiteSpace(hex)) throw new ArgumentNullException("hex");
+            if (string.IsNullOrWhiteSpace(hex)) throw new ArgumentNullException(nameof(hex));
 
             IColor color;
             if (TryParse(hex, out color)) return color as RgbColor;
@@ -1315,7 +1315,7 @@
         /// <returns>An instance of <see cref="IColor"/>.</returns>
         public static IColor Parse(string str)
         {
-            if (string.IsNullOrWhiteSpace(str)) throw new ArgumentNullException("str");
+            if (string.IsNullOrWhiteSpace(str)) throw new ArgumentNullException(nameof(str));
 
             IColor color;
             if (TryParse(str, out color)) return color;
