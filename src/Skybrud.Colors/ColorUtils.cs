@@ -1297,8 +1297,7 @@
         {
             if (string.IsNullOrWhiteSpace(hex)) throw new ArgumentNullException(nameof(hex));
 
-            IColor color;
-            if (TryParse(hex, out color)) return color as RgbColor;
+            if (TryParse(hex, out var color)) return color as RgbColor;
 
             throw new FormatException("Not a valid Hexadecimal value.");
         }
@@ -1317,8 +1316,7 @@
         {
             if (string.IsNullOrWhiteSpace(str)) throw new ArgumentNullException(nameof(str));
 
-            IColor color;
-            if (TryParse(str, out color)) return color;
+            if (TryParse(str, out IColor color)) return color;
 
             throw new FormatException("Input string was not in a correct format.");
 
