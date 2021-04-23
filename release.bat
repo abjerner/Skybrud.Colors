@@ -1,5 +1,2 @@
 @echo off
-cd src/Skybrud.Colors
-"C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\msbuild.exe" /t:pack /p:Configuration=Release /p:PackageOutputPath=../../releases/nuget /p:RunBuildTargets=false
-cd ../../
-grunt
+dotnet build src/Skybrud.Colors --configuration Release /t:rebuild /t:pack -p:BuildTools=1 -p:PackageOutputPath=../../releases/nuget
