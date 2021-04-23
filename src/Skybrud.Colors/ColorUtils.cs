@@ -1376,6 +1376,17 @@ namespace Skybrud.Colors
             return false;
 
         }
+        
+        /// <summary>
+        /// Clamps the <paramref name="value"/> to a value between <paramref name="min"/> and <paramref name="max"/> (both inclusive).
+        /// </summary>
+        /// <param name="value">The input value.</param>
+        /// <param name="min">The minimum allowed value.</param>
+        /// <param name="max">The maximum allowed value.</param>
+        /// <returns>A value between <paramref name="min"/> and <paramref name="max"/>.</returns>
+        public static int Clamp(float value, int min, int max) {
+            return (int) Math.Min(max, Math.Max(min, value));
+        }
 
         /// <summary>
         /// Clamps the <paramref name="value"/> to a value between <c>0</c> and <c>1</c> (both inclusive).
