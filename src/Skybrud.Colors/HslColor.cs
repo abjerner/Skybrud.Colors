@@ -165,7 +165,7 @@ namespace Skybrud.Colors {
         /// <param name="str">The string representing the color.</param>
         /// <returns>An instance of <see cref="HslColor"/>.</returns>
         public static HslColor Parse(string str) {
-            IColor color = ColorHelpers.Parse(str);
+            IColor color = ColorUtils.Parse(str);
             return color as HslColor ?? color.ToHsl();
         }
 
@@ -180,7 +180,7 @@ namespace Skybrud.Colors {
             color = null;
 
             // Attempt to parse the input string
-            if (ColorHelpers.TryParse(str, out IColor result) == false) return false;
+            if (ColorUtils.TryParse(str, out IColor result) == false) return false;
 
             // Convert the color to RGB
             color = result as HslColor ?? result.ToHsl();

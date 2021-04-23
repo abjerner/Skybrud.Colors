@@ -184,7 +184,7 @@ namespace Skybrud.Colors {
         /// <param name="str">The string representing the color.</param>
         /// <returns>An instance of <see cref="RgbColor"/>.</returns>
         public static RgbColor Parse(string str) {
-            return ColorHelpers.Parse(str).ToRgb();
+            return ColorUtils.Parse(str).ToRgb();
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace Skybrud.Colors {
             color = null;
 
             // Attempt to parse the input string
-            if (!ColorHelpers.TryParse(str, out IColor result)) return false;
+            if (!ColorUtils.TryParse(str, out IColor result)) return false;
 
             // Convert the color to RGB
             color = result as RgbColor ?? result.ToRgb();
