@@ -37,10 +37,6 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\Skybrud.Colors.xml</DocumentationFile>
   </PropertyGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(TargetFramework)|$(RunBuildTargets)'=='netstandard1.1|true'">
-    <Exec Command="&quot;$(SolutionDir)build/Skybrud.Social.PreBuildTool.exe&quot; /date=2016-02-06 /projectPath=&quot;$(ProjectPath)&quot;" />
-  </Target>
-
   <Target Name="PostBuild" BeforeTargets="PostBuildEvent" Condition="'$(TargetFramework)|$(RunBuildTargets)'=='net47|true'">
     <Exec Command="&quot;$(SolutionDir)build\UpdateAssemblyInfoJson.exe&quot; &quot;$(ProjectPath)&quot; &quot;$(TargetPath)&quot;" />
   </Target>
