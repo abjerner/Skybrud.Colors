@@ -147,7 +147,7 @@
             if (magenta < key) key = magenta;
             if (yellow < key) key = yellow;
 
-            if (Math.Abs(key - 1d) < Double.Epsilon)
+            if (Math.Abs(key - 1d) < double.Epsilon)
             {
                 c = 0;
                 m = 0;
@@ -433,7 +433,7 @@
             v = (lightness + saturation) / 2d;
             s = (2d * saturation) / (lightness + saturation);
 
-            if (Double.IsNaN(s)) s = 0;
+            if (double.IsNaN(s)) s = 0;
 
         }
 
@@ -480,9 +480,9 @@
             // TODO: Needs documentation/references
 
             double r = 0, g = 0, b = 0;
-            if (Math.Abs(lightness) > Double.Epsilon)
+            if (Math.Abs(lightness) > double.Epsilon)
             {
-                if (Math.Abs(saturation) < Double.Epsilon)
+                if (Math.Abs(saturation) < double.Epsilon)
                 {
                     r = g = b = lightness;
                 }
@@ -708,7 +708,7 @@
             s = saturation * value;
             s = s / ((l <= 1) ? (l) : 2d - (l));
 
-            if (Double.IsNaN(s))
+            if (double.IsNaN(s))
             {
                 s = 0;
             }
@@ -1080,7 +1080,7 @@
 
             // Calculate the saturation
             saturation = 0;
-            if (Math.Abs(max - min) > Double.Epsilon)
+            if (Math.Abs(max - min) > double.Epsilon)
             {
                 if (lightness < 0.5)
                 {
@@ -1094,15 +1094,15 @@
 
             // Calculate the hue
             hue = 0;
-            if (Math.Abs(r - max) < Double.Epsilon)
+            if (Math.Abs(r - max) < double.Epsilon)
             {
                 hue = (g - b) / (max - min);
             }
-            else if (Math.Abs(g - max) < Double.Epsilon)
+            else if (Math.Abs(g - max) < double.Epsilon)
             {
                 hue = 2.0d + (b - r) / (max - min);
             }
-            else if (Math.Abs(b - max) < Double.Epsilon)
+            else if (Math.Abs(b - max) < double.Epsilon)
             {
                 hue = 4.0d + (r - g) / (max - min);
             }
@@ -1117,7 +1117,7 @@
             hue = hue / 360.0;
 
             // Make sure hue is not NaN
-            if (Double.IsNaN(hue)) hue = 0;
+            if (double.IsNaN(hue)) hue = 0;
 
         }
 
@@ -1147,7 +1147,7 @@
 
             // Calculate the saturation
             saturation = 0;
-            if (Math.Abs(max - min) > Double.Epsilon)
+            if (Math.Abs(max - min) > double.Epsilon)
             {
                 if (lightness < 0.5)
                 {
@@ -1161,15 +1161,15 @@
 
             // Calculate the hue
             hue = 0;
-            if (Math.Abs(r - max) < Double.Epsilon)
+            if (Math.Abs(r - max) < double.Epsilon)
             {
                 hue = (g - b) / (max - min);
             }
-            else if (Math.Abs(g - max) < Double.Epsilon)
+            else if (Math.Abs(g - max) < double.Epsilon)
             {
                 hue = 2.0f + (b - r) / (max - min);
             }
-            else if (Math.Abs(b - max) < Double.Epsilon)
+            else if (Math.Abs(b - max) < double.Epsilon)
             {
                 hue = 4.0f + (r - g) / (max - min);
             }
@@ -1184,7 +1184,7 @@
             hue = hue / 360f;
 
             // Make sure hue is not NaN
-            if (Single.IsNaN(hue)) hue = 0;
+            if (float.IsNaN(hue)) hue = 0;
 
         }
 
@@ -1295,7 +1295,7 @@
         /// <returns>An instance of <see cref="RgbColor"/> representing the RGB.</returns>
         public static RgbColor HexToRgb(string hex)
         {
-            if (String.IsNullOrWhiteSpace(hex)) throw new ArgumentNullException("hex");
+            if (string.IsNullOrWhiteSpace(hex)) throw new ArgumentNullException("hex");
 
             IColor color;
             if (TryParse(hex, out color)) return color as RgbColor;
@@ -1315,7 +1315,7 @@
         /// <returns>An instance of <see cref="IColor"/>.</returns>
         public static IColor Parse(string str)
         {
-            if (String.IsNullOrWhiteSpace(str)) throw new ArgumentNullException("str");
+            if (string.IsNullOrWhiteSpace(str)) throw new ArgumentNullException("str");
 
             IColor color;
             if (TryParse(str, out color)) return color;
@@ -1336,7 +1336,7 @@
             color = null;
 
             // Return "false" if the string is empty
-            if (String.IsNullOrWhiteSpace(str)) return false;
+            if (string.IsNullOrWhiteSpace(str)) return false;
 
             // Strip a leading hashtag and convert to lowercase
             str = str.TrimStart('#').ToLower();
@@ -1349,27 +1349,27 @@
 
             if (m1.Success)
             {
-                Byte.TryParse(m1.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
-                Byte.TryParse(m1.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
-                Byte.TryParse(m1.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
+                byte.TryParse(m1.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
+                byte.TryParse(m1.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
+                byte.TryParse(m1.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
                 color = new RgbColor(r, g, b);
                 return true;
             }
 
             if (m2.Success)
             {
-                Byte.TryParse(m2.Groups[1].Value + m2.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
-                Byte.TryParse(m2.Groups[2].Value + m2.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
-                Byte.TryParse(m2.Groups[3].Value + m2.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
+                byte.TryParse(m2.Groups[1].Value + m2.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
+                byte.TryParse(m2.Groups[2].Value + m2.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
+                byte.TryParse(m2.Groups[3].Value + m2.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
                 color = new RgbColor(r, g, b);
                 return true;
             }
 
             if (m3.Success)
             {
-                float h = Int32.Parse(m3.Groups[1].Value) / 360f;
-                float s = Int32.Parse(m3.Groups[2].Value) / 100f;
-                float l = Int32.Parse(m3.Groups[3].Value) / 100f;
+                float h = int.Parse(m3.Groups[1].Value) / 360f;
+                float s = int.Parse(m3.Groups[2].Value) / 100f;
+                float l = int.Parse(m3.Groups[3].Value) / 100f;
                 color = new HslColor(h, s, l);
                 return true;
             }

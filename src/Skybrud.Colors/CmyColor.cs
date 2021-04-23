@@ -156,7 +156,7 @@ namespace Skybrud.Colors {
             if (M < key) key = M;
             if (Y < key) key = Y;
             
-            if (Math.Abs(key - 1d) < Double.Epsilon) { //Black
+            if (Math.Abs(key - 1d) < double.Epsilon) { //Black
                 c = 0;
                 m = 0;
                 y = 0;

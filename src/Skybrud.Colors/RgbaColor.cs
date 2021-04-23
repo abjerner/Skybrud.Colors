@@ -85,7 +85,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <returns>The CSS representation of the color.</returns>
         public override string ToCss() {
-            return String.Format(CultureInfo.InvariantCulture, "rgba({0}, {1}, {2}, {3})", Red, Green, Blue, Alpha);
+            return string.Format(CultureInfo.InvariantCulture, "rgba({0}, {1}, {2}, {3})", Red, Green, Blue, Alpha);
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <returns>A string representing the color.</returns>
         public override string ToString() {
-            return String.Format(CultureInfo.InvariantCulture, "RBGA: {0}, {1}, {2}, {3}", Red, Green, Blue, Alpha);
+            return string.Format(CultureInfo.InvariantCulture, "RBGA: {0}, {1}, {2}, {3}", Red, Green, Blue, Alpha);
         }
 
         #endregion
