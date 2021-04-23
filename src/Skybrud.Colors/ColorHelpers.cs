@@ -1,8 +1,7 @@
-﻿namespace Skybrud.Colors
+﻿using System;
+
+namespace Skybrud.Colors
 {
-    using System;
-    using System.Globalization;
-    using System.Text.RegularExpressions;
 
     /// <summary>
     /// Static helper methods for various color calculations.

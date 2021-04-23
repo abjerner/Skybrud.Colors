@@ -1,8 +1,9 @@
-﻿namespace Skybrud.Colors
+﻿using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
+
+namespace Skybrud.Colors
 {
-    using System;
-    using System.Globalization;
-    using System.Text.RegularExpressions;
 
     /// <summary>
     /// Utility class with static methods for various color calculations.
@@ -1297,7 +1298,7 @@
         {
             if (string.IsNullOrWhiteSpace(hex)) throw new ArgumentNullException(nameof(hex));
 
-            if (TryParse(hex, out var color)) return color as RgbColor;
+            if (TryParse(hex, out IColor color)) return color as RgbColor;
 
             throw new FormatException("Not a valid Hexadecimal value.");
         }
