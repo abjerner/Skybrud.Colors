@@ -192,23 +192,41 @@
 
         #region CMY -> RGB
 
-        public static void CmyToRgb(double cyan, double magenta, double yellow, out byte r, out byte g, out byte b)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="cyan"/>, <paramref name="magenta"/> and <paramref name="yellow"/> in the CMY color space to the corresponding <paramref name="r"/>, <paramref name="g"/> and <paramref name="b"/> in the RGB color space.
+        /// </summary>
+        /// <param name="cyan">The <strong>cyan</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="magenta">The <strong>meganta</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="yellow">The <strong>yellow</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="r">The <strong>red</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="g">The <strong>green</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="b">The <strong>blue</strong> part in the <strong>RGB</strong> color space.</param>
+        public static void CmyToRgb(double cyan, double magenta, double yellow, out byte r, out byte g, out byte b) {
             r = Convert.ToByte((1 - cyan) * 255d);
             g = Convert.ToByte((1 - magenta) * 255d);
             b = Convert.ToByte((1 - yellow) * 255d);
         }
 
-        public static RgbColor CmyToRgb(double cyan, double magenta, double yellow)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="cyan"/>, <paramref name="magenta"/> and <paramref name="yellow"/> in the CMY color space into a corresponding instance of <see cref="RgbColor"/>.
+        /// </summary>
+        /// <param name="cyan">The <strong>cyan</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="magenta">The <strong>meganta</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="yellow">The <strong>yellow</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <returns>The corresponding <see cref="RgbColor"/>.</returns>
+        public static RgbColor CmyToRgb(double cyan, double magenta, double yellow) {
             byte r = Convert.ToByte((1 - cyan) * 255d);
             byte g = Convert.ToByte((1 - magenta) * 255d);
             byte b = Convert.ToByte((1 - yellow) * 255d);
             return new RgbColor(r, g, b);
         }
 
-        public static RgbColor CmyToRgb(CmyColor cmy)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="cmy"/> color into a corresponding instance of <see cref="RgbColor"/>.
+        /// </summary>
+        /// <param name="cmy">The <strong>CMY</strong> color to be converted.</param>
+        /// <returns>The corresponding <see cref="RgbColor"/>.</returns>
+        public static RgbColor CmyToRgb(CmyColor cmy)  {
             return CmyToRgb(cmy.Cyan, cmy.Magenta, cmy.Yellow);
         }
 
@@ -262,21 +280,41 @@
 
         #region CMYK -> RGB
 
-        public static void CmykToRgb(double cyan, double magenta, double yellow, double key, out byte r, out byte g, out byte b)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="cyan"/>, <paramref name="magenta"/>, <paramref name="yellow"/> and <paramref name="key"/> in the CMYK color space to the corresponding <paramref name="r"/>, <paramref name="g"/> and <paramref name="b"/> in the RGB color space.
+        /// </summary>
+        /// <param name="cyan">The <strong>cyan</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="magenta">The <strong>meganta</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="yellow">The <strong>yellow</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="key">>The <strong>key</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="r">The <strong>red</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="g">The <strong>green</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="b">The <strong>blue</strong> part in the <strong>RGB</strong> color space.</param>
+        public static void CmykToRgb(double cyan, double magenta, double yellow, double key, out byte r, out byte g, out byte b) {
             CmykToCmy(cyan, magenta, yellow, key, out double c, out double m, out double y);
             CmyToRgb(c, m, y, out r, out g, out b);
         }
 
-        public static RgbColor CmykToRgb(double cyan, double magenta, double yellow, double key)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="cyan"/>, <paramref name="magenta"/>, <paramref name="yellow"/> and <paramref name="key"/> in the CMYK color space into a corresponding instance of <see cref="RgbColor"/>.
+        /// </summary>
+        /// <param name="cyan">The <strong>cyan</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="magenta">The <strong>meganta</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="yellow">The <strong>yellow</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="key">>The <strong>key</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <returns>The corresponding <see cref="RgbColor"/>.</returns>
+        public static RgbColor CmykToRgb(double cyan, double magenta, double yellow, double key)  {
             CmykToCmy(cyan, magenta, yellow, key, out double c, out double m, out double y);
             CmyToRgb(c, m, y, out byte r, out byte g, out byte b);
             return new RgbColor(r, g, b);
         }
 
-        public static RgbColor CmykToRgb(CmykColor cmyk)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="cmyk"/> color into a corresponding instance of <see cref="RgbColor"/>.
+        /// </summary>
+        /// <param name="cmyk">The <strong>CMYK</strong> color to be converted.</param>
+        /// <returns>The corresponding <see cref="RgbColor"/>.</returns>
+        public static RgbColor CmykToRgb(CmykColor cmyk) {
             return CmykToRgb(cmyk.Cyan, cmyk.Magenta, cmyk.Yellow, cmyk.Key);
         }
 
@@ -1178,21 +1216,39 @@
 
         #region RGB -> HSV
 
-        public static void RgbToHsv(int red, int green, int blue, out double h, out double s, out double v)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="red"/>, <paramref name="green"/> and <paramref name="blue"/> in the <strong>RGB</strong> color space to the corresponding <paramref name="h"/>, <paramref name="s"/> and <paramref name="v"/> in the <strong>HSV</strong> color space.
+        /// </summary>
+        /// <param name="red">The <strong>red</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="green">The <strong>green</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="blue">The <strong>blue</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="h">The <strong>hue</strong> part in the <strong>HSV</strong> color space.</param>
+        /// <param name="s">The <strong>saturation</strong> part in the <strong>HSV</strong> color space.</param>
+        /// <param name="v">The <strong>value</strong> part in the <strong>HSV</strong> color space.</param>
+        public static void RgbToHsv(int red, int green, int blue, out double h, out double s, out double v) {
             RgbToHsl(red, green, blue, out double hue, out double saturation, out double lightness);
             HslToHsv(hue, saturation, lightness, out h, out s, out v);
         }
 
-        public static HsvColor RgbToHsv(int red, int green, int blue)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="red"/>, <paramref name="green"/> and <paramref name="blue"/> in the <strong>RGB</strong> color space into a corresponding instance of <see cref="HsvColor"/>.
+        /// </summary>
+        /// <param name="red">The <strong>red</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="green">The <strong>green</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="blue">The <strong>blue</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <returns>The corresponding <see cref="HsvColor"/>.</returns>
+        public static HsvColor RgbToHsv(int red, int green, int blue) {
             RgbToHsl(red, green, blue, out double hue, out double saturation, out double lightness);
             HslToHsv(hue, saturation, lightness, out double h, out double s, out double v);
             return new HsvColor(h, s, v);
         }
 
-        public static HsvColor RgbToHsv(RgbColor rgb)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="rgb"/> color into a corresponding instance of <see cref="HsvColor"/>.
+        /// </summary>
+        /// <param name="rgb">The <strong>RGB</strong> color to be converted.</param>
+        /// <returns>The corresponding <see cref="HsvColor"/>.</returns>
+        public static HsvColor RgbToHsv(RgbColor rgb) {
             RgbToHsl(rgb.Red, rgb.Green, rgb.Blue, out double hue, out double saturation, out double lightness);
             HslToHsv(hue, saturation, lightness, out double h, out double s, out double v);
             return new HsvColor(h, s, v);
