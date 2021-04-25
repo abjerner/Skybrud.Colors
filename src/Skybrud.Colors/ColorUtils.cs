@@ -18,8 +18,7 @@ namespace Skybrud.Colors {
         /// <param name="b">The second value.</param>
         /// <param name="c">The third value.</param>
         /// <returns>The maximum value.</returns>
-        public static double Max(double a, double b, double c)
-        {
+        public static double Max(double a, double b, double c) {
             return Math.Max(a, Math.Max(b, c));
         }
 
@@ -30,8 +29,7 @@ namespace Skybrud.Colors {
         /// <param name="b">The second value.</param>
         /// <param name="c">The third value.</param>
         /// <returns>The minimum value.</returns>
-        public static double Min(double a, double b, double c)
-        {
+        public static double Min(double a, double b, double c) {
             return Math.Min(a, Math.Min(b, c));
         }
 
@@ -42,8 +40,7 @@ namespace Skybrud.Colors {
         /// <param name="b">The second value.</param>
         /// <param name="c">The third value.</param>
         /// <returns>The maximum value.</returns>
-        public static float Max(float a, float b, float c)
-        {
+        public static float Max(float a, float b, float c) {
             return Math.Max(a, Math.Max(b, c));
         }
 
@@ -54,8 +51,7 @@ namespace Skybrud.Colors {
         /// <param name="b">The second value.</param>
         /// <param name="c">The third value.</param>
         /// <returns>The minimum value.</returns>
-        public static float Min(float a, float b, float c)
-        {
+        public static float Min(float a, float b, float c) {
             return Math.Min(a, Math.Min(b, c));
         }
 
@@ -66,8 +62,7 @@ namespace Skybrud.Colors {
         /// <param name="temp2"></param>
         /// <param name="temp3"></param>
         /// <returns>The color component.</returns>
-        private static double GetColorComponent(double temp1, double temp2, double temp3)
-        {
+        private static double GetColorComponent(double temp1, double temp2, double temp3) {
 
             // TODO: Needs documentation/references
 
@@ -82,17 +77,13 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Method used internally for when converting a HSL color to a RGB color.
         /// </summary>
-        private static double MoveIntoRange(double temp3)
-        {
+        private static double MoveIntoRange(double temp3) {
 
             // TODO: Needs documentation/references
 
-            if (temp3 < 0.0)
-            {
+            if (temp3 < 0.0) {
                 temp3 += 1.0;
-            }
-            else if (temp3 > 1.0)
-            {
+            } else if (temp3 > 1.0) {
                 temp3 -= 1.0;
             }
 
@@ -103,19 +94,15 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Method used internally for when converting a HSL color to a RGB color.
         /// </summary>
-        private static double GetTemp2(double saturation, double lightness)
-        {
+        private static double GetTemp2(double saturation, double lightness) {
 
             // TODO: Needs documentation/references
 
             double temp2;
 
-            if (lightness < 0.5)
-            {
+            if (lightness < 0.5) {
                 temp2 = lightness * (1.0 + saturation);
-            }
-            else
-            {
+            } else {
                 temp2 = lightness + saturation - (lightness * saturation);
             }
 
@@ -137,8 +124,7 @@ namespace Skybrud.Colors {
         /// <param name="m">The magenta in the CMYM color.</param>
         /// <param name="y">The yellow in the CMYM color.</param>
         /// <param name="k">The key in the CMYM color.</param>
-        public static void CmyToCmyk(double cyan, double magenta, double yellow, out double c, out double m, out double y, out double k)
-        {
+        public static void CmyToCmyk(double cyan, double magenta, double yellow, out double c, out double m, out double y, out double k) {
 
             double key = 1;
 
@@ -146,14 +132,11 @@ namespace Skybrud.Colors {
             if (magenta < key) key = magenta;
             if (yellow < key) key = yellow;
 
-            if (Math.Abs(key - 1d) < double.Epsilon)
-            {
+            if (Math.Abs(key - 1d) < double.Epsilon) {
                 c = 0;
                 m = 0;
                 y = 0;
-            }
-            else
-            {
+            } else {
                 c = (cyan - key) / (1d - key);
                 m = (magenta - key) / (1d - key);
                 y = (yellow - key) / (1d - key);
@@ -170,8 +153,7 @@ namespace Skybrud.Colors {
         /// <param name="magenta">The magenta in the CMY color.</param>
         /// <param name="yellow">The yellow in the CMY color.</param>
         /// <returns>An instance of <see cref="CmykColor"/> representing the CMYK color.</returns>
-        public static CmykColor CmyToCmyk(double cyan, double magenta, double yellow)
-        {
+        public static CmykColor CmyToCmyk(double cyan, double magenta, double yellow) {
             CmyToCmyk(cyan, magenta, yellow, out double c, out double m, out double y, out double k);
             return new CmykColor(c, m, y, k);
         }
@@ -181,8 +163,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <param name="cmy">The CMY color.</param>
         /// <returns>An instance of <see cref="CmykColor"/> representing the CMYK color.</returns>
-        public static CmykColor CmyToCmyk(CmyColor cmy)
-        {
+        public static CmykColor CmyToCmyk(CmyColor cmy) {
             CmyToCmyk(cmy.Cyan, cmy.Magenta, cmy.Yellow, out double c, out double m, out double y, out double k);
             return new CmykColor(c, m, y, k);
         }
@@ -225,7 +206,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <param name="cmy">The <strong>CMY</strong> color to be converted.</param>
         /// <returns>The corresponding <see cref="RgbColor"/>.</returns>
-        public static RgbColor CmyToRgb(CmyColor cmy)  {
+        public static RgbColor CmyToRgb(CmyColor cmy) {
             return CmyToRgb(cmy.Cyan, cmy.Magenta, cmy.Yellow);
         }
 
@@ -299,7 +280,7 @@ namespace Skybrud.Colors {
         /// <param name="yellow">The <strong>yellow</strong> part in the <strong>CMY</strong> color space.</param>
         /// <param name="key">>The <strong>key</strong> part in the <strong>CMY</strong> color space.</param>
         /// <returns>The corresponding <see cref="RgbColor"/>.</returns>
-        public static RgbColor CmykToRgb(double cyan, double magenta, double yellow, double key)  {
+        public static RgbColor CmykToRgb(double cyan, double magenta, double yellow, double key) {
             CmykToCmy(cyan, magenta, yellow, key, out double c, out double m, out double y);
             CmyToRgb(c, m, y, out byte r, out byte g, out byte b);
             return new RgbColor(r, g, b);
@@ -327,8 +308,7 @@ namespace Skybrud.Colors {
         /// <param name="c">The cyan of the CMY color.</param>
         /// <param name="m">The magenta of the CMY color.</param>
         /// <param name="y">The yellow of the CMY color.</param>
-        public static void HslToCmy(double hue, double saturation, double lightness, out double c, out double m, out double y)
-        {
+        public static void HslToCmy(double hue, double saturation, double lightness, out double c, out double m, out double y) {
             HslToRgb(hue, saturation, lightness, out int r, out int g, out int b);
             RgbToCmy(r, g, b, out c, out m, out y);
         }
@@ -340,8 +320,7 @@ namespace Skybrud.Colors {
         /// <param name="saturation">The saturation of the HSL color.</param>
         /// <param name="lightness">The lightness of the HSL color.</param>
         /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
-        public static CmyColor HslToCmy(double hue, double saturation, double lightness)
-        {
+        public static CmyColor HslToCmy(double hue, double saturation, double lightness) {
             HslToRgb(hue, saturation, lightness, out int r, out int g, out int b);
             RgbToCmy(r, g, b, out double c, out double m, out double y);
             return new CmyColor(c, m, y);
@@ -352,8 +331,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <param name="hsl">The HSL color.</param>
         /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
-        public static CmyColor HslToCmy(HslColor hsl)
-        {
+        public static CmyColor HslToCmy(HslColor hsl) {
             HslToRgb(hsl.Hue, hsl.Saturation, hsl.Lightness, out int r, out int g, out int b);
             RgbToCmy(r, g, b, out double c, out double m, out double y);
             return new CmyColor(c, m, y);
@@ -373,8 +351,7 @@ namespace Skybrud.Colors {
         /// <param name="m">The magenta of the CMY color.</param>
         /// <param name="y">The yellow of the CMY color.</param>
         /// <param name="k">The key of the CMY color.</param>
-        public static void HslToCmyk(double hue, double saturation, double lightness, out double c, out double m, out double y, out double k)
-        {
+        public static void HslToCmyk(double hue, double saturation, double lightness, out double c, out double m, out double y, out double k) {
             HslToRgb(hue, saturation, lightness, out int r, out int g, out int b);
             RgbToCmyk(r, g, b, out c, out m, out y, out k);
         }
@@ -386,8 +363,7 @@ namespace Skybrud.Colors {
         /// <param name="saturation">The saturation of the HSL color.</param>
         /// <param name="lightness">The lightness of the HSL color.</param>
         /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
-        public static CmykColor HslToCmyk(double hue, double saturation, double lightness)
-        {
+        public static CmykColor HslToCmyk(double hue, double saturation, double lightness) {
             HslToRgb(hue, saturation, lightness, out int r, out int g, out int b);
             RgbToCmyk(r, g, b, out double c, out double m, out double y, out double k);
             return new CmykColor(c, m, y, k);
@@ -398,8 +374,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <param name="hsl">The HSL color.</param>
         /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
-        public static CmykColor HslToCmyk(HslColor hsl)
-        {
+        public static CmykColor HslToCmyk(HslColor hsl) {
             HslToRgb(hsl.Hue, hsl.Saturation, hsl.Lightness, out int r, out int g, out int b);
             RgbToCmyk(r, g, b, out double c, out double m, out double y, out double k);
             return new CmykColor(c, m, y, k);
@@ -485,9 +460,9 @@ namespace Skybrud.Colors {
             }
 
             // Convert from 0-1 to 0-255
-            red = (int) Math.Round(r * 255);
-            green = (int) Math.Round(g * 255);
-            blue = (int) Math.Round(b * 255);
+            red = (int)Math.Round(r * 255);
+            green = (int)Math.Round(g * 255);
+            blue = (int)Math.Round(b * 255);
 
         }
 
@@ -549,8 +524,7 @@ namespace Skybrud.Colors {
         /// <param name="c">The cyan of the CMY color.</param>
         /// <param name="m">The magenta of the CMY color.</param>
         /// <param name="y">The yellow of the CMY color.</param>
-        public static void HsvToCmy(double hue, double saturation, double value, out double c, out double m, out double y)
-        {
+        public static void HsvToCmy(double hue, double saturation, double value, out double c, out double m, out double y) {
             HsvToRgb(hue, saturation, value, out int r, out int g, out int b);
             RgbToCmy(r, g, b, out c, out m, out y);
         }
@@ -562,8 +536,7 @@ namespace Skybrud.Colors {
         /// <param name="saturation">The saturation of the HSV color.</param>
         /// <param name="value">The value of the HSV color.</param>
         /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
-        public static CmyColor HsvToCmy(double hue, double saturation, double value)
-        {
+        public static CmyColor HsvToCmy(double hue, double saturation, double value) {
             HsvToRgb(hue, saturation, value, out int r, out int g, out int b);
             RgbToCmy(r, g, b, out double c, out double m, out double y);
             return new CmyColor(c, m, y);
@@ -574,8 +547,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <param name="hsv">The HSV color.</param>
         /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
-        public static CmyColor HsvToCmy(HsvColor hsv)
-        {
+        public static CmyColor HsvToCmy(HsvColor hsv) {
             HsvToRgb(hsv.Hue, hsv.Saturation, hsv.Value, out int r, out int g, out int b);
             RgbToCmy(r, g, b, out double c, out double m, out double y);
             return new CmyColor(c, m, y);
@@ -595,8 +567,7 @@ namespace Skybrud.Colors {
         /// <param name="m">The magenta of the CMY color.</param>
         /// <param name="y">The yellow of the CMY color.</param>
         /// <param name="k">The key of the CMY color.</param>
-        public static void HsvToCmyk(double hue, double saturation, double value, out double c, out double m, out double y, out double k)
-        {
+        public static void HsvToCmyk(double hue, double saturation, double value, out double c, out double m, out double y, out double k) {
             HsvToRgb(hue, saturation, value, out int r, out int g, out int b);
             RgbToCmyk(r, g, b, out c, out m, out y, out k);
         }
@@ -608,8 +579,7 @@ namespace Skybrud.Colors {
         /// <param name="saturation">The saturation of the HSV color.</param>
         /// <param name="value">The value of the HSV color.</param>
         /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
-        public static CmykColor HsvToCmyk(double hue, double saturation, double value)
-        {
+        public static CmykColor HsvToCmyk(double hue, double saturation, double value) {
             HsvToRgb(hue, saturation, value, out int r, out int g, out int b);
             RgbToCmyk(r, g, b, out double c, out double m, out double y, out double k);
             return new CmykColor(c, m, y, k);
@@ -620,8 +590,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <param name="hsv">The HSV color.</param>
         /// <returns>An instance of <see cref="CmyColor"/> representing the HSL color.</returns>
-        public static CmykColor HsvToCmyk(HsvColor hsv)
-        {
+        public static CmykColor HsvToCmyk(HsvColor hsv) {
             HsvToRgb(hsv.Hue, hsv.Saturation, hsv.Value, out int r, out int g, out int b);
             RgbToCmyk(r, g, b, out double c, out double m, out double y, out double k);
             return new CmykColor(c, m, y, k);
@@ -640,8 +609,7 @@ namespace Skybrud.Colors {
         /// <param name="h">The hue of the HSL color.</param>
         /// <param name="s">The saturation of the HSL color.</param>
         /// <param name="l">The lightness of the HSL color.</param>
-        public static void HsvToHsl(double hue, double saturation, double value, out double h, out double s, out double l)
-        {
+        public static void HsvToHsl(double hue, double saturation, double value, out double h, out double s, out double l) {
 
             // TODO: Needs documentation/references
 
@@ -650,8 +618,7 @@ namespace Skybrud.Colors {
             s = saturation * value;
             s = s / ((l <= 1) ? (l) : 2d - (l));
 
-            if (double.IsNaN(s))
-            {
+            if (double.IsNaN(s)) {
                 s = 0;
             }
 
@@ -666,8 +633,7 @@ namespace Skybrud.Colors {
         /// <param name="saturation">The saturation of the HSV color.</param>
         /// <param name="value">The value of the HSV color.</param>
         /// <returns>An instance of <see cref="HslColor"/> representing the HSL color.</returns>
-        public static HslColor HsvToHsl(double hue, double saturation, double value)
-        {
+        public static HslColor HsvToHsl(double hue, double saturation, double value) {
             HsvToHsl(hue, saturation, value, out double h, out double s, out double l);
             return new HslColor(h, s, l);
         }
@@ -677,8 +643,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <param name="hsv">The HSV color.</param>
         /// <returns>An instance of <see cref="HslColor"/> representing the HSL color.</returns>
-        public static HslColor HsvToHsl(HsvColor hsv)
-        {
+        public static HslColor HsvToHsl(HsvColor hsv) {
             HsvToHsl(hsv.Hue, hsv.Saturation, hsv.Value, out double h, out double s, out double l);
             return new HslColor(h, s, l);
         }
@@ -696,8 +661,7 @@ namespace Skybrud.Colors {
         /// <param name="red">The red of the RGB color.</param>
         /// <param name="green">The green of the RGB color.</param>
         /// <param name="blue">The blue of the RGB color.</param>
-        public static void HsvToRgb(double hue, double saturation, double value, out double red, out double green, out double blue)
-        {
+        public static void HsvToRgb(double hue, double saturation, double value, out double red, out double green, out double blue) {
 
             // Convert from HSV to HSL
             HsvToHsl(hue, saturation, value, out double hh, out double ss, out double ll);
@@ -721,8 +685,7 @@ namespace Skybrud.Colors {
         /// <param name="red">The red of the RGB color.</param>
         /// <param name="green">The green of the RGB color.</param>
         /// <param name="blue">The blue of the RGB color.</param>
-        public static void HsvToRgb(double hue, double saturation, double value, out int red, out int green, out int blue)
-        {
+        public static void HsvToRgb(double hue, double saturation, double value, out int red, out int green, out int blue) {
 
             // Convert from HSV to HSL
             HsvToHsl(hue, saturation, value, out double hh, out double ss, out double ll);
@@ -767,7 +730,7 @@ namespace Skybrud.Colors {
         }
 
         #endregion
-        
+
         #region RGB -> CMY
 
         /// <summary>
@@ -779,7 +742,7 @@ namespace Skybrud.Colors {
         /// <param name="c">The cyan of the CMY color.</param>
         /// <param name="m">The magenta of the CMY color.</param>
         /// <param name="y">The yellow of the CMY color.</param>
-        public static void RgbToCmy(int red, int green, int blue, out double c, out double m, out double y)  {
+        public static void RgbToCmy(int red, int green, int blue, out double c, out double m, out double y) {
             c = 1 - (red / 255d);
             m = 1 - (green / 255d);
             y = 1 - (blue / 255d);
@@ -794,7 +757,7 @@ namespace Skybrud.Colors {
         /// <param name="c">The cyan of the CMY color.</param>
         /// <param name="m">The magenta of the CMY color.</param>
         /// <param name="y">The yellow of the CMY color.</param>
-        public static void RgbToCmy(double red, double green, double blue, out double c, out double m, out double y)  {
+        public static void RgbToCmy(double red, double green, double blue, out double c, out double m, out double y) {
             c = 1 - (red / 255d);
             m = 1 - (green / 255d);
             y = 1 - (blue / 255d);
@@ -807,7 +770,7 @@ namespace Skybrud.Colors {
         /// <param name="green">The green in the RGB color.</param>
         /// <param name="blue">The blue in the RGB color.</param>
         /// <returns>An instance of <see cref="CmyColor"/> representing the CMY color.</returns>
-        public static CmyColor RgbToCmy(double red, double green, double blue)  {
+        public static CmyColor RgbToCmy(double red, double green, double blue) {
             double c = 1 - (red / 255d);
             double m = 1 - (green / 255d);
             double y = 1 - (blue / 255d);
@@ -858,7 +821,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <param name="rgb">The RGB color.</param>
         /// <returns>An instance of <see cref="CmyColor"/> representing the CMY color.</returns>
-        public static CmyColor RgbToCmy(RgbColor rgb)  {
+        public static CmyColor RgbToCmy(RgbColor rgb) {
             return RgbToCmy(rgb.Red, rgb.Green, rgb.Blue, rgb.Alpha);
         }
 
@@ -1167,8 +1130,7 @@ namespace Skybrud.Colors {
         /// <param name="red">The red of the RGB color.</param>
         /// <param name="green">The green of the RGB color.</param>
         /// <param name="blue">The blue of the RGB color.</param>
-        public static void HexToRgb(string hex, out double red, out double green, out double blue)
-        {
+        public static void HexToRgb(string hex, out double red, out double green, out double blue) {
             var rgb = HexToRgb(hex);
             red = rgb.Red;
             green = rgb.Green;
@@ -1182,8 +1144,7 @@ namespace Skybrud.Colors {
         /// <param name="red">The red of the RGB color.</param>
         /// <param name="green">The green of the RGB color.</param>
         /// <param name="blue">The blue of the RGB color.</param>
-        public static void HexToRgb(string hex, out int red, out int green, out int blue)
-        {
+        public static void HexToRgb(string hex, out int red, out int green, out int blue) {
             var rgb = HexToRgb(hex);
             red = rgb.Red;
             green = rgb.Green;
@@ -1195,33 +1156,25 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <param name="hex">The hex code of the color.</param>
         /// <returns>An instance of <see cref="RgbColor"/> representing the RGB.</returns>
-        public static RgbColor HexToRgb(string hex)
-        {
+        public static RgbColor HexToRgb(string hex) {
             if (string.IsNullOrWhiteSpace(hex)) throw new ArgumentNullException(nameof(hex));
-
             if (TryParse(hex, out IColor color)) return color as RgbColor;
-
             throw new FormatException("Not a valid Hexadecimal value.");
         }
 
         #endregion
 
         #region Parsing
-        //Moved from ColorHelper
 
         /// <summary>
         /// Parses the specified <paramref name="str"/> into an instance of <see cref="IColor"/>.
         /// </summary>
         /// <param name="str">The input string to be parsed.</param>
         /// <returns>An instance of <see cref="IColor"/>.</returns>
-        public static IColor Parse(string str)
-        {
+        public static IColor Parse(string str) {
             if (string.IsNullOrWhiteSpace(str)) throw new ArgumentNullException(nameof(str));
-
             if (TryParse(str, out IColor color)) return color;
-
             throw new FormatException("Input string was not in a correct format.");
-
         }
 
         /// <summary>
@@ -1230,8 +1183,7 @@ namespace Skybrud.Colors {
         /// <param name="str">The input string to be parsed.</param>
         /// <param name="color">An instance of <see cref="IColor"/>.</param>
         /// <returns><c>true</c> if <paramref name="str"/> was converted successfully; otherwise, <c>false</c>.</returns>
-        public static bool TryParse(string str, out IColor color)
-        {
+        public static bool TryParse(string str, out IColor color) {
 
             color = null;
 
@@ -1247,8 +1199,7 @@ namespace Skybrud.Colors {
 
             Match m3 = Regex.Match(str, "^hsl\\(([0-9]+), ([0-9]+)%, ([0-9]+)%\\)$");
 
-            if (m1.Success)
-            {
+            if (m1.Success) {
                 byte.TryParse(m1.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
                 byte.TryParse(m1.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
                 byte.TryParse(m1.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
@@ -1256,8 +1207,7 @@ namespace Skybrud.Colors {
                 return true;
             }
 
-            if (m2.Success)
-            {
+            if (m2.Success) {
                 byte.TryParse(m2.Groups[1].Value + m2.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
                 byte.TryParse(m2.Groups[2].Value + m2.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
                 byte.TryParse(m2.Groups[3].Value + m2.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
@@ -1265,8 +1215,7 @@ namespace Skybrud.Colors {
                 return true;
             }
 
-            if (m3.Success)
-            {
+            if (m3.Success) {
                 float h = int.Parse(m3.Groups[1].Value) / 360f;
                 float s = int.Parse(m3.Groups[2].Value) / 100f;
                 float l = int.Parse(m3.Groups[3].Value) / 100f;
@@ -1277,7 +1226,7 @@ namespace Skybrud.Colors {
             return false;
 
         }
-        
+
         /// <summary>
         /// Clamps the <paramref name="value"/> to a value between <paramref name="min"/> and <paramref name="max"/> (both inclusive).
         /// </summary>
@@ -1286,7 +1235,7 @@ namespace Skybrud.Colors {
         /// <param name="max">The maximum allowed value.</param>
         /// <returns>A value between <paramref name="min"/> and <paramref name="max"/>.</returns>
         public static int Clamp(float value, int min, int max) {
-            return (int) Math.Min(max, Math.Max(min, value));
+            return (int)Math.Min(max, Math.Max(min, value));
         }
 
         /// <summary>
