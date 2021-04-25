@@ -10,7 +10,7 @@ namespace Skybrud.Colors {
     /// <see>
     ///     <cref>https://en.wikipedia.org/wiki/HSL_and_HSV</cref>
     /// </see>
-    public class HslColor : IColor {
+    public class HslColor : ColorBase {
 
         private double _hue;
         private double _saturation;
@@ -88,6 +88,19 @@ namespace Skybrud.Colors {
             Lightness = ColorUtils.Clamp(lightness);
         }
 
+        /// <summary>
+        /// Initializes a new HSL color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="saturation"/>.
+        /// </summary>
+        /// <param name="hue">The hue value of the HSL color, specified as a decimal number between <c>0</c> and <c>1</c>.</param>
+        /// <param name="saturation">The saturation value of the HSL color, specified as a decimal number between <c>0</c> and <c>1</c>.</param>
+        /// <param name="lightness">The lightness value of the HSL color, specified as a decimal number between <c>0</c> and <c>1</c>.</param>
+        /// <param name="alpha">The amount of opacity, represented by a value between <c>0</c> and <c>1</c>.</param>
+        public HslColor([ValueRange(0, 1)] double hue, [ValueRange(0, 1)] double saturation, [ValueRange(0, 1)] double lightness, [ValueRange(0, 1)] double alpha) : base(alpha) {
+            Hue = ColorUtils.Clamp(hue);
+            Saturation = ColorUtils.Clamp(saturation);
+            Lightness = ColorUtils.Clamp(lightness);
+        }
+
         #endregion
 
         #region Member methods
@@ -96,39 +109,23 @@ namespace Skybrud.Colors {
         /// Converts the HSL color to a RGB color.
         /// </summary>
         /// <returns>An instance of <see cref="RgbColor"/>.</returns>
-        public virtual RgbColor ToRgb() {
+        public override RgbColor ToRgb() {
             return ColorUtils.HslToRgb(this);
-        }
-
-        /// <summary>
-        /// Converts the HSL color to a RGBA color.
-        /// </summary>
-        /// <returns>An instance of <see cref="RgbaColor"/>.</returns>
-        public virtual RgbaColor ToRgba() {
-            return ColorUtils.HslToRgba(this);
         }
 
         /// <summary>
         /// Converts the HSL color to a HSL color.
         /// </summary>
         /// <returns>An instance of <see cref="HslColor"/>.</returns>
-        public virtual HslColor ToHsl() {
-            return new HslColor(Hue, Saturation, Lightness);
-        }
-
-        /// <summary>
-        /// Converts the HSL color to a HSLA color.
-        /// </summary>
-        /// <returns>An instance of <see cref="HslaColor"/>.</returns>
-        public virtual HslaColor ToHsla() {
-            return new HslaColor(Hue, Saturation, Lightness, 1);
+        public override HslColor ToHsl() {
+            return new HslColor(Hue, Saturation, Lightness, Alpha);
         }
 
         /// <summary>
         /// Converts the HSL color to a HSV color.
         /// </summary>
         /// <returns>An instance of <see cref="CmyColor"/>.</returns>
-        public virtual HsvColor ToHsv() {
+        public override HsvColor ToHsv() {
             return ColorUtils.HslToHsv(this);
         }
 
@@ -136,7 +133,7 @@ namespace Skybrud.Colors {
         /// Converts the HSL color to a CMY color.
         /// </summary>
         /// <returns>An instance of <see cref="CmyColor"/>.</returns>
-        public virtual CmyColor ToCmy() {
+        public override CmyColor ToCmy() {
             return ToRgb().ToCmy();
         }
 
@@ -144,7 +141,7 @@ namespace Skybrud.Colors {
         /// Converts the HSL color to a CMYK color.
         /// </summary>
         /// <returns>An instance of <see cref="CmykColor"/>.</returns>
-        public virtual CmykColor ToCmyk() {
+        public override CmykColor ToCmyk() {
             return ToRgb().ToCmyk();
         }
 
@@ -152,7 +149,7 @@ namespace Skybrud.Colors {
         /// Returns the HEX representation of the color.
         /// </summary>
         /// <returns>A HEX string representing the color.</returns>
-        public virtual string ToHex() {
+        public override string ToHex() {
             return ToRgb().ToHex();
         }
 
@@ -160,7 +157,7 @@ namespace Skybrud.Colors {
         /// Returns the CSS representation of the color. The color will be expressed as <code>hsl(0, 0%, 0%)</code>.
         /// </summary>
         /// <returns>The CSS representation of the color.</returns>
-        public virtual string ToCss() {
+        public override string ToCss() {
             return $"hsl({Math.Round(H * 360):0}, {Math.Round(S * 100):0}%, {Math.Round(L * 100):0}%)";
         }
 
@@ -199,7 +196,7 @@ namespace Skybrud.Colors {
             // Attempt to parse the input string
             if (ColorUtils.TryParse(str, out IColor result) == false) return false;
 
-            // Convert the color to RGB
+            // Convert the color to HSL
             color = result as HslColor ?? result.ToHsl();
             return true;
 

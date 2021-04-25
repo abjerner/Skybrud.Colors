@@ -7,7 +7,7 @@ namespace Skybrud.Colors {
     /// Class representing a color in the <strong>CMY</strong> color model. CMY stands for <em>cyan</em>,
     /// <em>magenta</em>, and <em>yellow</em>. CMY colors are closely related to <see cref="CmykColor"/>.
     /// </summary>
-    public class CmyColor : IColor {
+    public class CmyColor : ColorBase {
 
         private double _cyan;
         private double _magenta;
@@ -85,6 +85,19 @@ namespace Skybrud.Colors {
             Yellow = yellow;
         }
 
+        /// <summary>
+        /// Initializes a new CMY color based on the specified 
+        /// </summary>
+        /// <param name="cyan">The amount of cyan in the color.</param>
+        /// <param name="magenta">The amount of magenta in the color.</param>
+        /// <param name="yellow">The amount of yellow in the color.</param>
+        /// <param name="alpha">The amount of opacity, represented by a value between <c>0</c> and <c>1</c>.</param>
+        public CmyColor([ValueRange(0, 100)] double cyan, [ValueRange(0, 100)] double magenta, [ValueRange(0, 100)] double yellow, [ValueRange(0, 1)] double alpha) : base(alpha) {
+            Cyan = cyan;
+            Magenta = magenta;
+            Yellow = yellow;
+        }
+
         #endregion
 
         #region Member methods
@@ -93,7 +106,7 @@ namespace Skybrud.Colors {
         /// Returns the HEX representation of the color.
         /// </summary>
         /// <returns>Returns a HEX string representing the color.</returns>
-        public string ToHex() {
+        public override string ToHex() {
             return ToRgb().ToHex();
         }
 
@@ -102,7 +115,7 @@ namespace Skybrud.Colors {
         /// method will simply return <c>null</c>.
         /// </summary>
         /// <returns><c>null</c> as the CSS specification doesn't support CMY colors.</returns>
-        public string ToCss() {
+        public override string ToCss() {
             return null;
         }
 
@@ -110,45 +123,26 @@ namespace Skybrud.Colors {
         /// Converts the CMY color to an instance of <see cref="RgbColor"/>.
         /// </summary>
         /// <returns>An instance of <see cref="RgbColor"/>.</returns>
-        public RgbColor ToRgb() {
+        public override RgbColor ToRgb() {
             double r = (1 - C) * 255d;
             double g = (1 - M) * 255d;
             double b = (1 - Y) * 255d;
-            return new RgbColor(r, g, b);
-        }
-
-        /// <summary>
-        /// Converts the CMY color to an instance of <see cref="RgbaColor"/>.
-        /// </summary>
-        /// <returns>An instance of <see cref="RgbaColor"/>.</returns>
-        public RgbaColor ToRgba() {
-            double r = (1 - C) * 255d;
-            double g = (1 - M) * 255d;
-            double b = (1 - Y) * 255d;
-            return new RgbaColor(r, g, b, 1);
+            return new RgbColor(r, g, b, Alpha);
         }
 
         /// <summary>
         /// Converts the CMY color to an instance of <see cref="HslColor"/>.
         /// </summary>
         /// <returns>An instance of <see cref="HslColor"/>.</returns>
-        public HslColor ToHsl() {
+        public override HslColor ToHsl() {
             return ToRgb().ToHsl();
-        }
-
-        /// <summary>
-        /// Converts the CMY color to an instance of <see cref="HslaColor"/>.
-        /// </summary>
-        /// <returns>An instance of <see cref="HslaColor"/>.</returns>
-        public HslaColor ToHsla() {
-            return ToRgb().ToHsla();
         }
 
         /// <summary>
         /// Converts the CMY color to an instance of <see cref="HsvColor"/>.
         /// </summary>
         /// <returns>An instance of <see cref="HsvColor"/>.</returns>
-        public HsvColor ToHsv() {
+        public override HsvColor ToHsv() {
             return ToRgb().ToHsv();
         }
 
@@ -156,15 +150,15 @@ namespace Skybrud.Colors {
         /// Returns a new instance of the current CMY color.
         /// </summary>
         /// <returns>An instance of <see cref="CmyColor"/>.</returns>
-        public CmyColor ToCmy() {
-            return new CmyColor(C, M, Y);
+        public override CmyColor ToCmy() {
+            return new CmyColor(C, M, Y, Alpha);
         }
 
         /// <summary>
         /// Converts the CMY color to an instance of <see cref="CmykColor"/>.
         /// </summary>
         /// <returns>An instance of <see cref="CmykColor"/>.</returns>
-        public CmykColor ToCmyk() {
+        public override CmykColor ToCmyk() {
 
             double key = 1;
 
@@ -188,7 +182,7 @@ namespace Skybrud.Colors {
             
             double k = key;
 
-            return new CmykColor(c, m, y, k);
+            return new CmykColor(c, m, y, k, Alpha);
 
         }
 

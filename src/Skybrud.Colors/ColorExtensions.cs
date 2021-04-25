@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using JetBrains.Annotations;
 
 namespace Skybrud.Colors {
@@ -17,29 +16,14 @@ namespace Skybrud.Colors {
         /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
         public static IColor Saturate(this IColor color, [ValueRange(0, 100)] float percent) {
 
-            if (color is IAlphaColor) {
+            // Make sure that the color is in the HSL color space
+            HslColor hsl = color as HslColor ?? color.ToHsl();
 
-                // Make sure that the color is in the HSLA color space
-                HslaColor hsla = color as HslaColor ?? color.ToHsla();
+            // Increase the saturation by the specified percent
+            double saturation = hsl.Saturation + percent / 100f;
 
-                // Increase the saturation by the specified percent
-                double saturation = hsla.Saturation + percent / 100f;
-
-                // Return a new HSLA color
-                return new HslaColor(hsla.Hue, Math.Min(1, saturation), hsla.Lightness, hsla.Alpha);
-
-            } else {
-
-                // Make sure that the color is in the HSL color space
-                HslColor hsl = color as HslColor ?? color.ToHsl();
-
-                // Increase the saturation by the specified percent
-                double saturation = hsl.Saturation + percent / 100f;
-
-                // Return a new HSL color
-                return new HslColor(hsl.Hue, Math.Min(1, saturation), hsl.Lightness);
-
-            }
+            // Return a new HSL color
+            return new HslColor(hsl.Hue, Math.Min(1, saturation), hsl.Lightness, hsl.Alpha);
 
         }
 
@@ -51,29 +35,14 @@ namespace Skybrud.Colors {
         /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
         public static IColor Desaturate(this IColor color, [ValueRange(0, 100)] float percent) {
 
-            if (color is IAlphaColor) {
+            // Make sure that the color is in the HSL color space
+            HslColor hsl = color as HslColor ?? color.ToHsl();
 
-                // Make sure that the color is in the HSLA color space
-                HslaColor hsla = color as HslaColor ?? color.ToHsla();
+            // Decrease the saturation by the specified percent
+            double saturation = hsl.Saturation - percent / 100f;
 
-                // Decrease the saturation by the specified percent
-                double saturation = hsla.Saturation - percent / 100f;
-
-                // Return a new HSLA color
-                return new HslaColor(hsla.Hue, Math.Max(0, saturation), hsla.Lightness, hsla.Alpha);
-
-            } else {
-
-                // Make sure that the color is in the HSL color space
-                HslColor hsl = color as HslColor ?? color.ToHsl();
-
-                // Decrease the saturation by the specified percent
-                double saturation = hsl.Saturation - percent / 100f;
-
-                // Return a new HSL color
-                return new HslColor(hsl.Hue, Math.Max(0, saturation), hsl.Lightness);
-
-            }
+            // Return a new HSL color
+            return new HslColor(hsl.Hue, Math.Max(0, saturation), hsl.Lightness, hsl.Alpha);
 
         }
 
@@ -85,29 +54,14 @@ namespace Skybrud.Colors {
         /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
         public static IColor Darken(this IColor color, [ValueRange(0, 100)] float percent) {
 
-            if (color is IAlphaColor) {
+            // Make sure that the color is in the HSL color space
+            HslColor hsl = color as HslColor ?? color.ToHsl();
 
-                // Make sure that the color is in the HSLA color space
-                HslaColor hsla = color as HslaColor ?? color.ToHsla();
+            // Increase the darkness by the specified percent
+            double lightness = hsl.Lightness - percent / 100f;
 
-                // Increase the darkness by the specified percent
-                double lightness = hsla.Lightness - percent / 100f;
-
-                // Return a new HSLA color
-                return new HslaColor(hsla.Hue, hsla.Saturation, Math.Min(1, lightness), hsla.Alpha);
-
-            } else {
-
-                // Make sure that the color is in the HSL color space
-                HslColor hsl = color as HslColor ?? color.ToHsl();
-
-                // Increase the darkness by the specified percent
-                double lightness = hsl.Lightness - percent / 100f;
-
-                // Return a new HSL color
-                return new HslColor(hsl.Hue, hsl.Saturation, Math.Min(1, lightness));
-
-            }
+            // Return a new HSL color
+            return new HslColor(hsl.Hue, hsl.Saturation, Math.Min(1, lightness), hsl.Alpha);
 
         }
 
@@ -119,29 +73,14 @@ namespace Skybrud.Colors {
         /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
         public static IColor Lighten(this IColor color, [ValueRange(0, 100)] float percent) {
 
-            if (color is IAlphaColor) {
+            // Make sure that the color is in the HSL color space
+            HslColor hsl = color as HslColor ?? color.ToHsl();
 
-                // Make sure that the color is in the HSLa color space
-                HslaColor hsla = color as HslaColor ?? color.ToHsla();
+            // Increase the lightness by the specified percent
+            double lightness = hsl.Lightness + percent / 100f;
 
-                // Increase the lightness by the specified percent
-                double lightness = hsla.Lightness + percent / 100f;
-
-                // Return a new HSLA color
-                return new HslaColor(hsla.Hue, hsla.Saturation, Math.Max(0, lightness), hsla.Alpha);
-
-            } else {
-
-                // Make sure that the color is in the HSL color space
-                HslColor hsl = color as HslColor ?? color.ToHsl();
-
-                // Increase the lightness by the specified percent
-                double lightness = hsl.Lightness + percent / 100f;
-
-                // Return a new HSL color
-                return new HslColor(hsl.Hue, hsl.Saturation, Math.Max(0, lightness));
-
-            }
+            // Return a new HSL color
+            return new HslColor(hsl.Hue, hsl.Saturation, Math.Max(0, lightness), hsl.Alpha);
 
         }
 
@@ -151,24 +90,8 @@ namespace Skybrud.Colors {
         /// <param name="color">The input color.</param>
         /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
         public static IColor Invert(this IColor color) {
-
-            switch (color) {
-
-                case IAlphaColor alpha:
-
-                    RgbaColor rgba = alpha as RgbaColor ?? alpha.ToRgba();
-
-                    return new RgbaColor(~rgba.R, ~rgba.G, ~rgba.B, rgba.Alpha);
-
-                default:
-
-                    RgbColor rgb = color as RgbColor ?? color.ToRgb();
-
-                    return new RgbColor(~rgb.Red, ~rgb.Green, ~rgb.Blue);
-
-            }
-
-
+            RgbColor rgb = color as RgbColor ?? color.ToRgb();
+            return new RgbColor(~rgb.Red, ~rgb.Green, ~rgb.Blue, rgb.Alpha);
         }
 
         /// <summary>
@@ -196,7 +119,7 @@ namespace Skybrud.Colors {
             double hueDecimals = hueeeee / 360d;
 
             // Return the result
-            return new HslColor(hueDecimals, hsl.Saturation, hsl.Lightness);
+            return new HslColor(hueDecimals, hsl.Saturation, hsl.Lightness, hsl.Alpha);
 
         }
 

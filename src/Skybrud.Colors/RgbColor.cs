@@ -10,7 +10,7 @@ namespace Skybrud.Colors {
     /// <see>
     ///     <cref>https://en.wikipedia.org/wiki/RGB_color_model</cref>
     /// </see>
-    public class RgbColor : IColor {
+    public class RgbColor : ColorBase {
         
         #region Properties
 
@@ -72,12 +72,38 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
+        /// Initializes a new new color based on the specified <paramref name="red"/>, <paramref name="green"/>, <paramref name="blue"/> and <paramref name="alpha"/>.
+        /// </summary>
+        /// <param name="red">The amount of red in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="green">The amount of green in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="blue">The amount of blue in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="alpha">The amount of opacity, represented by a value between <c>0</c> and <c>1</c>.</param>
+        public RgbColor([ValueRange(0, 255)] byte red, [ValueRange(0, 255)] byte green, [ValueRange(0, 255)] byte blue, [ValueRange(0, 1)] double alpha) : base(alpha) {
+            Red = red;
+            Green = green;
+            Blue = blue;
+        }
+
+        /// <summary>
         /// Initializes a new new color based on the specified <paramref name="red"/>, <paramref name="green"/> and <paramref name="blue"/>.
         /// </summary>
         /// <param name="red">The amount of red in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         /// <param name="green">The amount of green in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         /// <param name="blue">The amount of blue in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         public RgbColor([ValueRange(0, 255)] int red, [ValueRange(0, 255)] int green, [ValueRange(0, 255)] int blue) {
+            Red = (byte) ColorUtils.Clamp(red, 0, 255);
+            Green = (byte) ColorUtils.Clamp(green, 0, 255);
+            Blue = (byte) ColorUtils.Clamp(blue, 0, 255);
+        }
+
+        /// <summary>
+        /// Initializes a new new color based on the specified <paramref name="red"/>, <paramref name="green"/>, <paramref name="blue"/> and <paramref name="alpha"/>.
+        /// </summary>
+        /// <param name="red">The amount of red in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="green">The amount of green in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="blue">The amount of blue in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="alpha">The amount of opacity, represented by a value between <c>0</c> and <c>1</c>.</param>
+        public RgbColor([ValueRange(0, 255)] int red, [ValueRange(0, 255)] int green, [ValueRange(0, 255)] int blue, [ValueRange(0, 1)] double alpha) : base(alpha) {
             Red = (byte) ColorUtils.Clamp(red, 0, 255);
             Green = (byte) ColorUtils.Clamp(green, 0, 255);
             Blue = (byte) ColorUtils.Clamp(blue, 0, 255);
@@ -95,6 +121,19 @@ namespace Skybrud.Colors {
             Blue = (byte) Math.Round(ColorUtils.Clamp(blue, 0, 255));
         }
 
+        /// <summary>
+        /// Initializes a new new color based on the specified <paramref name="red"/>, <paramref name="green"/>, <paramref name="blue"/> and <paramref name="alpha"/>.
+        /// </summary>
+        /// <param name="red">The amount of red in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="green">The amount of green in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="blue">The amount of blue in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
+        /// <param name="alpha">The amount of opacity, represented by a value between <c>0</c> and <c>1</c>.</param>
+        public RgbColor([ValueRange(0, 255)] double red, [ValueRange(0, 255)] double green, [ValueRange(0, 255)] double blue, [ValueRange(0, 1)] double alpha) : base(alpha) {
+            Red = (byte) Math.Round(ColorUtils.Clamp(red, 0, 255));
+            Green = (byte) Math.Round(ColorUtils.Clamp(green, 0, 255));
+            Blue = (byte) Math.Round(ColorUtils.Clamp(blue, 0, 255));
+        }
+
         #endregion
 
         #region Member methods
@@ -104,40 +143,23 @@ namespace Skybrud.Colors {
         /// <see cref="Green"/> and <see cref="Blue"/> properties.
         /// </summary>
         /// <returns>A new instance of <see cref="RgbColor"/>.</returns>
-        public virtual RgbColor ToRgb() {
-            return new RgbColor(Red, Green, Blue);
-        }
-
-        /// <summary>
-        /// Converts the RGB color to a RGBA color.
-        /// </summary>
-        /// <returns>An instance of <see cref="RgbaColor"/>.</returns>
-        public virtual RgbaColor ToRgba() {
-            return new RgbaColor(R, G, B, 1);
+        public override RgbColor ToRgb() {
+            return new RgbColor(Red, Green, Blue, Alpha);
         }
 
         /// <summary>
         /// Converts the RGB color to an HSL color.
         /// </summary>
         /// <returns>An instance of <see cref="HslColor"/>.</returns>
-        public virtual HslColor ToHsl() {
+        public override HslColor ToHsl() {
             return ColorUtils.RgbToHsl(this);
-        }
-
-        /// <summary>
-        /// Converts the RGB color to an HSLA color.
-        /// </summary>
-        /// <returns>An instance of <see cref="HslaColor"/>.</returns>
-        public virtual HslaColor ToHsla() {
-            ColorUtils.RgbToHsl(Red, Green, Blue, out double hue, out double saturation, out double lightness);
-            return new HslaColor(hue, saturation, lightness, 1);
         }
 
         /// <summary>
         /// Converts the RGB color to an HSV color.
         /// </summary>
         /// <returns>An instance of <see cref="HsvColor"/>.</returns>
-        public virtual HsvColor ToHsv() {
+        public override HsvColor ToHsv() {
             return ColorUtils.RgbToHsv(this);
         }
 
@@ -145,7 +167,7 @@ namespace Skybrud.Colors {
         /// Converts the RGB color to a CMY color.
         /// </summary>
         /// <returns>An instance of <see cref="CmyColor"/>.</returns>
-        public virtual CmyColor ToCmy() {
+        public override CmyColor ToCmy() {
             return ColorUtils.RgbToCmy(this);
         }
 
@@ -153,7 +175,7 @@ namespace Skybrud.Colors {
         /// Converts the RGB color to a CMYK color.
         /// </summary>
         /// <returns>An instance of <see cref="CmykColor"/>.</returns>
-        public virtual CmykColor ToCmyk() {
+        public override CmykColor ToCmyk() {
             return ColorUtils.RgbToCmyk(this);
         }
 
@@ -161,7 +183,7 @@ namespace Skybrud.Colors {
         /// Returns the HEX representation of the color.
         /// </summary>
         /// <returns>A HEX string representing the color.</returns>
-        public virtual string ToHex() {
+        public override string ToHex() {
             return "#" + Red.ToString("x").PadLeft(2, '0') + Green.ToString("x").PadLeft(2, '0') + Blue.ToString("x").PadLeft(2, '0');
         }
 
@@ -169,7 +191,7 @@ namespace Skybrud.Colors {
         /// Returns the CSS representation of the color. The color will be expressed as <code>rgb(0, 0, 0)</code>.
         /// </summary>
         /// <returns>The CSS representation of the color.</returns>
-        public virtual string ToCss() {
+        public override string ToCss() {
             return "rgb(" + Red + ", " + Green + ", " + Blue + ")";
         }
         
