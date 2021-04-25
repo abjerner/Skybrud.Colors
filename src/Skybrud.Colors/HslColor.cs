@@ -146,14 +146,6 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
-        /// Returns the HEX representation of the color.
-        /// </summary>
-        /// <returns>A HEX string representing the color.</returns>
-        public override string ToHex() {
-            return ToRgb().ToHex();
-        }
-
-        /// <summary>
         /// Returns the CSS representation of the color. The color will be expressed as <code>hsl(0, 0%, 0%)</code>.
         /// </summary>
         /// <returns>The CSS representation of the color.</returns>

@@ -17,6 +17,13 @@
         string ToHex();
 
         /// <summary>
+        /// Returns the HEX representation of the color, accoding to the specified <paramref name="format"/>.
+        /// </summary>
+        /// <param name="format">The HEX format.</param>
+        /// <returns>A HEX string representing the color.</returns>
+        string ToHex(HexFormat format);
+
+        /// <summary>
         /// Returns the CSS representation of the color, or <c>null</c> if the CSS specification doesn't support the color model.
         /// </summary>
         /// <returns>An instance of <see cref="string"/> with the CSS representation of the color.</returns>

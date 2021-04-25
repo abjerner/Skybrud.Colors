@@ -180,14 +180,6 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
-        /// Returns the HEX representation of the color.
-        /// </summary>
-        /// <returns>A HEX string representing the color.</returns>
-        public override string ToHex() {
-            return "#" + Red.ToString("x").PadLeft(2, '0') + Green.ToString("x").PadLeft(2, '0') + Blue.ToString("x").PadLeft(2, '0');
-        }
-
-        /// <summary>
         /// Returns the CSS representation of the color. The color will be expressed as <code>rgb(0, 0, 0)</code>.
         /// </summary>
         /// <returns>The CSS representation of the color.</returns>

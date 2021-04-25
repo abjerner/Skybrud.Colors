@@ -103,14 +103,6 @@ namespace Skybrud.Colors {
         #region Member methods
 
         /// <summary>
-        /// Returns the HEX representation of the color.
-        /// </summary>
-        /// <returns>Returns a HEX string representing the color.</returns>
-        public override string ToHex() {
-            return ToRgb().ToHex();
-        }
-
-        /// <summary>
         /// Returns the CSS representation of the color. Since the CSS specification doesn't support CMY colors, this
         /// method will simply return <c>null</c>.
         /// </summary>

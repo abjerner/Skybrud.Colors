@@ -53,6 +53,7 @@
     <Compile Include="AlphaConvertionTests.cs" />
     <Compile Include="ColorOperationTests.cs" />
     <Compile Include="CmykColorTests.cs" />
+    <Compile Include="HexTests.cs" />
     <Compile Include="HsvColorTests.cs" />
     <Compile Include="CmyColorTests.cs" />
     <Compile Include="Samples\HtmlColorSample.cs" />

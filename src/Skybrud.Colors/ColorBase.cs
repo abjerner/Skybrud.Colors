@@ -78,7 +78,34 @@ namespace Skybrud.Colors {
         /// Returns the HEX representation of the color.
         /// </summary>
         /// <returns>A HEX string representing the color.</returns>
-        public abstract string ToHex();
+        public virtual string ToHex() {
+            return ToHex(HexFormat.Auto);
+        }
+
+        /// <summary>
+        /// Returns the HEX representation of the color, accoding to the specified <paramref name="format"/>.
+        /// </summary>
+        /// <param name="format">The HEX format.</param>
+        /// <returns>A HEX string representing the color.</returns>
+        public virtual string ToHex(HexFormat format) {
+
+            // Make sure we have the color as RGB
+            RgbColor rgb = this as RgbColor ?? ToRgb();
+
+            if (format == HexFormat.Auto) format = rgb.Alpha < 1 ? HexFormat.Rgba : HexFormat.Rgb;
+
+            switch (format) {
+
+                case HexFormat.Rgba:
+                    int alpha = (int) Math.Round(rgb.Alpha * 255);
+                    return $"#{rgb.Red:x2}{rgb.Green:x2}{rgb.Blue:x2}{alpha:x2}";
+
+                default:
+                    return $"#{rgb.Red:x2}{rgb.Green:x2}{rgb.Blue:x2}";
+
+            }
+
+        }
 
         /// <summary>
         /// Returns the CSS representation of the color, or <c>null</c> if the CSS specification doesn't support the color model.
