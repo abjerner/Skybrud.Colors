@@ -3,10 +3,9 @@
 namespace Skybrud.Colors.Wcag {
     
     /// <summary>
-    /// Static helper class for various WCAG calculations.
+    /// Static class with utility methods for various WCAG calculations.
     /// </summary>
-    [Obsolete("Use 'WcagUtils' class instead.")]
-    public class WcagHelpers {
+    public class WcagUtils {
 
         /// <summary>
         /// Calculates the relative luminance of a given <paramref name="color"/> as specified by the WCAG 2.0 specification.
@@ -16,7 +15,6 @@ namespace Skybrud.Colors.Wcag {
         /// <see>
         ///     <cref>https://www.w3.org/TR/WCAG20/#relativeluminancedef</cref>
         /// </see>
-        [Obsolete("Use 'WcagUtils.GetRelativeLuminance' method instead.")]
         public static double GetRelativeLuminance(RgbColor color) {
 
             // Get the RGB as values from 0-1
@@ -49,7 +47,6 @@ namespace Skybrud.Colors.Wcag {
         /// <see>
         ///     <cref>https://www.w3.org/TR/WCAG20/#contrast-ratiodef</cref>
         /// </see>
-        [Obsolete("Use 'WcagUtils.GetContrastRatio' method instead.")]
         public static double GetContrastRatio(RgbColor color1, RgbColor color2) {
 
             // Calulate the relative lumancy of both colors

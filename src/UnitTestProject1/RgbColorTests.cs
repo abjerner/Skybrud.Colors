@@ -223,14 +223,12 @@ namespace UnitTestProject1 {
         public void TryParse() {
 
             foreach (HtmlColorSample sample in HtmlColorSamples.All) {
-                RgbColor color1;
-                Assert.AreEqual(true, RgbColor.TryParse(sample.Hex, out color1));
+                Assert.AreEqual(true, RgbColor.TryParse(sample.Hex, out RgbColor color1));
                 Assert.AreEqual(sample.Rgb.Css, color1.ToCss(), sample.Name);
             }
 
             foreach (HtmlColorSample sample in HtmlColorSamples.All) {
-                RgbColor color1;
-                Assert.AreEqual(false, RgbColor.TryParse(sample.Name, out color1));
+                Assert.AreEqual(false, RgbColor.TryParse(sample.Name, out RgbColor _));
             }
 
         }

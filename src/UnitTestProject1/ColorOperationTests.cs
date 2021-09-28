@@ -62,6 +62,25 @@ namespace UnitTestProject1 {
 
         }
 
+        [TestMethod]
+        public void Spin() {
+
+            RgbColor origin = ColorUtils.HexToRgb("#f2330d");
+
+            IColor result1 = origin.Spin(+30);
+            IColor result2 = origin.Spin(-30);
+
+            Assert.AreEqual("#f2a60d", result1.ToHex());
+            Assert.AreEqual("#f20d59", result2.ToHex());
+
+            IColor result3 = origin.Spin(+30 + 360);
+            IColor result4 = origin.Spin(-30 - 360);
+
+            Assert.AreEqual("#f2a60d", result3.ToHex());
+            Assert.AreEqual("#f20d59", result4.ToHex());
+
+        }
+
     }
 
 }

@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+﻿using JetBrains.Annotations;
 
 namespace Skybrud.Colors {
 
@@ -9,22 +9,38 @@ namespace Skybrud.Colors {
     /// </summary>
     public class HsvColor : IColor {
 
+        private double _hue;
+        private double _saturation;
+        private double _value;
+
         #region Properties
 
         /// <summary>
         /// Gets the hue as a number between <c>0</c> and <c>1</c>. For the hue as the degrees of a circle, simply multiply by <c>360</c>.
         /// </summary>
-        public double Hue { get; set; }
+        [ValueRange(0, 1)] 
+        public double Hue {
+            get => _hue;
+            set => _hue = ColorUtils.Clamp(value);
+        }
 
         /// <summary>
         /// Gets the saturation as a number between <c>0</c> and <c>1</c>. For the saturation as percent, simply multiply by <c>100</c>.
         /// </summary>
-        public double Saturation { get; set; }
+        [ValueRange(0, 1)]
+        public double Saturation {
+            get => _saturation;
+            set => _saturation = ColorUtils.Clamp(value);
+        }
 
         /// <summary>
         /// Gets the value as a number between <c>0</c> and <c>1</c>. For the value as percent, simply multiply by <c>100</c>.
         /// </summary>
-        public double Value { get; set; }
+        [ValueRange(0, 1)]
+        public double Value {
+            get => _value;
+            set => _value = ColorUtils.Clamp(value);
+        }
 
         #endregion
 
@@ -33,13 +49,13 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Initializes a new <strong>HSV</strong> color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="value"/>.
         /// </summary>
-        /// <param name="hue">The hue of the HSV color, specified as a decimal number between <c>0</c> and <c>0</c>.</param>
-        /// <param name="saturation">The saturation of the HSV color, specified as a decimal number between <c>0</c> and <c>0</c>.</param>
-        /// <param name="value">The value of the HSV color, specified as a decimal number between <c>0</c> and <c>0</c>.</param>
-        public HsvColor(double hue, double saturation, double value) {
-            Hue = hue;
-            Saturation = saturation;
-            Value = value;
+        /// <param name="hue">The hue of the HSV color, specified as a decimal number between <c>0</c> and <c>1</c>.</param>
+        /// <param name="saturation">The saturation of the HSV color, specified as a decimal number between <c>1</c> and <c>0</c>.</param>
+        /// <param name="value">The value of the HSV color, specified as a decimal number between <c>0</c> and <c>1</c>.</param>
+        public HsvColor([ValueRange(0, 1)] double hue, [ValueRange(0, 1)] double saturation, [ValueRange(0, 1)] double value) {
+            Hue = ColorUtils.Clamp(hue);
+            Saturation = ColorUtils.Clamp(saturation);
+            Value = ColorUtils.Clamp(value);
         }
 
         #endregion

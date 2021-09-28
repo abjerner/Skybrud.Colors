@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text;
+using JetBrains.Annotations;
 
 namespace Skybrud.Colors {
 
@@ -13,7 +15,7 @@ namespace Skybrud.Colors {
         /// <param name="color">The input color.</param>
         /// <param name="percent">A percentage.</param>
         /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
-        public static IColor Saturate(this IColor color, float percent) {
+        public static IColor Saturate(this IColor color, [ValueRange(0, 100)] float percent) {
 
             if (color is IAlphaColor) {
 
@@ -47,7 +49,7 @@ namespace Skybrud.Colors {
         /// <param name="color">The input color.</param>
         /// <param name="percent">A percentage.</param>
         /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
-        public static IColor Desaturate(this IColor color, float percent) {
+        public static IColor Desaturate(this IColor color, [ValueRange(0, 100)] float percent) {
 
             if (color is IAlphaColor) {
 
@@ -81,7 +83,7 @@ namespace Skybrud.Colors {
         /// <param name="color">The input color.</param>
         /// <param name="percent">The amount of darkness (specified in percent) that should be added to the color.</param>
         /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
-        public static IColor Darken(this IColor color, float percent) {
+        public static IColor Darken(this IColor color, [ValueRange(0, 100)] float percent) {
 
             if (color is IAlphaColor) {
 
@@ -115,7 +117,7 @@ namespace Skybrud.Colors {
         /// <param name="color">The input color.</param>
         /// <param name="percent">The amount of lightness (specified in percent) that should be added to the color.</param>
         /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
-        public static IColor Lighten(this IColor color, float percent) {
+        public static IColor Lighten(this IColor color, [ValueRange(0, 100)] float percent) {
 
             if (color is IAlphaColor) {
 
@@ -166,6 +168,35 @@ namespace Skybrud.Colors {
 
             }
 
+
+        }
+
+        /// <summary>
+        /// Rotate the hue angle of the specified <paramref name="color"/>.
+        /// </summary>
+        /// <param name="color">The color.</param>
+        /// <param name="degrees">The amount of degrees to rotate.</param>
+        /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
+        /// <see>
+        ///     <cref>https://lesscss.org/functions/#color-operations-spin</cref>
+        /// </see>
+        public static IColor Spin(this IColor color, int degrees) {
+
+            // Make sure we have the color as HSL
+            HslColor hsl = color as HslColor ?? color.ToHsl();
+
+            // Convert from decimal to degrees and add the specified degrees
+            double hueeeee = hsl.Hue * 360 + degrees;
+            
+            // Handle overflow and underflow
+            while (hueeeee > 360) hueeeee -= 360;
+            while (hueeeee < 0) hueeeee += 360;
+            
+            // Convert back to decimals
+            double hueDecimals = hueeeee / 360d;
+
+            // Return the result
+            return new HslColor(hueDecimals, hsl.Saturation, hsl.Lightness);
 
         }
 

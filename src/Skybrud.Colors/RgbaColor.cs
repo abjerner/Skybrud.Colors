@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using JetBrains.Annotations;
 
 namespace Skybrud.Colors {
 
@@ -9,12 +10,18 @@ namespace Skybrud.Colors {
     /// </summary>
     public class RgbaColor : RgbColor, IAlphaColor {
 
+        private float _alpha;
+
         #region Properties
 
         /// <summary>
         /// Gets tor sets the opacity as a number between <c>0.0</c> (fully transparent) and <c>1.0</c> (fully opaque).
         /// </summary>
-        public float Alpha { get; set; }
+        [ValueRange(0, 1)]
+        public float Alpha {
+            get => _alpha;
+            set => _alpha = ColorUtils.Clamp(value);
+        }
 
         #endregion
 
@@ -32,7 +39,7 @@ namespace Skybrud.Colors {
         /// <param name="green">The amount of green in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         /// <param name="blue">The amount of blue in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         /// <param name="alpha">The amount of opacity, represented by a value between <c>0</c> and <c>1</c>.</param>
-        public RgbaColor(byte red, byte green, byte blue, float alpha) {
+        public RgbaColor(byte red, byte green, byte blue, [ValueRange(0, 1)] float alpha) {
             Red = red;
             Green = green;
             Blue = blue;
@@ -46,7 +53,7 @@ namespace Skybrud.Colors {
         /// <param name="green">The amount of green in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         /// <param name="blue">The amount of blue in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         /// <param name="alpha">The amount of opacity, represented by a value between <c>0</c> and <c>1</c>.</param>
-        public RgbaColor(int red, int green, int blue, float alpha) {
+        public RgbaColor([ValueRange(0, 255)] int red, [ValueRange(0, 255)] int green, [ValueRange(0, 255)] int blue, [ValueRange(0, 1)] float alpha) {
             Red = (byte) red;
             Green = (byte) green;
             Blue = (byte) blue;
@@ -60,7 +67,7 @@ namespace Skybrud.Colors {
         /// <param name="green">The amount of green in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         /// <param name="blue">The amount of blue in the color, represented by a value between <c>0</c> and <c>255</c>.</param>
         /// <param name="alpha">The amount of opacity, represented by a value between <c>0</c> and <c>1</c>.</param>
-        public RgbaColor(double red, double green, double blue, float alpha) {
+        public RgbaColor([ValueRange(0, 255)] double red, [ValueRange(0, 255)] double green, [ValueRange(0, 255)] double blue, [ValueRange(0, 1)] float alpha) {
             Red = (byte) Math.Round(red);
             Green = (byte) Math.Round(green);
             Blue = (byte) Math.Round(blue);
@@ -85,7 +92,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <returns>The CSS representation of the color.</returns>
         public override string ToCss() {
-            return String.Format(CultureInfo.InvariantCulture, "rgba({0}, {1}, {2}, {3})", Red, Green, Blue, Alpha);
+            return string.Format(CultureInfo.InvariantCulture, "rgba({0}, {1}, {2}, {3})", Red, Green, Blue, Alpha);
         }
 
         /// <summary>
@@ -93,7 +100,7 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <returns>A string representing the color.</returns>
         public override string ToString() {
-            return String.Format(CultureInfo.InvariantCulture, "RBGA: {0}, {1}, {2}, {3}", Red, Green, Blue, Alpha);
+            return string.Format(CultureInfo.InvariantCulture, "RBGA: {0}, {1}, {2}, {3}", Red, Green, Blue, Alpha);
         }
 
         #endregion

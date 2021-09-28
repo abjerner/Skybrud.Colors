@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Skybrud.Colors {
     
@@ -11,29 +12,43 @@ namespace Skybrud.Colors {
     /// </see>
     public class HslColor : IColor {
 
+        private double _hue;
+        private double _saturation;
+        private double _lightness;
+
         #region Properties
 
         /// <summary>
-        /// Gets the hue as a number between <c>0</c> and <c>1</c>. For the hue as the
-        /// degrees of a circle, simply multiply by <c>360</c>.
+        /// Gets or sets the hue as a number between <c>0</c> and <c>1</c>. For the hue as the degrees of a circle, simply multiply by <c>360</c>.
         /// </summary>
-        public double Hue { get; set; }
+        [ValueRange(0, 1)]
+        public double Hue {
+            get => _hue;
+            set => _hue = ColorUtils.Clamp(value);
+        }
 
         /// <summary>
-        /// Gets the saturation as a number between <c>0</c> and <c>1</c>. For the hue
-        /// as percent, simply multiply by <c>100</c>.
+        /// Gets or sets the saturation as a number between <c>0</c> and <c>1</c>. For the hue as percent, simply multiply by <c>100</c>.
         /// </summary>
-        public double Saturation { get; set; }
+        [ValueRange(0, 1)]
+        public double Saturation {
+            get => _saturation;
+            set => _saturation = ColorUtils.Clamp(value);
+        }
 
         /// <summary>
-        /// Gets the lightness as a number between <c>0</c> and <c>1</c>. For the hue
-        /// as percent, simply multiply by <c>100</c>.
+        /// Gets or sets the lightness as a number between <c>0</c> and <c>1</c>. For the hue as percent, simply multiply by <c>100</c>.
         /// </summary>
-        public double Lightness { get; set; }
+        [ValueRange(0, 1)]
+        public double Lightness {
+            get => _lightness;
+            set => _lightness = ColorUtils.Clamp(value);
+        }
 
         /// <summary>
         /// Alias of <see cref="Hue"/>.
         /// </summary>
+        [ValueRange(0, 1)]
         public double H {
             get => Hue;
             set => Hue = value;
@@ -42,6 +57,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Alias of <see cref="Saturation"/>.
         /// </summary>
+        [ValueRange(0, 1)]
         public double S {
             get => Saturation;
             set => Saturation = value;
@@ -50,6 +66,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Alias of <see cref="Lightness"/>.
         /// </summary>
+        [ValueRange(0, 1)]
         public double L {
             get => Lightness;
             set => Lightness = value;
@@ -62,13 +79,13 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Initializes a new HSL color with the specified <paramref name="hue"/>, <paramref name="saturation"/> and <paramref name="saturation"/>.
         /// </summary>
-        /// <param name="hue">The hue value of the HSL color, specified as a decimal number between <c>0</c> and <c>0</c>.</param>
-        /// <param name="saturation">The saturation value of the HSL color, specified as a decimal number between <c>0</c> and <c>0</c>.</param>
-        /// <param name="lightness">The lightness value of the HSL color, specified as a decimal number between <c>0</c> and <c>0</c>.</param>
-        public HslColor(double hue, double saturation, double lightness) {
-            Hue = hue;
-            Saturation = saturation;
-            Lightness = lightness;
+        /// <param name="hue">The hue value of the HSL color, specified as a decimal number between <c>0</c> and <c>1</c>.</param>
+        /// <param name="saturation">The saturation value of the HSL color, specified as a decimal number between <c>0</c> and <c>1</c>.</param>
+        /// <param name="lightness">The lightness value of the HSL color, specified as a decimal number between <c>0</c> and <c>1</c>.</param>
+        public HslColor([ValueRange(0, 1)] double hue, [ValueRange(0, 1)] double saturation, [ValueRange(0, 1)] double lightness) {
+            Hue = ColorUtils.Clamp(hue);
+            Saturation = ColorUtils.Clamp(saturation);
+            Lightness = ColorUtils.Clamp(lightness);
         }
 
         #endregion
@@ -165,7 +182,7 @@ namespace Skybrud.Colors {
         /// <param name="str">The string representing the color.</param>
         /// <returns>An instance of <see cref="HslColor"/>.</returns>
         public static HslColor Parse(string str) {
-            IColor color = ColorHelpers.Parse(str);
+            IColor color = ColorUtils.Parse(str);
             return color as HslColor ?? color.ToHsl();
         }
 
@@ -180,7 +197,7 @@ namespace Skybrud.Colors {
             color = null;
 
             // Attempt to parse the input string
-            if (ColorHelpers.TryParse(str, out IColor result) == false) return false;
+            if (ColorUtils.TryParse(str, out IColor result) == false) return false;
 
             // Convert the color to RGB
             color = result as HslColor ?? result.ToHsl();

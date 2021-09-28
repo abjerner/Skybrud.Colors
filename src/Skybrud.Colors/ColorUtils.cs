@@ -1,10 +1,10 @@
-﻿namespace Skybrud.Colors
-{
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Text.RegularExpressions;
 
+namespace Skybrud.Colors
+{
     /// <summary>
     /// Utility class with static methods for various color calculations.
     /// </summary>
@@ -148,7 +148,7 @@
             if (magenta < key) key = magenta;
             if (yellow < key) key = yellow;
 
-            if (Math.Abs(key - 1d) < Double.Epsilon)
+            if (Math.Abs(key - 1d) < double.Epsilon)
             {
                 c = 0;
                 m = 0;
@@ -193,23 +193,41 @@
 
         #region CMY -> RGB
 
-        public static void CmyToRgb(double cyan, double magenta, double yellow, out byte r, out byte g, out byte b)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="cyan"/>, <paramref name="magenta"/> and <paramref name="yellow"/> in the CMY color space to the corresponding <paramref name="r"/>, <paramref name="g"/> and <paramref name="b"/> in the RGB color space.
+        /// </summary>
+        /// <param name="cyan">The <strong>cyan</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="magenta">The <strong>meganta</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="yellow">The <strong>yellow</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="r">The <strong>red</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="g">The <strong>green</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="b">The <strong>blue</strong> part in the <strong>RGB</strong> color space.</param>
+        public static void CmyToRgb(double cyan, double magenta, double yellow, out byte r, out byte g, out byte b) {
             r = Convert.ToByte((1 - cyan) * 255d);
             g = Convert.ToByte((1 - magenta) * 255d);
             b = Convert.ToByte((1 - yellow) * 255d);
         }
 
-        public static RgbColor CmyToRgb(double cyan, double magenta, double yellow)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="cyan"/>, <paramref name="magenta"/> and <paramref name="yellow"/> in the CMY color space into a corresponding instance of <see cref="RgbColor"/>.
+        /// </summary>
+        /// <param name="cyan">The <strong>cyan</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="magenta">The <strong>meganta</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="yellow">The <strong>yellow</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <returns>The corresponding <see cref="RgbColor"/>.</returns>
+        public static RgbColor CmyToRgb(double cyan, double magenta, double yellow) {
             byte r = Convert.ToByte((1 - cyan) * 255d);
             byte g = Convert.ToByte((1 - magenta) * 255d);
             byte b = Convert.ToByte((1 - yellow) * 255d);
             return new RgbColor(r, g, b);
         }
 
-        public static RgbColor CmyToRgb(CmyColor cmy)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="cmy"/> color into a corresponding instance of <see cref="RgbColor"/>.
+        /// </summary>
+        /// <param name="cmy">The <strong>CMY</strong> color to be converted.</param>
+        /// <returns>The corresponding <see cref="RgbColor"/>.</returns>
+        public static RgbColor CmyToRgb(CmyColor cmy)  {
             return CmyToRgb(cmy.Cyan, cmy.Magenta, cmy.Yellow);
         }
 
@@ -263,21 +281,41 @@
 
         #region CMYK -> RGB
 
-        public static void CmykToRgb(double cyan, double magenta, double yellow, double key, out byte r, out byte g, out byte b)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="cyan"/>, <paramref name="magenta"/>, <paramref name="yellow"/> and <paramref name="key"/> in the CMYK color space to the corresponding <paramref name="r"/>, <paramref name="g"/> and <paramref name="b"/> in the RGB color space.
+        /// </summary>
+        /// <param name="cyan">The <strong>cyan</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="magenta">The <strong>meganta</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="yellow">The <strong>yellow</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="key">>The <strong>key</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="r">The <strong>red</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="g">The <strong>green</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="b">The <strong>blue</strong> part in the <strong>RGB</strong> color space.</param>
+        public static void CmykToRgb(double cyan, double magenta, double yellow, double key, out byte r, out byte g, out byte b) {
             CmykToCmy(cyan, magenta, yellow, key, out double c, out double m, out double y);
             CmyToRgb(c, m, y, out r, out g, out b);
         }
 
-        public static RgbColor CmykToRgb(double cyan, double magenta, double yellow, double key)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="cyan"/>, <paramref name="magenta"/>, <paramref name="yellow"/> and <paramref name="key"/> in the CMYK color space into a corresponding instance of <see cref="RgbColor"/>.
+        /// </summary>
+        /// <param name="cyan">The <strong>cyan</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="magenta">The <strong>meganta</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="yellow">The <strong>yellow</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <param name="key">>The <strong>key</strong> part in the <strong>CMY</strong> color space.</param>
+        /// <returns>The corresponding <see cref="RgbColor"/>.</returns>
+        public static RgbColor CmykToRgb(double cyan, double magenta, double yellow, double key)  {
             CmykToCmy(cyan, magenta, yellow, key, out double c, out double m, out double y);
             CmyToRgb(c, m, y, out byte r, out byte g, out byte b);
             return new RgbColor(r, g, b);
         }
 
-        public static RgbColor CmykToRgb(CmykColor cmyk)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="cmyk"/> color into a corresponding instance of <see cref="RgbColor"/>.
+        /// </summary>
+        /// <param name="cmyk">The <strong>CMYK</strong> color to be converted.</param>
+        /// <returns>The corresponding <see cref="RgbColor"/>.</returns>
+        public static RgbColor CmykToRgb(CmykColor cmyk) {
             return CmykToRgb(cmyk.Cyan, cmyk.Magenta, cmyk.Yellow, cmyk.Key);
         }
 
@@ -396,7 +434,7 @@
             v = (lightness + saturation) / 2d;
             s = (2d * saturation) / (lightness + saturation);
 
-            if (Double.IsNaN(s)) s = 0;
+            if (double.IsNaN(s)) s = 0;
 
         }
 
@@ -443,9 +481,9 @@
             // TODO: Needs documentation/references
 
             double r = 0, g = 0, b = 0;
-            if (Math.Abs(lightness) > Double.Epsilon)
+            if (Math.Abs(lightness) > double.Epsilon)
             {
-                if (Math.Abs(saturation) < Double.Epsilon)
+                if (Math.Abs(saturation) < double.Epsilon)
                 {
                     r = g = b = lightness;
                 }
@@ -671,7 +709,7 @@
             s = saturation * value;
             s = s / ((l <= 1) ? (l) : 2d - (l));
 
-            if (Double.IsNaN(s))
+            if (double.IsNaN(s))
             {
                 s = 0;
             }
@@ -1043,7 +1081,7 @@
 
             // Calculate the saturation
             saturation = 0;
-            if (Math.Abs(max - min) > Double.Epsilon)
+            if (Math.Abs(max - min) > double.Epsilon)
             {
                 if (lightness < 0.5)
                 {
@@ -1057,15 +1095,15 @@
 
             // Calculate the hue
             hue = 0;
-            if (Math.Abs(r - max) < Double.Epsilon)
+            if (Math.Abs(r - max) < double.Epsilon)
             {
                 hue = (g - b) / (max - min);
             }
-            else if (Math.Abs(g - max) < Double.Epsilon)
+            else if (Math.Abs(g - max) < double.Epsilon)
             {
                 hue = 2.0d + (b - r) / (max - min);
             }
-            else if (Math.Abs(b - max) < Double.Epsilon)
+            else if (Math.Abs(b - max) < double.Epsilon)
             {
                 hue = 4.0d + (r - g) / (max - min);
             }
@@ -1080,7 +1118,7 @@
             hue = hue / 360.0;
 
             // Make sure hue is not NaN
-            if (Double.IsNaN(hue)) hue = 0;
+            if (double.IsNaN(hue)) hue = 0;
 
         }
 
@@ -1110,7 +1148,7 @@
 
             // Calculate the saturation
             saturation = 0;
-            if (Math.Abs(max - min) > Double.Epsilon)
+            if (Math.Abs(max - min) > double.Epsilon)
             {
                 if (lightness < 0.5)
                 {
@@ -1124,15 +1162,15 @@
 
             // Calculate the hue
             hue = 0;
-            if (Math.Abs(r - max) < Double.Epsilon)
+            if (Math.Abs(r - max) < double.Epsilon)
             {
                 hue = (g - b) / (max - min);
             }
-            else if (Math.Abs(g - max) < Double.Epsilon)
+            else if (Math.Abs(g - max) < double.Epsilon)
             {
                 hue = 2.0f + (b - r) / (max - min);
             }
-            else if (Math.Abs(b - max) < Double.Epsilon)
+            else if (Math.Abs(b - max) < double.Epsilon)
             {
                 hue = 4.0f + (r - g) / (max - min);
             }
@@ -1147,7 +1185,7 @@
             hue = hue / 360f;
 
             // Make sure hue is not NaN
-            if (Single.IsNaN(hue)) hue = 0;
+            if (float.IsNaN(hue)) hue = 0;
 
         }
 
@@ -1179,21 +1217,39 @@
 
         #region RGB -> HSV
 
-        public static void RgbToHsv(int red, int green, int blue, out double h, out double s, out double v)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="red"/>, <paramref name="green"/> and <paramref name="blue"/> in the <strong>RGB</strong> color space to the corresponding <paramref name="h"/>, <paramref name="s"/> and <paramref name="v"/> in the <strong>HSV</strong> color space.
+        /// </summary>
+        /// <param name="red">The <strong>red</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="green">The <strong>green</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="blue">The <strong>blue</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="h">The <strong>hue</strong> part in the <strong>HSV</strong> color space.</param>
+        /// <param name="s">The <strong>saturation</strong> part in the <strong>HSV</strong> color space.</param>
+        /// <param name="v">The <strong>value</strong> part in the <strong>HSV</strong> color space.</param>
+        public static void RgbToHsv(int red, int green, int blue, out double h, out double s, out double v) {
             RgbToHsl(red, green, blue, out double hue, out double saturation, out double lightness);
             HslToHsv(hue, saturation, lightness, out h, out s, out v);
         }
 
-        public static HsvColor RgbToHsv(int red, int green, int blue)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="red"/>, <paramref name="green"/> and <paramref name="blue"/> in the <strong>RGB</strong> color space into a corresponding instance of <see cref="HsvColor"/>.
+        /// </summary>
+        /// <param name="red">The <strong>red</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="green">The <strong>green</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <param name="blue">The <strong>blue</strong> part in the <strong>RGB</strong> color space.</param>
+        /// <returns>The corresponding <see cref="HsvColor"/>.</returns>
+        public static HsvColor RgbToHsv(int red, int green, int blue) {
             RgbToHsl(red, green, blue, out double hue, out double saturation, out double lightness);
             HslToHsv(hue, saturation, lightness, out double h, out double s, out double v);
             return new HsvColor(h, s, v);
         }
 
-        public static HsvColor RgbToHsv(RgbColor rgb)
-        {
+        /// <summary>
+        /// Converts the specified <paramref name="rgb"/> color into a corresponding instance of <see cref="HsvColor"/>.
+        /// </summary>
+        /// <param name="rgb">The <strong>RGB</strong> color to be converted.</param>
+        /// <returns>The corresponding <see cref="HsvColor"/>.</returns>
+        public static HsvColor RgbToHsv(RgbColor rgb) {
             RgbToHsl(rgb.Red, rgb.Green, rgb.Blue, out double hue, out double saturation, out double lightness);
             HslToHsv(hue, saturation, lightness, out double h, out double s, out double v);
             return new HsvColor(h, s, v);
@@ -1240,10 +1296,9 @@
         /// <returns>An instance of <see cref="RgbColor"/> representing the RGB.</returns>
         public static RgbColor HexToRgb(string hex)
         {
-            if (String.IsNullOrWhiteSpace(hex)) throw new ArgumentNullException("hex");
+            if (string.IsNullOrWhiteSpace(hex)) throw new ArgumentNullException(nameof(hex));
 
-            IColor color;
-            if (TryParse(hex, out color)) return color as RgbColor;
+            if (TryParse(hex, out IColor color)) return color as RgbColor;
 
             throw new FormatException("Not a valid Hexadecimal value.");
         }
@@ -1260,10 +1315,9 @@
         /// <returns>An instance of <see cref="IColor"/>.</returns>
         public static IColor Parse(string str)
         {
-            if (String.IsNullOrWhiteSpace(str)) throw new ArgumentNullException("str");
+            if (string.IsNullOrWhiteSpace(str)) throw new ArgumentNullException(nameof(str));
 
-            IColor color;
-            if (TryParse(str, out color)) return color;
+            if (TryParse(str, out IColor color)) return color;
 
             throw new FormatException("Input string was not in a correct format.");
 
@@ -1281,7 +1335,7 @@
             color = null;
 
             // Return "false" if the string is empty
-            if (String.IsNullOrWhiteSpace(str)) return false;
+            if (string.IsNullOrWhiteSpace(str)) return false;
 
             // Strip a leading hashtag and convert to lowercase
             str = str.TrimStart('#').ToLower();
@@ -1294,33 +1348,84 @@
 
             if (m1.Success)
             {
-                Byte.TryParse(m1.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
-                Byte.TryParse(m1.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
-                Byte.TryParse(m1.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
+                byte.TryParse(m1.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
+                byte.TryParse(m1.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
+                byte.TryParse(m1.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
                 color = new RgbColor(r, g, b);
                 return true;
             }
 
             if (m2.Success)
             {
-                Byte.TryParse(m2.Groups[1].Value + m2.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
-                Byte.TryParse(m2.Groups[2].Value + m2.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
-                Byte.TryParse(m2.Groups[3].Value + m2.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
+                byte.TryParse(m2.Groups[1].Value + m2.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
+                byte.TryParse(m2.Groups[2].Value + m2.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
+                byte.TryParse(m2.Groups[3].Value + m2.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
                 color = new RgbColor(r, g, b);
                 return true;
             }
 
             if (m3.Success)
             {
-                float h = Int32.Parse(m3.Groups[1].Value) / 360f;
-                float s = Int32.Parse(m3.Groups[2].Value) / 100f;
-                float l = Int32.Parse(m3.Groups[3].Value) / 100f;
+                float h = int.Parse(m3.Groups[1].Value) / 360f;
+                float s = int.Parse(m3.Groups[2].Value) / 100f;
+                float l = int.Parse(m3.Groups[3].Value) / 100f;
                 color = new HslColor(h, s, l);
                 return true;
             }
 
             return false;
 
+        }
+        
+        /// <summary>
+        /// Clamps the <paramref name="value"/> to a value between <paramref name="min"/> and <paramref name="max"/> (both inclusive).
+        /// </summary>
+        /// <param name="value">The input value.</param>
+        /// <param name="min">The minimum allowed value.</param>
+        /// <param name="max">The maximum allowed value.</param>
+        /// <returns>A value between <paramref name="min"/> and <paramref name="max"/>.</returns>
+        public static int Clamp(float value, int min, int max) {
+            return (int) Math.Min(max, Math.Max(min, value));
+        }
+
+        /// <summary>
+        /// Clamps the <paramref name="value"/> to a value between <c>0</c> and <c>1</c> (both inclusive).
+        /// </summary>
+        /// <param name="value">The input value.</param>
+        /// <returns>A value between <c>0</c> and <c>1</c>.</returns>
+        public static float Clamp(float value) {
+            return Clamp(value, 0, 1);
+        }
+
+        /// <summary>
+        /// Clamps the <paramref name="value"/> to a value between <paramref name="min"/> and <paramref name="max"/> (both inclusive).
+        /// </summary>
+        /// <param name="value">The input value.</param>
+        /// <param name="min">The minimum allowed value.</param>
+        /// <param name="max">The maximum allowed value.</param>
+        /// <returns>A value between <paramref name="min"/> and <paramref name="max"/>.</returns>
+        public static float Clamp(float value, float min, float max) {
+            return Math.Min(max, Math.Max(min, value));
+        }
+
+        /// <summary>
+        /// Clamps the <paramref name="value"/> to a value between <c>0</c> and <c>1</c> (both inclusive).
+        /// </summary>
+        /// <param name="value">The input value.</param>
+        /// <returns>A value between <c>0</c> and <c>1</c>.</returns>
+        public static double Clamp(double value) {
+            return Clamp(value, 0, 1);
+        }
+
+        /// <summary>
+        /// Clamps the <paramref name="value"/> to a value between <paramref name="min"/> and <paramref name="max"/> (both inclusive).
+        /// </summary>
+        /// <param name="value">The input value.</param>
+        /// <param name="min">The minimum allowed value.</param>
+        /// <param name="max">The maximum allowed value.</param>
+        /// <returns>A value between <paramref name="min"/> and <paramref name="max"/>.</returns>
+        public static double Clamp(double value, double min, double max) {
+            return Math.Min(max, Math.Max(min, value));
         }
 
         #endregion
