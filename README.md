@@ -69,8 +69,23 @@ Get the WCAG contrast ratio between two instances of `RgbColor`:
 }
 ```
 
+Get a list of hex colors representing gradient steps between two hex colors:
 
 
+```cshtml
+@using Skybrud.Colors
+
+@{
+    //Get gradient colors Blue to Red
+    var colors = Skybrud.Colors.ColorUtils.GetGradientColorsHexCodes("#0000ff", "#ff0000", 10); 
+   
+        <div>Start: #0000ff | End: #ff0000</div>  
+        @foreach (var color in colors)
+        {
+            <div style="background-color: @color;">@color</div>
+        }    
+}
+```
 
    
 [NuGetPackage]: https://www.nuget.org/packages/Skybrud.Colors

@@ -1,6 +1,7 @@
 ﻿namespace Skybrud.Colors
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Text.RegularExpressions;
 
@@ -1320,6 +1321,84 @@
 
             return false;
 
+        }
+
+        #endregion
+
+        #region Groups of Colors
+
+        /// <summary>
+        /// Returns a list of IColors which represent even gradient steps between two colors.
+        /// </summary>
+        /// <param name="StartColor"></param>
+        /// <param name="EndColor"></param>
+        /// <param name="NumberofIntervals">Quantity of IColors to return</param>
+        /// <returns>NOTE: The first color returned is identical to the StartColor,
+        /// but the last color might not be identical to the EndColor, since the last color is calculated
+        /// and rounding in the math used will affect the outcome slightly. </returns>
+        public static IEnumerable<IColor> GetGradientColors(IColor StartColor, IColor EndColor, int NumberofIntervals)
+        {
+            int numberOfIntervals = NumberofIntervals;// - 2; //Start and End colors subtracted from total
+
+            var colors = new List<IColor>();
+
+            var rgb1 = StartColor.ToRgb();
+            var rgb2 = EndColor.ToRgb();
+
+            var interval_R = ((int)rgb2.R - (int)rgb1.R) / numberOfIntervals;
+            var interval_G = ((int)rgb2.G - (int)rgb1.G) / numberOfIntervals;
+            var interval_B = ((int)rgb2.B - (int)rgb1.B) / numberOfIntervals;
+
+            var current_R = (int)rgb1.R;
+            var current_G = (int)rgb1.G;
+            var current_B = (int)rgb1.B;
+
+            //First add StartColor
+            //colors.Add(StartColor);
+
+            for (var i = 1; i <= numberOfIntervals; i++)
+            {
+             
+                var color = new RgbColor(current_R, current_G, current_B);
+                colors.Add(color);
+
+                //increment.
+                current_R += interval_R;
+                current_G += interval_G;
+                current_B += interval_B;
+
+            }
+
+            //Finally add EndColor
+           // colors.Add(EndColor);
+
+            return colors;
+        }
+
+        /// <summary>
+        /// Returns a list of Hex colors which represent even gradient steps between two provided Hex colors.
+        /// </summary>
+        /// <param name="StartColor"></param>
+        /// <param name="EndColor"></param>
+        /// <param name="NumberofIntervals">Quantity of colors to return</param>
+        /// <returns>NOTE: The first color returned is identical to the StartColor,
+        /// but the last color might not be identical to the EndColor, since the last color is calculated
+        /// and rounding in the math used will affect the outcome slightly. </returns>
+        public static IEnumerable<string> GetGradientColorsHexCodes(string StartColor, string EndColor, int NumberofIntervals)
+        {
+            var hexColors = new List<string>();
+
+            var start = HexToRgb(StartColor);
+            var end = HexToRgb(EndColor);
+
+            var rgbColors = GetGradientColors(start, end, NumberofIntervals);
+
+            foreach (var color in rgbColors)
+            {
+                hexColors.Add(color.ToHex());
+            }
+
+            return hexColors;
         }
 
         #endregion
