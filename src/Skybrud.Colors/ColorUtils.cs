@@ -1310,34 +1310,6 @@ namespace Skybrud.Colors {
             RgbColor rgb1 = startColor.ToRgb();
             RgbColor rgb2 = endColor.ToRgb();
 
-            int intervalR = (rgb2.R - rgb1.R) / steps;
-            int intervalG = (rgb2.G - rgb1.G) / steps;
-            int intervalB = (rgb2.B - rgb1.B) / steps;
-
-            int currentR = rgb1.R;
-            int currentG = rgb1.G;
-            int currentB = rgb1.B;
-
-            for (int i = 1; i <= steps; i++) {
-             
-                colors.Add(new RgbColor(currentR, currentG, currentB));
-                
-                currentR += intervalR;
-                currentG += intervalG;
-                currentB += intervalB;
-
-            }
-
-            return colors;
-
-        }
-        public static IEnumerable<IColor> GetGradientColorsDouble(IColor startColor, IColor endColor, int steps) {
-
-            List<IColor> colors = new List<IColor>();
-
-            RgbColor rgb1 = startColor.ToRgb();
-            RgbColor rgb2 = endColor.ToRgb();
-
             double intervalR = (rgb2.R - rgb1.R) / (double) steps;
             double intervalG = (rgb2.G - rgb1.G) / (double) steps;
             double intervalB = (rgb2.B - rgb1.B) / (double) steps;
