@@ -1294,77 +1294,86 @@ namespace Skybrud.Colors {
         #region Groups of Colors
 
         /// <summary>
-        /// Returns a list of IColors which represent even gradient steps between two colors.
+        /// Returns a collection of <see cref="IColor"/> which represents even gradient steps between two colors.
         /// </summary>
-        /// <param name="StartColor"></param>
-        /// <param name="EndColor"></param>
-        /// <param name="NumberofIntervals">Quantity of IColors to return</param>
-        /// <returns>NOTE: The first color returned is identical to the StartColor,
-        /// but the last color might not be identical to the EndColor, since the last color is calculated
-        /// and rounding in the math used will affect the outcome slightly. </returns>
-        public static IEnumerable<IColor> GetGradientColors(IColor StartColor, IColor EndColor, int NumberofIntervals)
-        {
-            int numberOfIntervals = NumberofIntervals;// - 2; //Start and End colors subtracted from total
+        /// <param name="startColor">The starting color.</param>
+        /// <param name="endColor">The end color.</param>
+        /// <param name="steps">Quantity of IColors to return</param>
+        /// <returns>A collection of <see cref="IColor"/> representing the colors of the gradient.</returns>
+        /// <remarks>NOTE: The first color returned is identical to <paramref name="startColor"/>, but the last color
+        /// might not be identical to the <paramref name="endColor"/>, since the last color is calculated and rounding
+        /// in the math used will affect the outcome slightly.</remarks>
+        public static IEnumerable<IColor> GetGradientColors(IColor startColor, IColor endColor, int steps) {
 
-            var colors = new List<IColor>();
+            List<IColor> colors = new List<IColor>();
 
-            var rgb1 = StartColor.ToRgb();
-            var rgb2 = EndColor.ToRgb();
+            RgbColor rgb1 = startColor.ToRgb();
+            RgbColor rgb2 = endColor.ToRgb();
 
-            var interval_R = ((int)rgb2.R - (int)rgb1.R) / numberOfIntervals;
-            var interval_G = ((int)rgb2.G - (int)rgb1.G) / numberOfIntervals;
-            var interval_B = ((int)rgb2.B - (int)rgb1.B) / numberOfIntervals;
+            int intervalR = (rgb2.R - rgb1.R) / steps;
+            int intervalG = (rgb2.G - rgb1.G) / steps;
+            int intervalB = (rgb2.B - rgb1.B) / steps;
 
-            var current_R = (int)rgb1.R;
-            var current_G = (int)rgb1.G;
-            var current_B = (int)rgb1.B;
+            int currentR = rgb1.R;
+            int currentG = rgb1.G;
+            int currentB = rgb1.B;
 
-            //First add StartColor
-            //colors.Add(StartColor);
-
-            for (var i = 1; i <= numberOfIntervals; i++)
-            {
+            for (int i = 1; i <= steps; i++) {
              
-                var color = new RgbColor(current_R, current_G, current_B);
-                colors.Add(color);
-
-                //increment.
-                current_R += interval_R;
-                current_G += interval_G;
-                current_B += interval_B;
+                colors.Add(new RgbColor(currentR, currentG, currentB));
+                
+                currentR += intervalR;
+                currentG += intervalG;
+                currentB += intervalB;
 
             }
 
-            //Finally add EndColor
-           // colors.Add(EndColor);
+            return colors;
+
+        }
+        public static IEnumerable<IColor> GetGradientColorsDouble(IColor startColor, IColor endColor, int steps) {
+
+            List<IColor> colors = new List<IColor>();
+
+            RgbColor rgb1 = startColor.ToRgb();
+            RgbColor rgb2 = endColor.ToRgb();
+
+            double intervalR = (rgb2.R - rgb1.R) / (double) steps;
+            double intervalG = (rgb2.G - rgb1.G) / (double) steps;
+            double intervalB = (rgb2.B - rgb1.B) / (double) steps;
+
+            double currentR = rgb1.R;
+            double currentG = rgb1.G;
+            double currentB = rgb1.B;
+
+            for (int i = 1; i <= steps; i++) {
+             
+                colors.Add(new RgbColor(currentR, currentG, currentB));
+                
+                currentR += intervalR;
+                currentG += intervalG;
+                currentB += intervalB;
+
+            }
 
             return colors;
+
         }
 
         /// <summary>
-        /// Returns a list of Hex colors which represent even gradient steps between two provided Hex colors.
+        /// Returns a collection of HEX colors which represent even gradient steps between two provided HEX colors.
         /// </summary>
-        /// <param name="StartColor"></param>
-        /// <param name="EndColor"></param>
-        /// <param name="NumberofIntervals">Quantity of colors to return</param>
-        /// <returns>NOTE: The first color returned is identical to the StartColor,
-        /// but the last color might not be identical to the EndColor, since the last color is calculated
-        /// and rounding in the math used will affect the outcome slightly. </returns>
-        public static IEnumerable<string> GetGradientColorsHexCodes(string StartColor, string EndColor, int NumberofIntervals)
-        {
-            var hexColors = new List<string>();
-
-            var start = HexToRgb(StartColor);
-            var end = HexToRgb(EndColor);
-
-            var rgbColors = GetGradientColors(start, end, NumberofIntervals);
-
-            foreach (var color in rgbColors)
-            {
-                hexColors.Add(color.ToHex());
-            }
-
-            return hexColors;
+        /// <param name="startColor">The starting color.</param>
+        /// <param name="endColor">The end color.</param>
+        /// <param name="steps">Quantity of colors to return</param>
+        /// <returns>A collection of <see cref="IColor"/> representing the colors of the gradient.</returns>
+        /// <remarks>NOTE: The first color returned is identical to <paramref name="startColor"/>, but the last color
+        /// might not be identical to the <paramref name="endColor"/>, since the last color is calculated and rounding
+        /// in the math used will affect the outcome slightly.</remarks>
+        public static IEnumerable<string> GetGradientColorsAsHex(string startColor, string endColor, int steps) {
+            RgbColor start = HexToRgb(startColor);
+            RgbColor end = HexToRgb(endColor);
+            return GetGradientColors(start, end, steps).ToHex();
         }
 
         #endregion
