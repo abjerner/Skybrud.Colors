@@ -1313,18 +1313,21 @@ namespace Skybrud.Colors {
             double intervalR = (rgb2.R - rgb1.R) / (double) steps;
             double intervalG = (rgb2.G - rgb1.G) / (double) steps;
             double intervalB = (rgb2.B - rgb1.B) / (double) steps;
+            double intervalA = (rgb2.Alpha - rgb1.Alpha) / steps;
 
             double currentR = rgb1.R;
             double currentG = rgb1.G;
             double currentB = rgb1.B;
+            double currentA = rgb1.Alpha;
 
             for (int i = 1; i <= steps; i++) {
              
-                colors.Add(new RgbColor(currentR, currentG, currentB));
+                colors.Add(new RgbColor(currentR, currentG, currentB, currentA));
                 
                 currentR += intervalR;
                 currentG += intervalG;
                 currentB += intervalB;
+                currentA += intervalA;
 
             }
 
