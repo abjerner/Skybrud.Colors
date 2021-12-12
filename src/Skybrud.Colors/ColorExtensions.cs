@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 
 namespace Skybrud.Colors {
@@ -130,6 +132,71 @@ namespace Skybrud.Colors {
         /// <returns>An instance of <see cref="IColor"/> representing the output color.</returns>
         public static IColor Greyscale(this IColor color) {
             return Desaturate(color, 100);
+        }
+
+        /// <summary>
+        /// Converts the specified collection of <paramref name="colors"/> to a corresponding collection of <see cref="CmyColor"/>.
+        /// </summary>
+        /// <param name="colors">The colors to be converted.</param>
+        /// <returns>A collection of <see cref="CmyColor"/>.</returns>
+        public static IEnumerable<CmyColor> ToCmy(this IEnumerable<IColor> colors) {
+            return colors.Select(x => x.ToCmy());
+        }
+
+        /// <summary>
+        /// Converts the specified collection of <paramref name="colors"/> to a corresponding collection of <see cref="CmykColor"/>.
+        /// </summary>
+        /// <param name="colors">The colors to be converted.</param>
+        /// <returns>A collection of <see cref="CmykColor"/>.</returns>
+        public static IEnumerable<CmykColor> ToCmyk(this IEnumerable<IColor> colors) {
+            return colors.Select(x => x.ToCmyk());
+        }
+
+        /// <summary>
+        /// Converts the specified collection of <paramref name="colors"/> to a corresponding collection of <see cref="HslColor"/>.
+        /// </summary>
+        /// <param name="colors">The colors to be converted.</param>
+        /// <returns>A collection of <see cref="HslColor"/>.</returns>
+        public static IEnumerable<HslColor> ToHsl(this IEnumerable<IColor> colors) {
+            return colors.Select(x => x.ToHsl());
+        }
+
+        /// <summary>
+        /// Converts the specified collection of <paramref name="colors"/> to a corresponding collection of <see cref="HsvColor"/>.
+        /// </summary>
+        /// <param name="colors">The colors to be converted.</param>
+        /// <returns>A collection of <see cref="HsvColor"/>.</returns>
+        public static IEnumerable<HsvColor> ToHsv(this IEnumerable<IColor> colors) {
+            return colors.Select(x => x.ToHsv());
+        }
+
+        /// <summary>
+        /// Converts the specified collection of <paramref name="colors"/> to a corresponding collection of <see cref="RgbColor"/>.
+        /// </summary>
+        /// <param name="colors">The colors to be converted.</param>
+        /// <returns>A collection of <see cref="RgbColor"/>.</returns>
+        public static IEnumerable<RgbColor> ToRgb(this IEnumerable<IColor> colors) {
+            return colors.Select(x => x.ToRgb());
+        }
+
+        /// <summary>
+        /// Converts the specified collection of <paramref name="colors"/> to a corresponding collection of HEX colors.
+        /// </summary>
+        /// <param name="colors">The colors to be converted.</param>
+        /// <returns>A collection of the HEX colors.</returns>
+        public static IEnumerable<string> ToHex(this IEnumerable<IColor> colors) {
+            return colors.Select(color => color.ToHex());
+        }
+
+        /// <summary>
+        /// Converts the specified collection of <paramref name="colors"/> to a corresponding collection of HEX colors,
+        /// according to <paramref name="format"/>.
+        /// </summary>
+        /// <param name="colors">The colors to be converted.</param>
+        /// <param name="format">The HEX format.</param>
+        /// <returns>A collection of the HEX colors.</returns>
+        public static IEnumerable<string> ToHex(this IEnumerable<IColor> colors, HexFormat format) {
+            return colors.Select(color => color.ToHex(format));
         }
 
     }
