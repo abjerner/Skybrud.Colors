@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Skybrud.Colors {
@@ -1174,7 +1175,7 @@ namespace Skybrud.Colors {
         public static IColor Parse(string str) {
             if (string.IsNullOrWhiteSpace(str)) throw new ArgumentNullException(nameof(str));
             if (TryParse(str, out IColor color)) return color;
-            throw new FormatException("Input string was not in a correct format.");
+            throw new FormatException($"Input string was not in a correct format: {str}");
         }
 
         /// <summary>
@@ -1196,8 +1197,9 @@ namespace Skybrud.Colors {
             // Time for some regex :D
             Match m1 = Regex.Match(str, "^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$");
             Match m2 = Regex.Match(str, "^([0-9a-f]{1})([0-9a-f]{1})([0-9a-f]{1})$");
+            Match m3 = Regex.Match(str, "^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$");
 
-            Match m3 = Regex.Match(str, "^hsl\\(([0-9]+), ([0-9]+)%, ([0-9]+)%\\)$");
+            Match h4 = Regex.Match(str, "^hsl\\(([0-9]+), ([0-9]+)%, ([0-9]+)%\\)$");
 
             if (m1.Success) {
                 byte.TryParse(m1.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
@@ -1216,9 +1218,18 @@ namespace Skybrud.Colors {
             }
 
             if (m3.Success) {
-                float h = int.Parse(m3.Groups[1].Value) / 360f;
-                float s = int.Parse(m3.Groups[2].Value) / 100f;
-                float l = int.Parse(m3.Groups[3].Value) / 100f;
+                byte.TryParse(m3.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
+                byte.TryParse(m3.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
+                byte.TryParse(m3.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
+                byte.TryParse(m3.Groups[4].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte alpha);
+                color = new RgbColor(r, g, b, alpha / 255d);
+                return true;
+            }
+
+            if (h4.Success) {
+                float h = int.Parse(h4.Groups[1].Value) / 360f;
+                float s = int.Parse(h4.Groups[2].Value) / 100f;
+                float l = int.Parse(h4.Groups[3].Value) / 100f;
                 color = new HslColor(h, s, l);
                 return true;
             }
