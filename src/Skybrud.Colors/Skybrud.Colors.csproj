@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Anders Bjerner</Authors>
     <Company>Limbo</Company>
     <Description>A library for working with various color models and color conversion in .NET.</Description>
