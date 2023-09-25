@@ -250,7 +250,7 @@ namespace UnitTestProject1 {
             }
 
             foreach (HtmlColorSample sample in HtmlColorSamples.All) {
-                Assert.AreEqual(false, RgbColor.TryParse(sample.Name, out RgbColor _));
+                Assert.AreEqual(true, RgbColor.TryParse(sample.Name, out RgbColor _));
             }
 
         }
