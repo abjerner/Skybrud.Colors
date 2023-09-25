@@ -135,6 +135,30 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
+        /// Sets the absolute opacity of a color. Can be applied to colors whether they already have an opacity value or not.
+        /// </summary>
+        /// <param name="color">The input color.</param>
+        /// <param name="percent">The amount of opacity (specified in percent) that should be set for the color.</param>
+        /// <returns>An instance of <see cref="IColor"/> with an alpha value matching the specified <paramref name="percent"/>.</returns>
+        public static IColor Fade(this IColor color, [ValueRange(0, 100)] double percent) {
+
+            // Calculate the alpha value
+            double alpha = percent / 100d;
+
+            // TODO: Consider adding a "Fade" method to the "IColor" or "IColor<T>" interface
+
+            // Create a new color with the calculated alpha value
+            return color switch {
+                RgbColor rgb => new RgbColor(rgb.Red, rgb.Green, rgb.Blue, alpha),
+                HslColor hsl => new HslColor(hsl.Hue, hsl.Saturation, hsl.Lightness, alpha),
+                CmyColor cmy => new CmyColor(cmy.Cyan, cmy.Magenta, cmy.Yellow, alpha),
+                CmykColor cmyk => new CmykColor(cmyk.Cyan, cmyk.Magenta, cmyk.Yellow, cmyk.Key, alpha),
+                _ => Fade(color.ToRgb(), alpha)
+            };
+
+        }
+
+        /// <summary>
         /// Converts the specified collection of <paramref name="colors"/> to a corresponding collection of <see cref="CmyColor"/>.
         /// </summary>
         /// <param name="colors">The colors to be converted.</param>
