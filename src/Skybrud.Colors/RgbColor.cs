@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using JetBrains.Annotations;
 
 namespace Skybrud.Colors {
@@ -11,7 +12,7 @@ namespace Skybrud.Colors {
     ///     <cref>https://en.wikipedia.org/wiki/RGB_color_model</cref>
     /// </see>
     public class RgbColor : ColorBase {
-        
+
         #region Properties
 
         /// <summary>
@@ -184,15 +185,15 @@ namespace Skybrud.Colors {
         /// </summary>
         /// <returns>The CSS representation of the color.</returns>
         public override string ToCss() {
-            return "rgb(" + Red + ", " + Green + ", " + Blue + ")";
+            return string.Format(CultureInfo.InvariantCulture, Alpha < 1 ? "rgba({0}, {1}, {2}, {3})" : "rgb({0}, {1}, {2})", Red, Green, Blue, Alpha);
         }
-        
+
         /// <summary>
         /// Returns a string representation of the RGB color.
         /// </summary>
         /// <returns>A string representing the color.</returns>
         public override string ToString() {
-            return $"RGB: {Red}, {Green}, {Blue}";
+            return string.Format(CultureInfo.InvariantCulture, Alpha < 1 ? "RGBA: {0}, {1}, {2}, {3}%" : "RGB: {0}, {1}, {2}", Red, Green, Blue, Alpha * 100);
         }
 
         #endregion

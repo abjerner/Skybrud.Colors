@@ -3,7 +3,7 @@ using Skybrud.Colors;
 using UnitTestProject1.Samples;
 
 namespace UnitTestProject1 {
-    
+
     [TestClass]
     public class RgbColorTests {
 
@@ -13,7 +13,7 @@ namespace UnitTestProject1 {
                 Assert.AreEqual(sample.Hex, sample.Base.ToHex(), sample.Name);
             }
         }
-        
+
         [TestMethod]
         public void ToHex() {
             foreach (HtmlColorSample sample in HtmlColorSamples.All) {
@@ -207,6 +207,28 @@ namespace UnitTestProject1 {
                 Assert.AreEqual(k1.ToString("N2"), cmyk3.K.ToString("N2"), "#5 K (" + sample.Name + ")");
 
             }
+
+        }
+
+        [TestMethod]
+        public void ToCss() {
+
+            RgbColor rgb1 = new RgbColor(30, 206, 21);
+            RgbColor rgb2 = new RgbColor(30, 206, 21, 0.5);
+
+            Assert.AreEqual("rgb(30, 206, 21)", rgb1.ToCss(), "#1");
+            Assert.AreEqual("rgba(30, 206, 21, 0.5)", rgb2.ToCss(), "#2");
+
+        }
+
+        [TestMethod]
+        public new void ToString() {
+
+            RgbColor rgb1 = new RgbColor(30, 206, 21);
+            RgbColor rgb2 = new RgbColor(30, 206, 21, 0.5);
+
+            Assert.AreEqual("RGB: 30, 206, 21", rgb1.ToString(), "#1");
+            Assert.AreEqual("RGBA: 30, 206, 21, 50%", rgb2.ToString(), "#2");
 
         }
 

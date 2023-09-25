@@ -1174,7 +1174,7 @@ namespace Skybrud.Colors {
         /// <returns>An instance of <see cref="IColor"/>.</returns>
         public static IColor Parse(string str) {
             if (string.IsNullOrWhiteSpace(str)) throw new ArgumentNullException(nameof(str));
-            if (TryParse(str, out IColor color)) return color;
+            if (TryParse(str, out IColor color)) return color ?? throw new Exception("WTF????");
             throw new FormatException($"Input string was not in a correct format: {str}");
         }
 
@@ -1194,43 +1194,163 @@ namespace Skybrud.Colors {
             // Strip a leading hashtag and convert to lowercase
             str = str.TrimStart('#').ToLower();
 
-            // Time for some regex :D
-            Match m1 = Regex.Match(str, "^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$");
-            Match m2 = Regex.Match(str, "^([0-9a-f]{1})([0-9a-f]{1})([0-9a-f]{1})$");
-            Match m3 = Regex.Match(str, "^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$");
+            if (TryParseHex(str, out color)) return color is not null ? true : throw new Exception("HEX");
+            if (TryParseRgb(str, out color)) return color is not null ? true : throw new Exception("RGB");
+            if (TryParseHsl(str, out color)) return color is not null ? true : throw new Exception("HSL");
+            if (TryParseCmyk(str, out color)) return color is not null ? true : throw new Exception("CMYK");
 
-            Match h4 = Regex.Match(str, "^hsl\\(([0-9]+), ([0-9]+)%, ([0-9]+)%\\)$");
+            return false;
 
-            if (m1.Success) {
-                byte.TryParse(m1.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
-                byte.TryParse(m1.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
-                byte.TryParse(m1.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
-                color = new RgbColor(r, g, b);
+        }
+
+        internal static bool TryParseCmyk(string input, out IColor result) {
+            if (TryParseCmyk(input, out CmykColor cmyk)) {
+                result = cmyk;
+                return true;
+            }
+            result = null;
+            return false;
+        }
+
+        internal static bool TryParseCmyk(string input, out CmykColor result) {
+
+            result = null;
+
+            if (RegexPatterns.Cmyk1.IsMatch(input, out double c, out double m, out double y, out double k)) {
+                result = new CmykColor(c, m, y, k);
                 return true;
             }
 
-            if (m2.Success) {
-                byte.TryParse(m2.Groups[1].Value + m2.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
-                byte.TryParse(m2.Groups[2].Value + m2.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
-                byte.TryParse(m2.Groups[3].Value + m2.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
-                color = new RgbColor(r, g, b);
+            if (RegexPatterns.Cmyk2.IsMatch(input, out c, out m, out y, out k)) {
+                result = new CmykColor(c, m, y, k);
                 return true;
             }
 
-            if (m3.Success) {
-                byte.TryParse(m3.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte r);
-                byte.TryParse(m3.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte g);
-                byte.TryParse(m3.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte b);
-                byte.TryParse(m3.Groups[4].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out byte alpha);
-                color = new RgbColor(r, g, b, alpha / 255d);
+            return false;
+
+        }
+
+        internal static bool TryParseHex(string input, out IColor result) {
+            if (TryParseHex(input, out RgbColor rgb)) {
+                result = rgb;
+                return true;
+            }
+            result = null;
+            return false;
+        }
+
+        internal static bool TryParseHex(string input, out RgbColor result) {
+
+            result = null;
+
+            if (RegexPatterns.Hex1.IsMatch(input, out byte r, out byte g, out byte b)) {
+                result = new RgbColor(r, g, b);
                 return true;
             }
 
-            if (h4.Success) {
-                float h = int.Parse(h4.Groups[1].Value) / 360f;
-                float s = int.Parse(h4.Groups[2].Value) / 100f;
-                float l = int.Parse(h4.Groups[3].Value) / 100f;
-                color = new HslColor(h, s, l);
+            if (RegexPatterns.Hex2.IsMatch(input, out Match match)) {
+                if (!byte.TryParse(match.Groups[1].Value + match.Groups[1].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out r)) return false;
+                if (!byte.TryParse(match.Groups[2].Value + match.Groups[2].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out g)) return false;
+                if (!byte.TryParse(match.Groups[3].Value + match.Groups[3].Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out b)) return false;
+                result = new RgbColor(r, g, b);
+                return true;
+            }
+
+            if (RegexPatterns.Hex3.IsMatch(input, out r, out g, out b, out byte alpha)) {
+                result = new RgbColor(r, g, b, alpha / 255d);
+                return true;
+            }
+
+            return false;
+
+        }
+
+
+        /// <summary>
+        /// Attempts to parse the <paramref name="input"/> string into an HSL color.
+        /// </summary>
+        /// <param name="input">The input string to be parsed.</param>
+        /// <param name="result">If successful, contains an instance of <see cref="IColor"/> representing the HSL color; otherwise, <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        internal static bool TryParseHsl(string input, out IColor result) {
+            if (TryParseHsl(input, out HslColor hsl)) {
+                result = hsl;
+                return true;
+            }
+            result = null;
+            return false;
+        }
+
+        /// <summary>
+        /// Attempts to parse the <paramref name="input"/> string into an HSL color.
+        /// </summary>
+        /// <param name="input">The input string to be parsed.</param>
+        /// <param name="result">If successful, contains an instance of <see cref="HslColor"/> representing the HSL color; otherwise, <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        internal static bool TryParseHsl(string input, out HslColor result) {
+
+            result = null;
+
+            if (RegexPatterns.Hsl1.IsMatch(input, out double h, out double s, out double l)) {
+                if (h is < 0 or > 360) return false;
+                if (s is < 0 or > 100) return false;
+                if (l is < 0 or > 100) return false;
+                result = new HslColor(h / 360d, s / 100d, l / 100d);
+                return true;
+            }
+
+            if (RegexPatterns.Hsla1.IsMatch(input, out h, out s, out l, out double a)) {
+                if (h is < 0 or > 360) return false;
+                if (s is < 0 or > 100) return false;
+                if (l is < 0 or > 100) return false;
+                if (a is < 0 or > 1) return false;
+                result = new HslColor(h / 360d, s / 100d, l / 100d, a);
+                return true;
+            }
+
+            return false;
+
+        }
+
+        /// <summary>
+        /// Attempts to parse the <paramref name="input"/> string into an RGB color.
+        /// </summary>
+        /// <param name="input">The input string to be parsed.</param>
+        /// <param name="result">If successful, contains an instance of <see cref="IColor"/> representing the HSL color; otherwise, <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        internal static bool TryParseRgb(string input, out IColor result) {
+            if (TryParseRgb(input, out RgbColor rgb)) {
+                result = rgb;
+                return true;
+            }
+            result = null;
+            return false;
+        }
+
+        /// <summary>
+        /// Attempts to parse the <paramref name="input"/> string into an TGB color.
+        /// </summary>
+        /// <param name="input">The input string to be parsed.</param>
+        /// <param name="result">If successful, contains an instance of <see cref="RgbColor"/> representing the HSL color; otherwise, <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        internal static bool TryParseRgb(this string input, out RgbColor result) {
+
+            result = null;
+
+            if (RegexPatterns.Rgb.IsMatch(input, out double r, out double g, out double b)) {
+                if (r is < 0 or > 255) return false;
+                if (g is < 0 or > 255) return false;
+                if (b is < 0 or > 255) return false;
+                result = new RgbColor(r, g, b);
+                return true;
+            }
+
+            if (RegexPatterns.Rgba.IsMatch(input, out r, out g, out b, out double a)) {
+                if (r is < 0 or > 255) return false;
+                if (g is < 0 or > 255) return false;
+                if (b is < 0 or > 255) return false;
+                if (a is < 0 or > 1) return false;
+                result = new RgbColor(r, g, b, a);
                 return true;
             }
 
@@ -1321,9 +1441,9 @@ namespace Skybrud.Colors {
             double currentA = rgb1.Alpha;
 
             for (int i = 1; i <= steps; i++) {
-             
+
                 colors.Add(new RgbColor(currentR, currentG, currentB, currentA));
-                
+
                 currentR += intervalR;
                 currentG += intervalG;
                 currentB += intervalB;

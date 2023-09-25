@@ -2,7 +2,7 @@
 using Skybrud.Colors;
 
 namespace UnitTestProject1 {
-    
+
     [TestClass]
     public class HexTests {
 
@@ -20,7 +20,7 @@ namespace UnitTestProject1 {
 
         [TestMethod]
         public void FiftyFifty() {
-            
+
             RgbColor rgb = new RgbColor(255, 255, 255, 0.5);
 
             Assert.AreEqual("#ffffff80", rgb.ToHex(), "Auto, implicit");
@@ -32,7 +32,7 @@ namespace UnitTestProject1 {
 
         [TestMethod]
         public void Transparent() {
-            
+
             RgbColor rgb = new RgbColor(255, 255, 255, 0.0);
 
             Assert.AreEqual("#ffffff00", rgb.ToHex(), "Auto, implicit");
