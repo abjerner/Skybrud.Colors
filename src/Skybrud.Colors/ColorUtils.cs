@@ -1427,7 +1427,7 @@ public static class ColorUtils {
     /// in the math used will affect the outcome slightly.</remarks>
     public static IEnumerable<IColor> GetGradientColors(IColor startColor, IColor endColor, int steps) {
 
-        List<IColor> colors = new List<IColor>();
+        List<IColor> colors = new();
 
         RgbColor rgb1 = startColor.ToRgb();
         RgbColor rgb2 = endColor.ToRgb();
