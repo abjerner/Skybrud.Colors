@@ -1,5 +1,5 @@
 ﻿namespace Skybrud.Colors {
-    
+
     /// <summary>
     /// Enum class indicating the HEX output format - eg. <see cref="Rgb"/> or <see cref="Rgba"/>.
     /// </summary>

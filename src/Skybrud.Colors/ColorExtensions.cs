@@ -112,11 +112,11 @@ namespace Skybrud.Colors {
 
             // Convert from decimal to degrees and add the specified degrees
             double hueeeee = hsl.Hue * 360 + degrees;
-            
+
             // Handle overflow and underflow
             while (hueeeee > 360) hueeeee -= 360;
             while (hueeeee < 0) hueeeee += 360;
-            
+
             // Convert back to decimals
             double hueDecimals = hueeeee / 360d;
 

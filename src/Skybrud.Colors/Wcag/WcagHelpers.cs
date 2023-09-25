@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Skybrud.Colors.Wcag {
-    
+
     /// <summary>
     /// Static helper class for various WCAG calculations.
     /// </summary>

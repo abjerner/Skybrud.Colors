@@ -3,8 +3,8 @@
 namespace Skybrud.Colors {
 
     /// <summary>
-    /// Class representing a color in the <strong>HSV</strong> (<strong>h</strong>ue, <strong>s</strong>aturation, <strong>v</strong>alue) color model. 
-    /// 
+    /// Class representing a color in the <strong>HSV</strong> (<strong>h</strong>ue, <strong>s</strong>aturation, <strong>v</strong>alue) color model.
+    ///
     /// HSV is sometimes also referred to as <strong>HSB</strong> (<strong>h</strong>ue, <strong>s</strong>aturation, <strong>b</strong>rightness).
     /// </summary>
     public class HsvColor : ColorBase {
@@ -18,7 +18,7 @@ namespace Skybrud.Colors {
         /// <summary>
         /// Gets the hue as a number between <c>0</c> and <c>1</c>. For the hue as the degrees of a circle, simply multiply by <c>360</c>.
         /// </summary>
-        [ValueRange(0, 1)] 
+        [ValueRange(0, 1)]
         public double Hue {
             get => _hue;
             set => _hue = ColorUtils.Clamp(value);

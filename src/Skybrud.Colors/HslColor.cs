@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 
 namespace Skybrud.Colors {
-    
+
     /// <summary>
     /// Class representing a color in the <strong>HSL</strong> color model. HSL stands for <em>hue</em>,
     /// <em>saturation</em>, and <em>lightness</em>.

@@ -138,7 +138,7 @@ namespace Skybrud.Colors
         {
             return ColorUtils.HslToRgb(hsl);
         }
-        
+
         #endregion
 
         #region Parsing Moved to ColorUtils

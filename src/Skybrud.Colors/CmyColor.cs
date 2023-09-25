@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 
 namespace Skybrud.Colors {
-    
+
     /// <summary>
     /// Class representing a color in the <strong>CMY</strong> color model. CMY stands for <em>cyan</em>,
     /// <em>magenta</em>, and <em>yellow</em>. CMY colors are closely related to <see cref="CmykColor"/>.
@@ -74,7 +74,7 @@ namespace Skybrud.Colors {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new CMY color based on the specified 
+        /// Initializes a new CMY color based on the specified
         /// </summary>
         /// <param name="cyan">The amount of cyan in the color.</param>
         /// <param name="magenta">The amount of magenta in the color.</param>
@@ -86,7 +86,7 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
-        /// Initializes a new CMY color based on the specified 
+        /// Initializes a new CMY color based on the specified
         /// </summary>
         /// <param name="cyan">The amount of cyan in the color.</param>
         /// <param name="magenta">The amount of magenta in the color.</param>
@@ -161,7 +161,7 @@ namespace Skybrud.Colors {
             if (C < key) key = C;
             if (M < key) key = M;
             if (Y < key) key = Y;
-            
+
             if (Math.Abs(key - 1d) < double.Epsilon) { //Black
                 c = 0;
                 m = 0;
@@ -171,7 +171,7 @@ namespace Skybrud.Colors {
                 m = (M - key) / (1d - key);
                 y = (Y - key) / (1d - key);
             }
-            
+
             double k = key;
 
             return new CmykColor(c, m, y, k, Alpha);

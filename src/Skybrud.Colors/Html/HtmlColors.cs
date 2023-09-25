@@ -1,7 +1,7 @@
 ﻿#pragma warning disable 1591
 
 namespace Skybrud.Colors.Html {
-    
+
     /// <summary>
     /// Static class will all HTML colors.
     /// </summary>

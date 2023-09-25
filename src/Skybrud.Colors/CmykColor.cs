@@ -96,7 +96,7 @@ namespace Skybrud.Colors {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new CMYK color based on the specified 
+        /// Initializes a new CMYK color based on the specified
         /// </summary>
         /// <param name="cyan">The amount of cyan in the color.</param>
         /// <param name="magenta">The amount of magenta in the color.</param>
@@ -110,7 +110,7 @@ namespace Skybrud.Colors {
         }
 
         /// <summary>
-        /// Initializes a new CMYK color based on the specified 
+        /// Initializes a new CMYK color based on the specified
         /// </summary>
         /// <param name="cyan">The amount of cyan in the color.</param>
         /// <param name="magenta">The amount of magenta in the color.</param>
@@ -186,7 +186,7 @@ namespace Skybrud.Colors {
         }
 
         #endregion
-    
+
     }
 
 }
