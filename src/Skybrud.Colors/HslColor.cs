@@ -195,6 +195,15 @@ public class HslColor : ColorBase {
 
     }
 
+    /// <summary>
+    /// Converts the specified <paramref name="color"/> to <see cref="HslColor"/>.
+    /// </summary>
+    /// <param name="color">The color to be converted.</param>
+    /// <returns>An instance of <see cref="HslColor"/>.</returns>
+    public static HslColor FromColor(IColor color) {
+        return color as HslColor ?? color.ToHsl();
+    }
+
     #endregion
 
 }
