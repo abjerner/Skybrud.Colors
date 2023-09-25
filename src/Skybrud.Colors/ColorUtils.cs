@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using Skybrud.Colors.Html;
 
 namespace Skybrud.Colors;
 
@@ -1195,6 +1196,12 @@ public static class ColorUtils {
 
         // Strip a leading hashtag and convert to lowercase
         str = str.TrimStart('#').ToLower();
+
+        // Does the input match the name of a known HTML color?
+        if (HtmlColors.All.TryGetValue(str, out RgbColor? rgb)) {
+            color = rgb;
+            return true;
+        }
 
         if (TryParseHex(str, out color)) return color is not null ? true : throw new Exception("HEX");
         if (TryParseRgb(str, out color)) return color is not null ? true : throw new Exception("RGB");
