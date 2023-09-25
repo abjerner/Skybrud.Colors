@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace Skybrud.Colors;
@@ -183,6 +184,48 @@ public class CmykColor : ColorBase {
     /// <returns>A string representing the color.</returns>
     public override string ToString() {
         return $"CMYK: {Math.Round(C * 100)}, {Math.Round(M * 100)}, {Math.Round(Y * 100)}, {Math.Round(K * 100)}";
+    }
+
+    #endregion
+
+
+    #region Static methods
+
+    /// <summary>
+    /// Parses the specified <paramref name="input"/> string into an instance of <see cref="IColor"/>.
+    /// </summary>
+    /// <param name="input">The input string to be parsed.</param>
+    /// <returns>An instance of <see cref="IColor"/>.</returns>
+    public static CmykColor Parse(string input) {
+        IColor color = ColorUtils.Parse(input);
+        return color as CmykColor ?? color.ToCmyk();
+    }
+
+    /// <summary>
+    /// Attempts to parse the specified <paramref name="input"/> string into an instance of <see cref="IColor"/>.
+    /// </summary>
+    /// <param name="input">The input string to be parsed.</param>
+    /// <param name="result">An instance of <see cref="IColor"/>.</param>
+    /// <returns><c>true</c> if <paramref name="input"/> was converted successfully; otherwise, <c>false</c>.</returns>
+    public static bool TryParse(string input, [NotNullWhen(true)] out CmykColor? result) {
+
+        if (ColorUtils.TryParse(input, out IColor? color)) {
+            result = color as CmykColor ?? color.ToCmyk();
+            return true;
+        }
+
+        result = null;
+        return false;
+
+    }
+
+    /// <summary>
+    /// Converts the specified <paramref name="color"/> to <see cref="CmykColor"/>.
+    /// </summary>
+    /// <param name="color">The color to be converted.</param>
+    /// <returns>An instance of <see cref="CmykColor"/>.</returns>
+    public static CmykColor FromColor(IColor color) {
+        return color as CmykColor ?? color.ToCmyk();
     }
 
     #endregion
