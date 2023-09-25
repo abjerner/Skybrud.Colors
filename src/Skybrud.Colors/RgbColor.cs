@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using JetBrains.Annotations;
 
@@ -215,12 +216,12 @@ public class RgbColor : ColorBase {
     /// <param name="str">The input string to be parsed.</param>
     /// <param name="color">An instance of <see cref="RgbColor"/>.</param>
     /// <returns><c>true</c> if <paramref name="str"/> was converted successfully; otherwise, <c>false</c>.</returns>
-    public static bool TryParse(string str, out RgbColor color) {
+    public static bool TryParse(string str, [NotNullWhen(true)] out RgbColor? color) {
 
         color = null;
 
         // Attempt to parse the input string
-        if (!ColorUtils.TryParse(str, out IColor result)) return false;
+        if (!ColorUtils.TryParse(str, out IColor? result)) return false;
 
         // Convert the color to RGB
         color = result as RgbColor ?? result.ToRgb();

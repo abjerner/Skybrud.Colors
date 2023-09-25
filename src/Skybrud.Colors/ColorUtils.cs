@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
@@ -1159,7 +1160,7 @@ public static class ColorUtils {
     /// <returns>An instance of <see cref="RgbColor"/> representing the RGB.</returns>
     public static RgbColor HexToRgb(string hex) {
         if (string.IsNullOrWhiteSpace(hex)) throw new ArgumentNullException(nameof(hex));
-        if (TryParse(hex, out IColor color)) return color as RgbColor;
+        if (TryParseHex(hex, out RgbColor? color)) return color;
         throw new FormatException("Not a valid Hexadecimal value.");
     }
 
@@ -1174,7 +1175,7 @@ public static class ColorUtils {
     /// <returns>An instance of <see cref="IColor"/>.</returns>
     public static IColor Parse(string str) {
         if (string.IsNullOrWhiteSpace(str)) throw new ArgumentNullException(nameof(str));
-        if (TryParse(str, out IColor color)) return color ?? throw new Exception("WTF????");
+        if (TryParse(str, out IColor? color)) return color ?? throw new Exception("WTF????");
         throw new FormatException($"Input string was not in a correct format: {str}");
     }
 
@@ -1184,7 +1185,7 @@ public static class ColorUtils {
     /// <param name="str">The input string to be parsed.</param>
     /// <param name="color">An instance of <see cref="IColor"/>.</param>
     /// <returns><c>true</c> if <paramref name="str"/> was converted successfully; otherwise, <c>false</c>.</returns>
-    public static bool TryParse(string str, out IColor color) {
+    public static bool TryParse(string str, [NotNullWhen(true)] out IColor? color) {
 
         color = null;
 
@@ -1203,8 +1204,8 @@ public static class ColorUtils {
 
     }
 
-    internal static bool TryParseCmyk(string input, out IColor result) {
-        if (TryParseCmyk(input, out CmykColor cmyk)) {
+    internal static bool TryParseCmyk(string input, [NotNullWhen(true)] out IColor? result) {
+        if (TryParseCmyk(input, out CmykColor? cmyk)) {
             result = cmyk;
             return true;
         }
@@ -1212,7 +1213,7 @@ public static class ColorUtils {
         return false;
     }
 
-    internal static bool TryParseCmyk(string input, out CmykColor result) {
+    internal static bool TryParseCmyk(string input, [NotNullWhen(true)] out CmykColor? result) {
 
         result = null;
 
@@ -1230,8 +1231,8 @@ public static class ColorUtils {
 
     }
 
-    internal static bool TryParseHex(string input, out IColor result) {
-        if (TryParseHex(input, out RgbColor rgb)) {
+    internal static bool TryParseHex(string input, [NotNullWhen(true)] out IColor? result) {
+        if (TryParseHex(input, out RgbColor? rgb)) {
             result = rgb;
             return true;
         }
@@ -1239,7 +1240,7 @@ public static class ColorUtils {
         return false;
     }
 
-    internal static bool TryParseHex(string input, out RgbColor result) {
+    internal static bool TryParseHex(string input, [NotNullWhen(true)] out RgbColor? result) {
 
         result = null;
 
@@ -1272,8 +1273,8 @@ public static class ColorUtils {
     /// <param name="input">The input string to be parsed.</param>
     /// <param name="result">If successful, contains an instance of <see cref="IColor"/> representing the HSL color; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    internal static bool TryParseHsl(string input, out IColor result) {
-        if (TryParseHsl(input, out HslColor hsl)) {
+    internal static bool TryParseHsl(string input, [NotNullWhen(true)] out IColor? result) {
+        if (TryParseHsl(input, out HslColor? hsl)) {
             result = hsl;
             return true;
         }
@@ -1287,7 +1288,7 @@ public static class ColorUtils {
     /// <param name="input">The input string to be parsed.</param>
     /// <param name="result">If successful, contains an instance of <see cref="HslColor"/> representing the HSL color; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    internal static bool TryParseHsl(string input, out HslColor result) {
+    internal static bool TryParseHsl(string input, [NotNullWhen(true)] out HslColor? result) {
 
         result = null;
 
@@ -1318,8 +1319,8 @@ public static class ColorUtils {
     /// <param name="input">The input string to be parsed.</param>
     /// <param name="result">If successful, contains an instance of <see cref="IColor"/> representing the HSL color; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    internal static bool TryParseRgb(string input, out IColor result) {
-        if (TryParseRgb(input, out RgbColor rgb)) {
+    internal static bool TryParseRgb(string input, [NotNullWhen(true)] out IColor? result) {
+        if (TryParseRgb(input, out RgbColor? rgb)) {
             result = rgb;
             return true;
         }
@@ -1333,7 +1334,7 @@ public static class ColorUtils {
     /// <param name="input">The input string to be parsed.</param>
     /// <param name="result">If successful, contains an instance of <see cref="RgbColor"/> representing the HSL color; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    internal static bool TryParseRgb(this string input, out RgbColor result) {
+    internal static bool TryParseRgb(this string input, [NotNullWhen(true)] out RgbColor? result) {
 
         result = null;
 

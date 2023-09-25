@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Skybrud.Colors;
 
@@ -160,7 +161,7 @@ public static class ColorHelpers
     /// <param name="color">An instance of <see cref="IColor"/>.</param>
     /// <returns><c>true</c> if <paramref name="str"/> was converted successfully; otherwise, <c>false</c>.</returns>
     [Obsolete("Use 'ColorUtils.TryParse()'")]
-    public static bool TryParse(string str, out IColor color)
+    public static bool TryParse(string str, [NotNullWhen(true)] out IColor? color)
     {
         return ColorUtils.TryParse(str, out color);
     }

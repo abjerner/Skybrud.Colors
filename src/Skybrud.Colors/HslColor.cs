@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace Skybrud.Colors;
@@ -181,12 +182,12 @@ public class HslColor : ColorBase {
     /// <param name="str">The input string to be parsed.</param>
     /// <param name="color">An instance of <see cref="HslColor"/>.</param>
     /// <returns><c>true</c> if <paramref name="str"/> was converted successfully; otherwise, <c>false</c>.</returns>
-    public static bool TryParse(string str, out HslColor color) {
+    public static bool TryParse(string str, [NotNullWhen(true)] out HslColor? color) {
 
         color = null;
 
         // Attempt to parse the input string
-        if (ColorUtils.TryParse(str, out IColor result) == false) return false;
+        if (ColorUtils.TryParse(str, out IColor? result) == false) return false;
 
         // Convert the color to HSL
         color = result as HslColor ?? result.ToHsl();

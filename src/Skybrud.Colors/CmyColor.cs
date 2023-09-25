@@ -103,12 +103,12 @@ public class CmyColor : ColorBase {
     #region Member methods
 
     /// <summary>
-    /// Returns the CSS representation of the color. Since the CSS specification doesn't support CMY colors, this
-    /// method will simply return <c>null</c>.
+    /// Returns the CSS representation of the color. Since the CSS specification doesn't support CMY colors, the CSS
+    /// representation of the corresponding <see cref="RgbColor"/> will be returned instead.
     /// </summary>
-    /// <returns><c>null</c> as the CSS specification doesn't support CMY colors.</returns>
+    /// <returns>The CSS representation of the color.</returns>
     public override string ToCss() {
-        return null;
+        return ToRgb().ToCss();
     }
 
     /// <summary>
