@@ -1168,6 +1168,48 @@ public static class ColorUtils {
 
     #endregion
 
+    #region IColor -> HEX
+
+    /// <summary>
+    /// Returns the HEX representation of the color.
+    /// </summary>
+    /// <param name="color">The color.</param>
+    /// <returns>A HEX string representing the color.</returns>
+    public static string ToHex(IColor color) {
+        return ToHex(color, HexFormat.Auto);
+    }
+
+    /// <summary>
+    /// Returns the HEX representation of the color, accoding to the specified <paramref name="format"/>.
+    /// </summary>
+    /// <param name="color">The color.</param>
+    /// <param name="format">The HEX format.</param>
+    /// <returns>A HEX string representing the color.</returns>
+    public static string ToHex(IColor color, HexFormat format) {
+
+        // Make sure we have the color as RGB
+        RgbColor rgb = color as RgbColor ?? color.ToRgb();
+
+        if (format == HexFormat.Auto) format = rgb.Alpha < 1 ? HexFormat.Rgba : HexFormat.Rgb;
+
+        switch (format) {
+
+            case HexFormat.Rgb:
+                return $"#{rgb.Red:x2}{rgb.Green:x2}{rgb.Blue:x2}";
+
+            case HexFormat.Rgba:
+                int alpha = (int) Math.Round(rgb.Alpha * 255);
+                return $"#{rgb.Red:x2}{rgb.Green:x2}{rgb.Blue:x2}{alpha:x2}";
+
+            default:
+                return $"#{rgb.Red:x2}{rgb.Green:x2}{rgb.Blue:x2}";
+
+        }
+
+    }
+
+    #endregion
+
     #region Parsing
 
     /// <summary>
