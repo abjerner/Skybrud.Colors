@@ -1,26 +1,24 @@
 ﻿
-namespace Skybrud.Colors.Wcag {
+namespace Skybrud.Colors.Wcag;
+
+/// <summary>
+/// Enum class representing the WCAG conformance level.
+/// </summary>
+public enum WcagConformanceLevel {
 
     /// <summary>
-    /// Enum class representing the WCAG conformance level.
+    /// Indicates an A level conformance level.
     /// </summary>
-    public enum WcagConformanceLevel {
+    A,
 
-        /// <summary>
-        /// Indicates an A level conformance level.
-        /// </summary>
-        A,
+    /// <summary>
+    /// Indicates an AA level conformance level.
+    /// </summary>
+    Aa,
 
-        /// <summary>
-        /// Indicates an AA level conformance level.
-        /// </summary>
-        Aa,
-
-        /// <summary>
-        /// Indicates an AAA level conformance level.
-        /// </summary>
-        Aaa
-
-    }
+    /// <summary>
+    /// Indicates an AAA level conformance level.
+    /// </summary>
+    Aaa
 
 }
