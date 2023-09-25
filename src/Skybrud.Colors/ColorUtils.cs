@@ -1160,6 +1160,7 @@ public static class ColorUtils {
     /// <returns>An instance of <see cref="RgbColor"/> representing the RGB.</returns>
     public static RgbColor HexToRgb(string hex) {
         if (string.IsNullOrWhiteSpace(hex)) throw new ArgumentNullException(nameof(hex));
+        if (hex[0] == '#') hex = hex.Substring(1);
         if (TryParseHex(hex, out RgbColor? color)) return color;
         throw new FormatException("Not a valid Hexadecimal value.");
     }
