@@ -87,6 +87,34 @@ public static class ColorExtensions {
     }
 
     /// <summary>
+    /// Increases the opacity of <paramref name="color"/> by the specified <paramref name="percent"/>.
+    /// </summary>
+    /// <param name="color">The input color.</param>
+    /// <param name="percent">The percent to increase by.</param>
+    /// <returns>An instance of <see cref="IColor"/> representing the result.</returns>
+    /// <see>
+    ///     <cref>https://lesscss.org/functions/#color-operations-fadein</cref>
+    /// </see>
+    public static IColor FadeIn(this IColor color, [ValueRange(0, 100)] double percent) {
+        double newPercent = (color.Alpha + (percent / 100d)) * 100d;
+        return color.Fade(newPercent);
+    }
+
+    /// <summary>
+    /// Decreases the opacity of <paramref name="color"/> by the specified <paramref name="percent"/>.
+    /// </summary>
+    /// <param name="color">The input color.</param>
+    /// <param name="percent">The percent to decrease by.</param>
+    /// <returns>An instance of <see cref="IColor"/> representing the result.</returns>
+    /// <see>
+    ///     <cref>https://lesscss.org/functions/#color-operations-fadeout</cref>
+    /// </see>
+    public static IColor FadeOut(this IColor color, [ValueRange(0, 100)] double percent) {
+        double newPercent = (color.Alpha - (percent / 100d)) * 100d;
+        return color.Fade(newPercent);
+    }
+
+    /// <summary>
     /// Returns the inverted color.
     /// </summary>
     /// <param name="color">The input color.</param>
