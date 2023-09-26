@@ -8,6 +8,9 @@ namespace Skybrud.Colors;
 /// <summary>
 /// Various extensions methods for <see cref="IColor"/>.
 /// </summary>
+/// <see>
+///     <cref>https://lesscss.org/functions/#color-operations</cref>
+/// </see>
 public static class ColorExtensions {
 
     /// <summary>
