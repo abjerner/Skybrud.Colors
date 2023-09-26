@@ -11,7 +11,7 @@ namespace Skybrud.Colors;
 /// <see>
 ///     <cref>https://en.wikipedia.org/wiki/CMYK_color_model</cref>
 /// </see>
-public class CmykColor : ColorBase {
+public class CmykColor : ColorBase<CmykColor>, IColorParsable<CmykColor> {
 
     private double _cyan;
     private double _magenta;

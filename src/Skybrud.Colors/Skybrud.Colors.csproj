@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <LangVersion>11.0</LangVersion>
-    <TargetFrameworks>netstandard1.1;netstandard1.3;net45;net46;net47</TargetFrameworks>
+    <TargetFrameworks>netstandard1.1;netstandard1.3;net45;net46;net47;net7</TargetFrameworks>
     <BuildInParallel>false</BuildInParallel>
     <Nullable>enable</Nullable>
   </PropertyGroup>

@@ -12,7 +12,7 @@ namespace Skybrud.Colors;
 /// <see>
 ///     <cref>https://en.wikipedia.org/wiki/RGB_color_model</cref>
 /// </see>
-public class RgbColor : ColorBase {
+public class RgbColor : ColorBase<RgbColor>, IColorParsable<RgbColor> {
 
     #region Properties
 
@@ -227,6 +227,15 @@ public class RgbColor : ColorBase {
         color = result as RgbColor ?? result.ToRgb();
         return true;
 
+    }
+
+    /// <summary>
+    /// Converts the specified <paramref name="color"/> to <see cref="RgbColor"/>.
+    /// </summary>
+    /// <param name="color">The color to be converted.</param>
+    /// <returns>An instance of <see cref="RgbColor"/>.</returns>
+    public static RgbColor FromColor(IColor color) {
+        return color as RgbColor ?? color.ToRgb();
     }
 
     #endregion

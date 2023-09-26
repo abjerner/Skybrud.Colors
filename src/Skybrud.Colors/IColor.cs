@@ -1,4 +1,6 @@
-﻿namespace Skybrud.Colors;
+﻿// ReSharper disable UnusedTypeParameter
+
+namespace Skybrud.Colors;
 
 /// <summary>
 /// Interface representing a color as described by a color model - eg. <see cref="RgbColor"/> or <see cref="HslColor"/>.
@@ -8,7 +10,7 @@ public interface IColor {
     /// <summary>
     /// Gets or sets the opacity as a number between <c>0.0</c> (fully transparent) and <c>1.0</c> (fully opaque).
     /// </summary>
-    double Alpha { get; set; }
+    double Alpha { get; }
 
     /// <summary>
     /// Returns the HEX representation of the color.
@@ -60,3 +62,8 @@ public interface IColor {
     CmykColor ToCmyk();
 
 }
+
+/// <summary>
+/// Interface representing a color as described by a color model - eg. <see cref="RgbColor"/> or <see cref="HslColor"/>.
+/// </summary>
+public interface IColor<TColor> : IColor where TColor : IColor { }

@@ -11,7 +11,7 @@ namespace Skybrud.Colors;
 /// <see>
 ///     <cref>https://en.wikipedia.org/wiki/HSL_and_HSV</cref>
 /// </see>
-public class HslColor : ColorBase {
+public class HslColor : ColorBase<HslColor>, IColorParsable<HslColor> {
 
     private double _hue;
     private double _saturation;

@@ -8,7 +8,7 @@ namespace Skybrud.Colors;
 /// Class representing a color in the <strong>CMY</strong> color model. CMY stands for <em>cyan</em>,
 /// <em>magenta</em>, and <em>yellow</em>. CMY colors are closely related to <see cref="CmykColor"/>.
 /// </summary>
-public class CmyColor : ColorBase {
+public class CmyColor : ColorBase<CmyColor>, IColorParsable<CmyColor> {
 
     private double _cyan;
     private double _magenta;

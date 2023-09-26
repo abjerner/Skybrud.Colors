@@ -8,7 +8,7 @@ namespace Skybrud.Colors;
 ///
 /// HSV is sometimes also referred to as <strong>HSB</strong> (<strong>h</strong>ue, <strong>s</strong>aturation, <strong>b</strong>rightness).
 /// </summary>
-public class HsvColor : ColorBase {
+public class HsvColor : ColorBase<HsvColor>, IColorParsable<HsvColor> {
 
     private double _hue;
     private double _saturation;

@@ -6,7 +6,7 @@ namespace Skybrud.Colors;
 /// <summary>
 /// Abstract class representing a color.
 /// </summary>
-public abstract class ColorBase : IColor {
+public abstract class ColorBase<TColor> : IColor<TColor> where TColor : IColor, IColor<TColor> {
 
     private double _alpha;
 
@@ -18,7 +18,7 @@ public abstract class ColorBase : IColor {
     [ValueRange(0, 1)]
     public double Alpha {
         get => _alpha;
-        set => _alpha = Clamp(value);
+        internal set => _alpha = Clamp(value);
     }
 
     #endregion
@@ -43,6 +43,12 @@ public abstract class ColorBase : IColor {
     #endregion
 
     #region Member methods
+
+    /// <summary>
+    /// Returns the CSS representation of the color, or <c>null</c> if the CSS specification doesn't support the color model.
+    /// </summary>
+    /// <returns>An instance of <see cref="string"/> with the CSS representation of the color.</returns>
+    public abstract string ToCss();
 
     /// <summary>
     /// Converts the color to an instance of <see cref="RgbColor"/>.
@@ -90,12 +96,6 @@ public abstract class ColorBase : IColor {
     public virtual string ToHex(HexFormat format) {
         return ColorUtils.ToHex(this, format);
     }
-
-    /// <summary>
-    /// Returns the CSS representation of the color, or <c>null</c> if the CSS specification doesn't support the color model.
-    /// </summary>
-    /// <returns>An instance of <see cref="string"/> with the CSS representation of the color.</returns>
-    public abstract string ToCss();
 
     /// <summary>
     /// Clamps the <paramref name="value"/> to a value between <c>0</c> and <c>1</c> (both inclusive).
