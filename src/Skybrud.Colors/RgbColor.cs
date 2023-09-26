@@ -17,6 +17,15 @@ public class RgbColor : ColorBase<RgbColor>, IColorParsable<RgbColor> {
     #region Properties
 
     /// <summary>
+    /// Sets the absolute opacity of a color. Can be applied to colors whether they already have an opacity value or not.
+    /// </summary>
+    /// <param name="percent">The amount of opacity (specified in percent) that should be set for the color.</param>
+    /// <returns>The color resulting from the fade operation.</returns>
+    public override RgbColor Fade([ValueRange(0, 100)] double percent) {
+        return new RgbColor(Red, Green, Blue, percent / 100d);
+    }
+
+    /// <summary>
     /// Gets the amount of red in the color, specified as a value between <c>0</c> and <c>255</c>.
     /// </summary>
     [ValueRange(0, 255)]

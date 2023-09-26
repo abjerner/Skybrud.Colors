@@ -130,6 +130,15 @@ public class CmykColor : ColorBase<CmykColor>, IColorParsable<CmykColor> {
     #region Member methods
 
     /// <summary>
+    /// Sets the absolute opacity of a color. Can be applied to colors whether they already have an opacity value or not.
+    /// </summary>
+    /// <param name="percent">The amount of opacity (specified in percent) that should be set for the color.</param>
+    /// <returns>The color resulting from the fade operation.</returns>
+    public override CmykColor Fade([ValueRange(0, 100)] double percent) {
+        return new CmykColor(Cyan, Magenta, Yellow, Key, percent / 100d);
+    }
+
+    /// <summary>
     /// Returns the CSS representation of the color. Since the CSS specification doesn't support CMYK colors, the CSS
     /// representation of the corresponding <see cref="RgbColor"/> will be returned instead.
     /// </summary>

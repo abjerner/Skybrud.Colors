@@ -44,6 +44,29 @@ public abstract class ColorBase<TColor> : IColor<TColor> where TColor : IColor, 
 
     #region Member methods
 
+    IColor IColor.Copy() {
+        return Copy();
+    }
+
+    /// <summary>
+    /// Returns a copy of the color.
+    /// </summary>
+    /// <returns>An instance of <typeparamref name="TColor"/> representing the copy.</returns>
+    public virtual TColor Copy() {
+        return Fade(Alpha * 100d);
+    }
+
+    IColor IColor.Fade(double percent) {
+        return Fade(percent);
+    }
+
+    /// <summary>
+    /// Sets the absolute opacity of a color. Can be applied to colors whether they already have an opacity value or not.
+    /// </summary>
+    /// <param name="percent">The amount of opacity (specified in percent) that should be set for the color.</param>
+    /// <returns>The color resulting from the fade operation.</returns>
+    public abstract TColor Fade([ValueRange(0, 100)] double percent);
+
     /// <summary>
     /// Returns the CSS representation of the color, or <c>null</c> if the CSS specification doesn't support the color model.
     /// </summary>

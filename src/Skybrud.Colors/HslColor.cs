@@ -107,6 +107,15 @@ public class HslColor : ColorBase<HslColor>, IColorParsable<HslColor> {
     #region Member methods
 
     /// <summary>
+    /// Sets the absolute opacity of a color. Can be applied to colors whether they already have an opacity value or not.
+    /// </summary>
+    /// <param name="percent">The amount of opacity (specified in percent) that should be set for the color.</param>
+    /// <returns>The color resulting from the fade operation.</returns>
+    public override HslColor Fade([ValueRange(0, 100)] double percent) {
+        return new HslColor(Hue, Saturation, Lightness, percent / 100d);
+    }
+
+    /// <summary>
     /// Converts the HSL color to a RGB color.
     /// </summary>
     /// <returns>An instance of <see cref="RgbColor"/>.</returns>
