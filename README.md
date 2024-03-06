@@ -8,8 +8,8 @@ Skybrud.Colors is a small library for working with various color models, current
 
 ## Documentation
 
-- [Creating new color values](./creating/README.md)
-- [Color operations](./color-operations/README.md)
+- [**Creating new color values**](./creating/README.md)
+- [**Color operations**](./color-operations/README.md)
 - [**Formats**](./formats.md)
 - [**HTML**](./html.md)
 - [**WCAG**](./wcag.md)
