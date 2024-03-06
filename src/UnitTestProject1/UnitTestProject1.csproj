@@ -50,10 +50,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AlphaConvertionTests.cs" />
     <Compile Include="ColorOperationTests.cs" />
     <Compile Include="CmykColorTests.cs" />
+    <Compile Include="HexTests.cs" />
     <Compile Include="HsvColorTests.cs" />
     <Compile Include="CmyColorTests.cs" />
+    <Compile Include="LessTests.cs" />
+    <Compile Include="ParseTests.cs" />
     <Compile Include="Samples\HtmlColorSample.cs" />
     <Compile Include="HslColorTests.cs" />
     <Compile Include="RgbColorTests.cs" />
