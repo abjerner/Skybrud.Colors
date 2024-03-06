@@ -10,11 +10,11 @@ internal static class RegexPatterns {
     internal static RegexOptions Compiled = RegexOptions.Compiled;
 #endif
 
-    internal static Regex Hex1 = new("^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$", Compiled);
+    internal static Regex Hex1 = new("^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$", Compiled| RegexOptions.IgnoreCase);
 
-    internal static Regex Hex2 = new("^([0-9a-f]{1})([0-9a-f]{1})([0-9a-f]{1})$", Compiled);
+    internal static Regex Hex2 = new("^([0-9a-f]{1})([0-9a-f]{1})([0-9a-f]{1})$", Compiled| RegexOptions.IgnoreCase);
 
-    internal static Regex Hex3 = new("^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$", Compiled);
+    internal static Regex Hex3 = new("^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$", Compiled| RegexOptions.IgnoreCase);
 
     internal static Regex Hsl1 = new("^hsl\\(([0-9]+), ([0-9]+)%, ([0-9]+)%\\)$", Compiled | RegexOptions.IgnoreCase);
 
