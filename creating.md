@@ -1,5 +1,5 @@
 ---
-order: 1
+order: -5
 ---
 
 # Creating new color values

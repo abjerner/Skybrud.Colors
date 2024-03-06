@@ -1,6 +1,6 @@
 # Skybrud.Colors
 
-Skybrud.Colors is a small library for working with various color models, currently supporting RGB, CMY, CMYK and HSL. The library features converters for converting back and forth between the supported color models.
+**Skybrud.Colors** is a small library for working with various color models, currently supporting RGB, CMY, CMYK and HSL. The library features converters for converting back and forth between the supported color models.
 
 ## Getting Started
 
