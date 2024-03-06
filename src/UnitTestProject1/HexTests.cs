@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Globalization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Skybrud.Colors;
 
 namespace UnitTestProject1 {
@@ -45,36 +46,46 @@ namespace UnitTestProject1 {
         [TestMethod]
         public void Parse() {
 
-            RgbColor rgb1 = RgbColor.Parse("#fff");
-            RgbColor rgb2 = RgbColor.Parse("#ffffff");
-            RgbColor rgb3 = RgbColor.Parse("#ffffffff");
-            RgbColor rgb4 = RgbColor.Parse("#ffffff80");
-            RgbColor rgb5 = RgbColor.Parse("#ffffff00");
+            var samples = new[] {
+                new { Input = "#fff", Red = 255, Green = 255, Blue = 255, Alpha = "1.00" },
+                new { Input = "#ffffff", Red = 255, Green = 255, Blue = 255, Alpha = "1.00" },
+                new { Input = "#ffffffff", Red = 255, Green = 255, Blue = 255, Alpha = "1.00" },
+                new { Input = "#ffffff80", Red = 255, Green = 255, Blue = 255, Alpha = "0.50" },
+                new { Input = "#ffffff00", Red = 255, Green = 255, Blue = 255, Alpha = "0.00" },
+                new { Input = "#FFF", Red = 255, Green = 255, Blue = 255, Alpha = "1.00" },
+                new { Input = "#FFFFFF", Red = 255, Green = 255, Blue = 255, Alpha = "1.00" },
+                new { Input = "#FFFFFFFF", Red = 255, Green = 255, Blue = 255, Alpha = "1.00" },
+                new { Input = "#ECF1F4", Red = 236, Green = 241, Blue = 244, Alpha = "1.00" },
+                new { Input = "#A9B3BA", Red = 169, Green = 179, Blue = 186, Alpha = "1.00" },
+                new { Input = "#A58D42", Red = 165, Green = 141, Blue = 66, Alpha = "1.00" }
+            };
 
-            Assert.AreEqual(255, rgb1.Red, "Color 1: Red");
-            Assert.AreEqual(255, rgb1.Green, "Color 1: Green");
-            Assert.AreEqual(255, rgb1.Blue, "Color 1: Blue");
-            Assert.AreEqual("1.00", rgb1.Alpha.ToString("N2"), "Color 1: Alpha");
+            int n = 1;
 
-            Assert.AreEqual(255, rgb2.Red, "Color 2: Red");
-            Assert.AreEqual(255, rgb2.Green, "Color 2: Green");
-            Assert.AreEqual(255, rgb2.Blue, "Color 2: Blue");
-            Assert.AreEqual("1.00", rgb2.Alpha.ToString("N2"), "Color 2: Alpha");
+            foreach (var sample in samples) {
 
-            Assert.AreEqual(255, rgb3.Red, "Color 3: Red");
-            Assert.AreEqual(255, rgb3.Green, "Color 3: Green");
-            Assert.AreEqual(255, rgb3.Blue, "Color 3: Blue");
-            Assert.AreEqual("1.00", rgb3.Alpha.ToString("N2"), "Color 3: Alpha");
+                RgbColor result1 = ColorUtils.Parse(sample.Input).ToRgb();
+                RgbColor result2 = ColorUtils.HexToRgb(sample.Input);
+                RgbColor result3 = RgbColor.Parse(sample.Input);
 
-            Assert.AreEqual(255, rgb4.Red, "Color 4: Red");
-            Assert.AreEqual(255, rgb4.Green, "Color 4: Green");
-            Assert.AreEqual(255, rgb4.Blue, "Color 4: Blue");
-            Assert.AreEqual("0.50", rgb4.Alpha.ToString("N2"), "Color 4: Alpha");
+                Assert.AreEqual(sample.Red, result1.Red, $"Color {n}: Red (ColorUtils.Parse)");
+                Assert.AreEqual(sample.Green, result1.Green, $"Color {n}: Green (ColorUtils.Parse)");
+                Assert.AreEqual(sample.Blue, result1.Blue, $"Color {n}: Blue (ColorUtils.Parse)");
+                Assert.AreEqual(sample.Alpha, result1.Alpha.ToString("N2", CultureInfo.InvariantCulture), $"Color {n}: Alpha (ColorUtils.Parse)");
 
-            Assert.AreEqual(255, rgb5.Red, "Color 5: Red");
-            Assert.AreEqual(255, rgb5.Green, "Color 5: Green");
-            Assert.AreEqual(255, rgb5.Blue, "Color 5: Blue");
-            Assert.AreEqual("0.00", rgb5.Alpha.ToString("N2"), "Color 5: Alpha");
+                Assert.AreEqual(sample.Red, result2.Red, $"Color {n}: Red (ColorUtils.HexToRgb)");
+                Assert.AreEqual(sample.Green, result2.Green, $"Color {n}: Green (ColorUtils.HexToRgb)");
+                Assert.AreEqual(sample.Blue, result2.Blue, $"Color {n}: Blue (ColorUtils.HexToRgb)");
+                Assert.AreEqual(sample.Alpha, result2.Alpha.ToString("N2", CultureInfo.InvariantCulture), $"Color {n}: Alpha (ColorUtils.HexToRgb)");
+
+                Assert.AreEqual(sample.Red, result3.Red, $"Color {n}: Red (ColorUtils.Parse)");
+                Assert.AreEqual(sample.Green, result3.Green, $"Color {n}: Green (ColorUtils.Parse)");
+                Assert.AreEqual(sample.Blue, result3.Blue, $"Color {n}: Blue (ColorUtils.Parse)");
+                Assert.AreEqual(sample.Alpha, result3.Alpha.ToString("N2", CultureInfo.InvariantCulture), $"Color {n}: Alpha (ColorUtils.Parse)");
+
+                n++;
+
+            }
 
         }
 
