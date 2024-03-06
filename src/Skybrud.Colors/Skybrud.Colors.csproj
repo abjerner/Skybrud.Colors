@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionPrefix>1.1.1</VersionPrefix>
     <VersionSuffix Condition="'$(Configuration)'=='Debug'">build$([System.DateTime]::UtcNow.ToString(`yyyyMMddHHmm`))</VersionSuffix>
     <Authors>Anders Bjerner</Authors>
     <Company>Limbo</Company>
@@ -21,7 +21,7 @@
     <PackageId>Skybrud.Colors</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>Skybrud, Limbo, Color, Colors, RGB, HSL, CMYK, WCAG</PackageTags>
-    <PackageProjectUrl>https://packages.skybrud.dk/skybrud.colors/</PackageProjectUrl>
+    <PackageProjectUrl>https://packages.limbo.works/skybrud.colors/</PackageProjectUrl>
     <PackageIcon>Limbo.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/abjerner/Skybrud.Colors</RepositoryUrl>
