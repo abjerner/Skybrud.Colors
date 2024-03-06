@@ -2,15 +2,12 @@
 
 Skybrud.Colors is a small library for working with various color models, currently supporting RGB, CMY, CMYK and HSL. The library features converters for converting back and forth between the supported color models.
 
-## Installation
+## Getting Started
 
-To install Skybrud.Colors, pick one of the methods below:
+## Documentation
 
-1. [**NuGet Package**][NuGetPackage]  
-   Install the NuGet package in your Visual Studio project. Makes updating easy.
-   
-2. [**ZIP file**][GitHubRelease]  
-   Grab a ZIP file of the latest release; unzip and move `Skybrud.Colors.dll` for your target framework to the bin directory of your project.
+- [Creating new color values](./creating/README.md)
+- [Color operations](./color-operations/README.md)
    
    
 
