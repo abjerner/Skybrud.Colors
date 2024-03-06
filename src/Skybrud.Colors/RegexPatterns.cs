@@ -24,8 +24,8 @@ internal static class RegexPatterns {
 
     internal static Regex Cmyk2 = new("^CMYK: ([0-9]\\.+), ([0-9]\\.+), ([0-9]\\.+), ([0-9]\\.+)\\)$", Compiled | RegexOptions.IgnoreCase);
 
-    internal static Regex Rgb = new("^rgb\\(([0-9]+), ([0-9]+), ([0-9]+)\\)$", Compiled);
+    internal static Regex Rgb = new("^rgb\\(([0-9]+), ([0-9]+), ([0-9]+)\\)$", Compiled | RegexOptions.IgnoreCase);
 
-    internal static Regex Rgba = new("^rgba\\(([0-9]+), ([0-9]+), ([0-9]+), ([0-9\\.]+)\\)$", Compiled);
+    internal static Regex Rgba = new("^rgba\\(([0-9]+), ([0-9]+), ([0-9]+), ([0-9\\.]+)\\)$", Compiled | RegexOptions.IgnoreCase);
 
 }

@@ -1237,7 +1237,7 @@ public static class ColorUtils {
         if (string.IsNullOrWhiteSpace(str)) return false;
 
         // Strip a leading hashtag and convert to lowercase
-        str = str.TrimStart('#').ToLower();
+        str = str.TrimStart('#');
 
         // Does the input match the name of a known HTML color?
         if (HtmlColors.All.TryGetValue(str, out RgbColor? rgb)) {
