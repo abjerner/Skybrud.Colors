@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Globalization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Skybrud.Colors;
 
 namespace UnitTestProject1 {
@@ -15,10 +16,10 @@ namespace UnitTestProject1 {
 
             Assert.IsNotNull(rgb);
 
-            Assert.AreEqual("255", rgb.Red.ToString("F0"));
-            Assert.AreEqual("69", rgb.Green.ToString("F0"));
-            Assert.AreEqual("0", rgb.Blue.ToString("F0"));
-            Assert.AreEqual("1.00", rgb.Alpha.ToString("F2"));
+            Assert.AreEqual("255", rgb.Red.ToString("F0", CultureInfo.InvariantCulture));
+            Assert.AreEqual("69", rgb.Green.ToString("F0", CultureInfo.InvariantCulture));
+            Assert.AreEqual("0", rgb.Blue.ToString("F0", CultureInfo.InvariantCulture));
+            Assert.AreEqual("1.00", rgb.Alpha.ToString("F2", CultureInfo.InvariantCulture));
 
         }
 
@@ -29,10 +30,10 @@ namespace UnitTestProject1 {
 
             Assert.IsNotNull(rgb);
 
-            Assert.AreEqual("255", rgb.Red.ToString("F0"));
-            Assert.AreEqual("69", rgb.Green.ToString("F0"));
-            Assert.AreEqual("0", rgb.Blue.ToString("F0"));
-            Assert.AreEqual("1.00", rgb.Alpha.ToString("F2"));
+            Assert.AreEqual("255", rgb.Red.ToString("F0", CultureInfo.InvariantCulture));
+            Assert.AreEqual("69", rgb.Green.ToString("F0", CultureInfo.InvariantCulture));
+            Assert.AreEqual("0", rgb.Blue.ToString("F0", CultureInfo.InvariantCulture));
+            Assert.AreEqual("1.00", rgb.Alpha.ToString("F2", CultureInfo.InvariantCulture));
 
         }
 
@@ -43,10 +44,10 @@ namespace UnitTestProject1 {
 
             Assert.IsNotNull(rgb);
 
-            Assert.AreEqual("255", rgb.Red.ToString("F0"));
-            Assert.AreEqual("255", rgb.Green.ToString("F0"));
-            Assert.AreEqual("255", rgb.Blue.ToString("F0"));
-            Assert.AreEqual("1.00", rgb.Alpha.ToString("F2"));
+            Assert.AreEqual("255", rgb.Red.ToString("F0", CultureInfo.InvariantCulture));
+            Assert.AreEqual("255", rgb.Green.ToString("F0", CultureInfo.InvariantCulture));
+            Assert.AreEqual("255", rgb.Blue.ToString("F0", CultureInfo.InvariantCulture));
+            Assert.AreEqual("1.00", rgb.Alpha.ToString("F2", CultureInfo.InvariantCulture));
 
         }
 
@@ -59,10 +60,10 @@ namespace UnitTestProject1 {
 
             Assert.IsNotNull(hsl);
 
-            Assert.AreEqual("0.49", hsl.Hue.ToString("F2"));
-            Assert.AreEqual("0.24", hsl.Saturation.ToString("F2"));
-            Assert.AreEqual("0.45", hsl.Lightness.ToString("F2"));
-            Assert.AreEqual("1.00", hsl.Alpha.ToString("F2"));
+            Assert.AreEqual("0.49", hsl.Hue.ToString("F2", CultureInfo.InvariantCulture));
+            Assert.AreEqual("0.24", hsl.Saturation.ToString("F2", CultureInfo.InvariantCulture));
+            Assert.AreEqual("0.45", hsl.Lightness.ToString("F2", CultureInfo.InvariantCulture));
+            Assert.AreEqual("1.00", hsl.Alpha.ToString("F2", CultureInfo.InvariantCulture));
 
         }
 
@@ -73,10 +74,10 @@ namespace UnitTestProject1 {
 
             Assert.IsNotNull(hsl);
 
-            Assert.AreEqual("0.49", hsl.Hue.ToString("F2"));
-            Assert.AreEqual("0.24", hsl.Saturation.ToString("F2"));
-            Assert.AreEqual("0.45", hsl.Lightness.ToString("F2"));
-            Assert.AreEqual("1.00", hsl.Alpha.ToString("F2"));
+            Assert.AreEqual("0.49", hsl.Hue.ToString("F2", CultureInfo.InvariantCulture));
+            Assert.AreEqual("0.24", hsl.Saturation.ToString("F2", CultureInfo.InvariantCulture));
+            Assert.AreEqual("0.45", hsl.Lightness.ToString("F2", CultureInfo.InvariantCulture));
+            Assert.AreEqual("1.00", hsl.Alpha.ToString("F2", CultureInfo.InvariantCulture));
 
         }
 
@@ -89,10 +90,10 @@ namespace UnitTestProject1 {
 
             Assert.IsNotNull(hsl);
 
-            Assert.AreEqual("0.33", hsl.Hue.ToString("F2"));
-            Assert.AreEqual("0.75", hsl.Saturation.ToString("F2"));
-            Assert.AreEqual("0.45", hsl.Lightness.ToString("F2"));
-            Assert.AreEqual("0.50", hsl.Alpha.ToString("F2"));
+            Assert.AreEqual("0.33", hsl.Hue.ToString("F2", CultureInfo.InvariantCulture));
+            Assert.AreEqual("0.75", hsl.Saturation.ToString("F2", CultureInfo.InvariantCulture));
+            Assert.AreEqual("0.45", hsl.Lightness.ToString("F2", CultureInfo.InvariantCulture));
+            Assert.AreEqual("0.50", hsl.Alpha.ToString("F2", CultureInfo.InvariantCulture));
 
         }
 
@@ -103,10 +104,10 @@ namespace UnitTestProject1 {
 
             Assert.IsNotNull(hsl);
 
-            Assert.AreEqual("0.33", hsl.Hue.ToString("F2"));
-            Assert.AreEqual("0.75", hsl.Saturation.ToString("F2"));
-            Assert.AreEqual("0.45", hsl.Lightness.ToString("F2"));
-            Assert.AreEqual("0.50", hsl.Alpha.ToString("F2"));
+            Assert.AreEqual("0.33", hsl.Hue.ToString("F2", CultureInfo.InvariantCulture));
+            Assert.AreEqual("0.75", hsl.Saturation.ToString("F2", CultureInfo.InvariantCulture));
+            Assert.AreEqual("0.45", hsl.Lightness.ToString("F2", CultureInfo.InvariantCulture));
+            Assert.AreEqual("0.50", hsl.Alpha.ToString("F2", CultureInfo.InvariantCulture));
 
         }
 
