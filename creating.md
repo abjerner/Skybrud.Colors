@@ -66,14 +66,21 @@ RGB consists of for *red*, *green* and *blue*, and it's represented by the <code
 
 ```cshtml
 @using Skybrud.Colors
+@using Skybrud.Colors.Html
 
 @{
 
-    // Initialize the color
-    RgbColor rgb = new RgbColor(0, 0, 128);
+    // Get a reference to a blue color
+    RgbColor blue = HtmlColors.Blue;
 
-    // Outputs "RGB: 0, 0, 128"
-    <pre>@rgb</pre>
+    // Outputs "RGB: 0, 0, 255"
+    <pre>@blue</pre>
+
+    // Get a reference to a blue color
+    RgbColor red = HtmlColors.Red;
+
+    // Outputs "RGB: 255, 0, 0"
+    <pre>@red</pre>
 
 }
 ```
