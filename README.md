@@ -1,19 +1,29 @@
-Skybrud.Colors
-==============
+# Skybrud.Colors
 
-Skybrud.Colors is a small library for working with various color models, currently supporting RGB, CMY, CMYK and HSL. The library features converters for converting back and forth between the supported color models.
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/abjerner/Skybrud.Colors/blob/v1/main/LICENSE.md)
+[![NuGet](https://img.shields.io/nuget/v/Skybrud.Colors.svg)](https://www.nuget.org/packages/Skybrud.Colors)
+[![NuGet](https://img.shields.io/nuget/dt/Skybrud.Colors.svg)](https://www.nuget.org/packages/Skybrud.Colors)
+[![Skybrud.Colors at packages.limbo.works](https://img.shields.io/badge/limbo-packages-blue)](https://packages.limbo.works/skybrud.colors/)
+
+**Skybrud.Colors** is a small library for working with various color models, currently supporting RGB, CMY, CMYK and HSL. The library features converters for converting back and forth between the supported color models.
+
+<br /><br />
 
 ## Installation
 
-To install Skybrud.Colors, pick one of the methods below:
+Install the package via [**NuGet**](https://www.nuget.org/packages/Skybrud.Colors). To install the package, you can use either .NET CLI:
 
-1. [**NuGet Package**][NuGetPackage]  
-   Install the NuGet package in your Visual Studio project. Makes updating easy.
-   
-2. [**ZIP file**][GitHubRelease]  
-   Grab a ZIP file of the latest release; unzip and move `Skybrud.Colors.dll` for your target framework to the bin directory of your project.
-   
-   
+```
+dotnet add package Skybrud.Colors
+```
+
+or the NuGet Package Manager:
+
+```
+Install-Package Skybrud.Colors
+```
+
+<br /><br />
 
 ## Usage
 
